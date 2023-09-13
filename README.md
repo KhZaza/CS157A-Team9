@@ -2,6 +2,6 @@
 Status: Planning 
 
 
-Khaled Zaza
-Ivana Chen
-Frederick Phillip Javier
+<p> Khaled Zaza </p>
+<p>Ivana Chen</p>
+<p>Frederick Phillip Javier</p>
