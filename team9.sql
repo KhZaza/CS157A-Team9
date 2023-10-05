@@ -16,6 +16,59 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Access`
+--
+
+DROP TABLE IF EXISTS `Access`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Access` (
+  `Username_A` varchar(45) NOT NULL,
+  `CartID_A` varchar(45) NOT NULL,
+  KEY `Username_idx` (`Username_A`),
+  KEY `CartID_A_idx` (`CartID_A`),
+  CONSTRAINT `CartID_A` FOREIGN KEY (`CartID_A`) REFERENCES `Cart` (`CartID`),
+  CONSTRAINT `Username_A` FOREIGN KEY (`Username_A`) REFERENCES `Customer` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Access`
+--
+
+LOCK TABLES `Access` WRITE;
+/*!40000 ALTER TABLE `Access` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Access` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Added To`
+--
+
+DROP TABLE IF EXISTS `Added To`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Added To` (
+  `PartID_Ad` int NOT NULL,
+  `CartID_Ad` varchar(45) NOT NULL,
+  `Qty` int NOT NULL DEFAULT '1' COMMENT 'Default is always 1 since you always just add one item to the cart unless you specify the amount. ',
+  KEY `PartID_Ad_idx` (`PartID_Ad`),
+  KEY `CartID_Ad_idx` (`CartID_Ad`),
+  CONSTRAINT `CartID_Ad` FOREIGN KEY (`CartID_Ad`) REFERENCES `Cart` (`CartID`),
+  CONSTRAINT `PartID_Ad` FOREIGN KEY (`PartID_Ad`) REFERENCES `Part` (`PartID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Added To`
+--
+
+LOCK TABLES `Added To` WRITE;
+/*!40000 ALTER TABLE `Added To` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Added To` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Admin`
 --
 
@@ -42,6 +95,33 @@ INSERT INTO `Admin` VALUES ('383953fe-61a9-11ee-971a-a74a79842739','Ivana','Admi
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Becomes`
+--
+
+DROP TABLE IF EXISTS `Becomes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Becomes` (
+  `CartID` varchar(45) NOT NULL,
+  `OrderID` int NOT NULL,
+  `Order_Date` int NOT NULL,
+  KEY `CartID_idx` (`CartID`),
+  KEY `OrderID_idx` (`OrderID`),
+  CONSTRAINT `CartID` FOREIGN KEY (`CartID`) REFERENCES `Cart` (`CartID`),
+  CONSTRAINT `OrderID` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Becomes`
+--
+
+LOCK TABLES `Becomes` WRITE;
+/*!40000 ALTER TABLE `Becomes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Becomes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Cart`
 --
 
@@ -63,6 +143,32 @@ CREATE TABLE `Cart` (
 LOCK TABLES `Cart` WRITE;
 /*!40000 ALTER TABLE `Cart` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Contains`
+--
+
+DROP TABLE IF EXISTS `Contains`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Contains` (
+  `InventoryID_Co` int NOT NULL,
+  `PartID_Co` int NOT NULL,
+  KEY `PartID_Co_idx` (`PartID_Co`),
+  KEY `InventoryID_Co_idx` (`InventoryID_Co`),
+  CONSTRAINT `InventoryID_Co` FOREIGN KEY (`InventoryID_Co`) REFERENCES `Inventory` (`InventoryID`),
+  CONSTRAINT `PartID_Co` FOREIGN KEY (`PartID_Co`) REFERENCES `Part` (`PartID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Contains`
+--
+
+LOCK TABLES `Contains` WRITE;
+/*!40000 ALTER TABLE `Contains` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Contains` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -118,6 +224,33 @@ INSERT INTO `Feedback` VALUES (8,'Shipping','Hello, wanted to say great job on s
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Gives`
+--
+
+DROP TABLE IF EXISTS `Gives`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Gives` (
+  `Username` varchar(45) DEFAULT NULL,
+  `FeedbackID` int DEFAULT NULL,
+  KEY `Username_idx` (`Username`),
+  KEY `FeedbackID_idx` (`FeedbackID`),
+  CONSTRAINT `FeedbackID` FOREIGN KEY (`FeedbackID`) REFERENCES `Feedback` (`FeedbackID`),
+  CONSTRAINT `Username` FOREIGN KEY (`Username`) REFERENCES `Customer` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Gives`
+--
+
+LOCK TABLES `Gives` WRITE;
+/*!40000 ALTER TABLE `Gives` DISABLE KEYS */;
+INSERT INTO `Gives` VALUES ('JaneDoe',8),('FitnessFreak',15),('Traveler101',17),('JohnSmith',16),('GamingFanatic',14),('MusicLover',13),('MusicLover',12),('TechGeek',11),('MovieBuffs',10),('MovieBuffs',8);
+/*!40000 ALTER TABLE `Gives` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Inventory`
 --
 
@@ -138,6 +271,32 @@ CREATE TABLE `Inventory` (
 LOCK TABLES `Inventory` WRITE;
 /*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Manage`
+--
+
+DROP TABLE IF EXISTS `Manage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Manage` (
+  `AdminID_M` varchar(255) NOT NULL,
+  `InventoryID` int NOT NULL,
+  KEY `AdminID_M_idx` (`AdminID_M`),
+  KEY `InventoryID_M_idx` (`InventoryID`),
+  CONSTRAINT `AdminID_M` FOREIGN KEY (`AdminID_M`) REFERENCES `Admin` (`AdminID`),
+  CONSTRAINT `InventoryID_M` FOREIGN KEY (`InventoryID`) REFERENCES `Inventory` (`InventoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Manage`
+--
+
+LOCK TABLES `Manage` WRITE;
+/*!40000 ALTER TABLE `Manage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Manage` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -178,10 +337,7 @@ CREATE TABLE `Order` (
   `Contact Info` varchar(45) NOT NULL,
   `Shipping Address` varchar(45) NOT NULL,
   `Payment Method` varchar(45) NOT NULL,
-  `CustomerID` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`OrderID`),
-  KEY `CustomerID_idx` (`CustomerID`),
-  CONSTRAINT `CustomerID` FOREIGN KEY (`CustomerID`) REFERENCES `Customer` (`Username`)
+  PRIMARY KEY (`OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,27 +376,111 @@ LOCK TABLES `Part` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Tag`
+-- Table structure for table `Review`
 --
 
-DROP TABLE IF EXISTS `Tag`;
+DROP TABLE IF EXISTS `Review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Tag` (
-  `TagID` int NOT NULL AUTO_INCREMENT,
-  `Type` varchar(45) DEFAULT NULL,
-  `Brand` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`TagID`)
+CREATE TABLE `Review` (
+  `AdminID_R` varchar(255) NOT NULL,
+  `FeedbackID_R` int NOT NULL,
+  `Completed_R` int NOT NULL DEFAULT '0' COMMENT 'Default is 0 for False because assume that all the feedback reports have not been read yet. An Admin will make it 1 if it’s completed. ',
+  KEY `AdminID_R_idx` (`AdminID_R`),
+  KEY `FeedbackID_R_idx` (`FeedbackID_R`),
+  CONSTRAINT `AdminID_R` FOREIGN KEY (`AdminID_R`) REFERENCES `Admin` (`AdminID`),
+  CONSTRAINT `FeedbackID_R` FOREIGN KEY (`FeedbackID_R`) REFERENCES `Feedback` (`FeedbackID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Tag`
+-- Dumping data for table `Review`
 --
 
-LOCK TABLES `Tag` WRITE;
-/*!40000 ALTER TABLE `Tag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Tag` ENABLE KEYS */;
+LOCK TABLES `Review` WRITE;
+/*!40000 ALTER TABLE `Review` DISABLE KEYS */;
+INSERT INTO `Review` VALUES ('383953fe-61a9-11ee-971a-a74a79842739',8,0),('383953fe-61a9-11ee-971a-a74a79842739',10,1),('383953fe-61a9-11ee-971a-a74a79842739',11,0),('38395c6e-61a9-11ee-971a-a74a79842739',12,0),('38395c6e-61a9-11ee-971a-a74a79842739',13,1),('38395c6e-61a9-11ee-971a-a74a79842739',14,1),('38395b4c-61a9-11ee-971a-a74a79842739',15,0),('38395b4c-61a9-11ee-971a-a74a79842739',16,0),('38395b4c-61a9-11ee-971a-a74a79842739',17,0),('38396100-61a9-11ee-971a-a74a79842739',9,0);
+/*!40000 ALTER TABLE `Review` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Search`
+--
+
+DROP TABLE IF EXISTS `Search`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Search` (
+  `Username_S` varchar(45) NOT NULL,
+  `PartID_S` int NOT NULL,
+  KEY `Username_S_idx` (`Username_S`),
+  KEY `PartID_S_idx` (`PartID_S`),
+  CONSTRAINT `PartID_S` FOREIGN KEY (`PartID_S`) REFERENCES `Part` (`PartID`),
+  CONSTRAINT `Username_S` FOREIGN KEY (`Username_S`) REFERENCES `Customer` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Search`
+--
+
+LOCK TABLES `Search` WRITE;
+/*!40000 ALTER TABLE `Search` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Search` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Supplies`
+--
+
+DROP TABLE IF EXISTS `Supplies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Supplies` (
+  `ManufactuerID_Su` int NOT NULL,
+  `PartID_Su` int NOT NULL,
+  `[BUY]Price` int NOT NULL,
+  `Delivery Date` datetime NOT NULL,
+  KEY `ManufacturerID_Su_idx` (`ManufactuerID_Su`),
+  KEY `PartID_idx` (`PartID_Su`),
+  CONSTRAINT `ManufacturerID_Su` FOREIGN KEY (`ManufactuerID_Su`) REFERENCES `Manufacturer` (`ManufacturerID`),
+  CONSTRAINT `PartID_Su` FOREIGN KEY (`PartID_Su`) REFERENCES `Part` (`PartID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Supplies`
+--
+
+LOCK TABLES `Supplies` WRITE;
+/*!40000 ALTER TABLE `Supplies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Supplies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `View`
+--
+
+DROP TABLE IF EXISTS `View`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `View` (
+  `Usernames` varchar(45) NOT NULL,
+  `OrderIDs` int NOT NULL,
+  KEY `Username_idx` (`Usernames`),
+  KEY `OrderIDs_idx` (`OrderIDs`),
+  CONSTRAINT `OrderIDs` FOREIGN KEY (`OrderIDs`) REFERENCES `Order` (`OrderID`),
+  CONSTRAINT `Usernames` FOREIGN KEY (`Usernames`) REFERENCES `Customer` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `View`
+--
+
+LOCK TABLES `View` WRITE;
+/*!40000 ALTER TABLE `View` DISABLE KEYS */;
+/*!40000 ALTER TABLE `View` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -252,4 +492,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-04 22:00:02
+-- Dump completed on 2023-10-05  5:46:18
