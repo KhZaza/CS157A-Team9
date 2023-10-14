@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<script>
+    function resetForm() {
+        var form = document.getElementById('loginForm');
+        console.log("ran");
+
+    }
+
+
+    window.onload = resetForm;
+</script>
+<script type="text/javascript" src="../navbar.js"></script>
+
+<!--TODO might need to create a sessionCheck.js file -->
+<!--<script type="text/javascript" src="../sessionCheck.js"></script>-->
+
+<body onload="hamburgerMenu();">
+<!-- NavBar -->
+<header>
+    <h1> <a href="../index.html" style="width: 20%; text-decoration: none; color: #00cfff;">Partly</a></h1>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li>
+                <a href="LogIn.html">Login</a>
+            </li>
+            <li>
+                <a href="SignUp.html">Signup</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<section>
+    <div class="whatWeAre__list" style="margin-left: -3rem;">
+        <ul>
+            <li>
+                <h1>Login</h1>
+            </li>
+            <li>
+                <form action="LogIn.jsp" method="post" id="loginForm">
+                    <input style="width: 10rem; margin-top: 2rem;" placeholder="Email" type="text" id="email" name="email" required><br>
+                    <input style="width: 10rem;" placeholder="Password" type="password" id="password" name="password" required><br>
+                    <input style="width: 10rem; text-align: center;" type="submit" value="Login" name="loginButton" id="loginBut">
+                </form>
+            </li>
+            <li>
+                <h4 style=" margin-top: 8vh;">Don't have an account?</h4>
+                <a href="SignUp.html" style="display: inline-block;">
+                    <input style="width: 10rem;" type="button" value="Sign Up">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</section>
+</body>
+</html>
