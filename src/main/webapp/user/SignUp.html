@@ -8,7 +8,7 @@
 <body>
 <!-- NavBar -->
 <header>
-    <h1> <a href="../index.html" style="width: 20%; text-decoration: none; color: #00cfff;">Partly</a></h1>
+    <h1><a href="../index.html" style="width: 20%; text-decoration: none; color: #00cfff;">Partly</a></h1>
     <div class="hamburger">
         <div class="line"></div>
         <div class="line"></div>
@@ -16,61 +16,78 @@
     </div>
     <nav class="nav-bar">
         <ul>
-            <li>
-                <a href="LogIn.html">Login</a>
-            </li>
-            <li>
-                <a href="SignUp.html">Signup</a>
-            </li>
+            <li><a href="LogIn.html">Login</a></li>
+            <li><a href="SignUp.html">Signup</a></li>
         </ul>
     </nav>
 </header>
 <section>
     <div class="whatWeAre__list" style="margin-left: -3rem;">
         <ul>
-            <ul>
-                <li>
-                    <h1>Sign Up</h1>
-                </li>
-                <li>
-                    <form action="SignUp.jsp" method="post">
-                        <ul>
-                            <li>
-                                <label>
-                                    <input style="width: 10rem; margin-top: 2rem;" placeholder="Email" type="text" name="email">
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input style="width: 10rem;"placeholder="First Name" type="text" name="firstName">
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input style="width: 10rem;"placeholder="Last Name" type="text" name="lastName">
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input style="width: 10rem;"placeholder="Password" type="password" name="password">
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input style="width: 10rem;"placeholder="Confirm Password" type="password" name="passwordConfirm">
-                                </label>
-                            </li>
+            <li>
+                <h1>Sign Up</h1>
+            </li>
+            <li>
+                <form action="SignUp.jsp" method="post">
+                    <ul>
+                        <li>
                             <label>
-                                <input style="width: 10rem; margin-top: 2rem" type="submit" value="Sign Up" id="">
+                                <input style="width: 10rem; margin-top: 2rem;" placeholder="Email" type="email" name="email" required>
                             </label>
-                        </ul>
-                    </form>
-                </li>
-            </ul>
+                        </li>
 
+                        <li>
+                            <label>
+                                <input style="width: 10rem;" placeholder="Username" type="text" name="username" required>
+                            </label>
+                        </li>
+
+
+                        <li>
+                            <label>
+                                <input style="width: 10rem;" placeholder="First Name" type="text" name="firstName" required>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input style="width: 10rem;" placeholder="Last Name" type="text" name="lastName" required>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input style="width: 10rem;" id="psw" placeholder="Password" type="password" name="password"
+                                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                       required>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input style="width: 10rem;"  placeholder="Confirm Password" type="password" name="passwordConfirm" required>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input style="width: 10rem; margin-top: 2rem" type="submit" value="Sign Up">
+                            </label>
+                        </li>
+                    </ul>
+                </form>
+            </li>
         </ul>
     </div>
-
 </section>
+
+<script>
+    if (password !== passwordConfirm) {
+        alert("Passwords do not match!");
+        e.preventDefault();
+    }
+</script>
+
+
 </body>
 </html>
