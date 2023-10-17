@@ -222,3 +222,29 @@ footer {
 .socials a:hover i {
     color: #00cfff;
 }
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+/* Style the submit button */
+input[type=SignUp] {
+    background-color: #04AA6D;
+    color: white;
+}
+
+
+/* The message box is shown when the user clicks on the password field */
+
+
+#message p {
+    padding: 10px 35px;
+    font-size: 18px;
+}
+
