@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: team9
+-- Host: 127.0.0.1    Database: team_9
 -- ------------------------------------------------------
 -- Server version	8.1.0
 
@@ -142,7 +142,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES ('',NULL,NULL),('59','lightweight muffler',60),('60','catback exhaust',100),('61','lightweight muffler, catback exhaust',160),('62','brake pad',200),('63','bronze rim 18in',270),('64','bronze rim 18in, brake pad',470),('65','window tint limo, common fuel injector',98),('66','bolt on turbo, headlights',355),('67','bronze rim 18in, brake pad',470),('68','common fuel injector',65);
+INSERT INTO `cart` VALUES ('59','lightweight muffler',60),('60','catback exhaust',100),('61','lightweight muffler, catback exhaust',160),('62','brake pad',200),('63','bronze rim 18in',270),('64','bronze rim 18in, brake pad',470),('65','window tint limo, common fuel injector',98),('66','bolt on turbo, headlights',355),('67','bronze rim 18in, brake pad',470),('68','common fuel injector',65);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,10 +181,12 @@ DROP TABLE IF EXISTS `customer`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
   `Username` varchar(45) NOT NULL,
+  `FName` varchar(45) NOT NULL,
+  `LName` varchar(45) NOT NULL,
+  `Email` varchar(45) NOT NULL,
   `Password` varchar(45) NOT NULL,
+  `Address` varchar(255) NOT NULL,
   `History` int DEFAULT NULL,
-  `Address` varchar(255) DEFAULT NULL,
-  `Email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -195,7 +197,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('FitnessFreak','1S@nJOseSt@t3UniSad1',NULL,'9303 Garden Lane Schererville, IN 46375','pinaeple@gmail.com'),('FoodieAdventures','##C0mput3rSc13nc3%1##',NULL,'8252 SW. Orange St. Rolla, MO 65401','cookiesncream@gmail.com'),('GamingFanatic','P!LLB0ttlez99#',NULL,' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','zootehnic@gmail.com'),('JaneDoe','!!WaterB0ttle800()!!',NULL,'80 Beach St. Jamaica Plain, MA 02130','claytent@yahoo.com'),('JohnSmith','156_Us3r13_156~CS~',NULL,'123 New York, New York','goldshowe@gmail.com'),('MovieBuffs','*CS*D3P@RT*156*',NULL,' 7360 Wagon Ave. Tucson, AZ 85718','apollodone@gmail.com'),('MusicLover','Ti$$ueB0X147!',NULL,'7071 Del Monte Street Murfreesboro, TN 37128','potao@yahoo.com'),('TechGeek','98SUSh1Fish98',NULL,'340 Longfellow Street, Marietta, GA 30008','qball9@gmail.com'),('Traveler101','S0ckANDS@nd@1$66',NULL,' 30 Philmont Street, Oxon Hill, MD 20745','tomatopota@gmail.com'),('User101001','@M1k3WUTHEPr0f156@',NULL,' 13 Lincoln Dr. Allentwon, PA 18102','madagas@yahoo.com');
+INSERT INTO `customer` VALUES ('FitnessFreak','Fred','James','pinaeple@gmail.com','1S@nJOseSt@t3UniSad1','9303 Garden Lane Schererville, IN 46375',NULL),('FoodieAdventures','Eve','Christ','cookiesncream@gmail.com','##C0mput3rSc13nc3%1##','8252 SW. Orange St. Rolla, MO 65401',NULL),('GamingFanatic','Cal','Zaza','zootehnic@gmail.com','P!LLB0ttlez99#',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137',NULL),('JaneDoe','Jane','Doe','claytent@yahoo.com','!!WaterB0ttle800()!!','80 Beach St. Jamaica Plain, MA 02130',NULL),('JohnSmith','John','Smith','goldshowe@gmail.com','156_Us3r13_156~CS~','123 New York, New York',NULL),('MovieBuffs','Monica','Buffs','apollodone@gmail.com','*CS*D3P@RT*156*',' 7360 Wagon Ave. Tucson, AZ 85718',NULL),('MusicLover','Mac','Love','potao@yahoo.com','Ti$$ueB0X147!','7071 Del Monte Street Murfreesboro, TN 37128',NULL),('TechGeek','Tecca','German','qball9@gmail.com','98SUSh1Fish98','340 Longfellow Street, Marietta, GA 30008',NULL),('Traveler101','Tequila','Johnson','tomatopota@gmail.com','S0ckANDS@nd@1$66',' 30 Philmont Street, Oxon Hill, MD 20745',NULL),('User101001','Kate','Tam','madagas@yahoo.com','@M1k3WUTHEPr0f156@',' 13 Lincoln Dr. Allentwon, PA 18102',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +366,7 @@ DROP TABLE IF EXISTS `part`;
 CREATE TABLE `part` (
   `PartID` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) NOT NULL,
-  `[Sell]Price` int NOT NULL,
+  `Sell Price` int NOT NULL,
   `Description` varchar(100) NOT NULL,
   `Category` varchar(45) NOT NULL,
   PRIMARY KEY (`PartID`)
@@ -500,4 +502,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-05 15:18:09
+-- Dump completed on 2023-10-14 23:54:02
