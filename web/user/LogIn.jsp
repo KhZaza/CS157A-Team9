@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*"%>
+<%@ page import="java.net.URLEncoder"%>
 <%@ page import="javax.xml.transform.Result" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -44,6 +45,9 @@
 
         if(rs.next()){ // exists
             out.println("Its in the database!");
+            session.setAttribute("username", username);
+            response.sendRedirect("LogOut.html?username=" + URLEncoder.encode(username, "UTF-8"));
+
 
         }
         else{ // doesn't exist
