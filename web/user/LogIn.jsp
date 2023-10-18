@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*"%>
+<%@ page import="java.net.URLEncoder"%>
 <%@ page import="javax.xml.transform.Result" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,11 +25,11 @@
     String password = request.getParameter("password");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team_9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
         //sql insert statement. 1 means exists, 0 means doesn't
@@ -44,6 +45,9 @@
 
         if(rs.next()){ // exists
             out.println("Its in the database!");
+            session.setAttribute("username", username);
+            response.sendRedirect("LogOut.html?username=" + URLEncoder.encode(username, "UTF-8"));
+
 
         }
         else{ // doesn't exist
@@ -62,6 +66,7 @@
 
     } catch (ClassNotFoundException | SQLException e) {
         //response.sendRedirect("SignUp.html");
+        out.println("Can't connect to database.");
     }
 %>
 </body>

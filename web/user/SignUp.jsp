@@ -19,11 +19,11 @@
     String address = request.getParameter("address");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team_9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
         //sql insert statement
@@ -42,6 +42,7 @@
 
         con.close();
 
+        //Sends the user to the login page after creation
         response.sendRedirect("LogIn.html");
 
     } catch (ClassNotFoundException | SQLException e) {

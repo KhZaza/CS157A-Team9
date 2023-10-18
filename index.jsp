@@ -1,6 +1,6 @@
 <html>
 <body>
-<jsp:include page = "welcome.html"/>
+<jsp:include page = "src/main/webapp/welcome.html"/>
 
 </body>
 

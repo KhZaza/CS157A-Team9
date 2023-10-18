@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles.css">
+
+
+
+
+</head>
+<script>
+    function resetForm() {
+        var form = document.getElementById('loginForm');
+        console.log("ran");
+
+    }
+
+    window.onload = resetForm;
+</script>
+<body onload = "hamburgerMenu();">
+<!-- NavBar -->
+<header>
+    <h1> <a href="../index.html" style="width: 20%; text-decoration: none; color: #00cfff;">Partly</a></h1>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li>
+                <a href="LogIn.html">Login</a>
+            </li>
+            <li>
+                <a href="SignUp.html">Signup</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="bg-img" >
+    <form action="LogIn.jsp" class="container" >
+        <h1>Welcome Back!</h1>
+
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <button type="submit" class="btn">Login</button>
+        <input type="reset" value = "Reset">
+        <p>
+            Don't have an account?
+            <a href="SignUp.html">Sign up!</a>
+        </p>
+
+    </form>
+</div>
+
+</body>
+</html>

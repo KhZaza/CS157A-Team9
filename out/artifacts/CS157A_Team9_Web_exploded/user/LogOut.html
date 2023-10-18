@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<!--This script is to display the username when Loged In-->
+<script type="text/javascript">
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    window.onload = function() {
+        var username = getParameterByName('username');
+        if (username) {
+            document.getElementById("displayUsername").textContent = username;
+        }
+    }
+</script>
+<body>
+<!-- NavBar -->
+<header>
+    <h1> <a href="" style="width: 20%; text-decoration: none; color: #00cfff;">Partly</a></h1>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li>
+                <a href="l">Account</a>
+            </li>
+
+            <li>
+                <form action="../user/LogOut.jsp">
+                    <a href="../user/LogOut.jsp">Logout</a>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+<section>
+    <div class="whatWeAre__list" style="margin-left: -3rem;">
+        <ul>
+            <li>
+                <h1>Welcome, <span id="displayUsername"></span>!</h1>
+
+                <h1>Thank you for using Partly !</h1>
+                <h1 style="margin-top: 50rem;">Log Out</h1>
+            </li>
+            <!-- Pick one this or the one before -->
+            <li>
+            <form action="../user/LogOut.jsp">
+                <a href="../user/LogOut.jsp"><input style="width: 8rem;" type="submit" value="Log Out"></a>
+            </form>
+            </li>
+        </ul>
+
+    </div>
+</section>
+</body>
+</html>
