@@ -23,7 +23,7 @@
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-    String db = "team9";
+    String db = "team_9";
     String admin = "root";
     String adminPassword = "cs157a@zaza";
 

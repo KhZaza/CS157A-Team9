@@ -17,7 +17,7 @@
     String lastName = request.getParameter("lastName");
     String password = request.getParameter("password");
     String address = request.getParameter("address");
-    String db = "team9";
+    String db = "team_9";
     String admin = "root";
     String adminPassword = "cs157a@zaza";
 
