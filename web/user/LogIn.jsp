@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*"%>
-<%@ page import="java.net.URLEncoder"%>
 <%@ page import="javax.xml.transform.Result" %>
+<%@ page import="at.favre.lib.crypto.bcrypt.BCrypt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,31 +9,50 @@
                                             charset=UTF-8">
 </head>
 <body>
-<%-- Here we fetch the data using the name attribute
-     of the text from the previous signup.html page
---%>
-<%!
-    String noExist(){
-        return "Incorrect credentials!";
-    }
-    String exist(){
-        return "Successfully logged in.";
-    }
-%>
+
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-    String db = "team_9";
+    String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
+    Boolean usernameExists = false;
+    String db_password = "";
+    boolean isPassword = false;
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team_9?autoReconnect=true&useSSL=false",
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
-        //sql insert statement. 1 means exists, 0 means doesn't
-        out.println(username + password);
+        //Check for password based on the encrypted password.
+        //Grab the current password from the db
+        String queryPass = "SELECT password FROM customer WHERE username = ?";
+
+        //Need to verify that username exists first.
+        String q_username = "SELECT username,password FROM customer WHERE username = ?";
+        PreparedStatement psUsername = con.prepareStatement(q_username);
+        psUsername.setString(1,username);
+        ResultSet rs_username = psUsername.executeQuery();
+
+        //usernameExists = rs_username.next(); // returns true if exists.
+
+        //Continue if username exists, else prompt user that they have incorrect credentials
+        while(rs_username.next()){
+           db_password = rs_username.getString(2);
+           isPassword = BCrypt.verifyer().verify(password.toCharArray(),db_password.toCharArray()).verified;
+
+        }
+        if(isPassword){
+            out.println("Its in the database!");
+
+        }
+        else{
+            out.println("Its NOT in the database!"); // redirect user?
+        }
+/*
+
+
         String query = "SELECT username, password FROM customer WHERE username= ? AND password = ?";
 
         //sql insert prepared statements
@@ -45,28 +64,19 @@
 
         if(rs.next()){ // exists
             out.println("Its in the database!");
-            session.setAttribute("username", username);
-            response.sendRedirect("LogOut.html?username=" + URLEncoder.encode(username, "UTF-8"));
-
 
         }
         else{ // doesn't exist
             out.println("Incorrect Creds."); // Maybe redirect this back to login?
         }
-
-
-
-        //To here, can't get it to see if creds are right or not.
-        // The table should give the value 1 for exists, and 0 if not exists
-        rs.close();
-        preparedStatement.close();
+ */
+        rs_username.close();
+        psUsername.close();
         con.close();
 
-        //response.sendRedirect("LogIn.html");
 
     } catch (ClassNotFoundException | SQLException e) {
-        //response.sendRedirect("SignUp.html");
-        out.println("Can't connect to database.");
+        response.sendRedirect("SignUp.html");
     }
 %>
 </body>
