@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*"%>
+<%@ page import="java.net.URLEncoder"%>
 <%@ page import="javax.xml.transform.Result" %>
 <%@ page import="at.favre.lib.crypto.bcrypt.BCrypt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,7 +16,7 @@
     String password = request.getParameter("password");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
     Boolean usernameExists = false;
     String db_password = "";
     boolean isPassword = false;
@@ -45,10 +46,17 @@
         }
         if(isPassword){
             out.println("Its in the database!");
+            session.setAttribute("username", username);
+            response.sendRedirect("LogOut.html?username=" + URLEncoder.encode(username, "UTF-8"));
 
         }
         else{
-            out.println("Its NOT in the database!"); // redirect user?
+
+
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Incorrect Creds.');");
+            out.println("location='/CS157A_Team9_Web_exploded/user/LogIn.html';");  //  redirect back to the login page.
+            out.println("</script>");
         }
 /*
 

@@ -1,4 +1,5 @@
-<%@ page import="java.sql.*"%>
+
+<%@ page import="java.sql.*,at.favre.lib.crypto.bcrypt.BCrypt "%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,17 +18,23 @@
     String lastName = request.getParameter("lastName");
     String password = request.getParameter("password");
     String address = request.getParameter("address");
-    String db = "team_9";
+    String db = "team9";
     String admin = "root";
     String adminPassword = "cs157a@zaza";
+    String hashedPassword = "";
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team_9?autoReconnect=true&useSSL=false",
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
         //sql insert statement
         String query = "INSERT INTO CUSTOMER(Username, FName, LName, Email, Password, Address) VALUES(?,?,?,?,?,?)";
+
+        //Decryption for passwords
+        //12 is just cost factor. we can increase or decrease as needed for protection vs performance
+        hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
+
 
         //sql insert prepated statements
         PreparedStatement preparedStatement = con.prepareStatement(query);
@@ -35,7 +42,7 @@
         preparedStatement.setString(2,firstName);
         preparedStatement.setString(3,lastName);
         preparedStatement.setString(4,email);
-        preparedStatement.setString(5,password);
+        preparedStatement.setString(5,hashedPassword);
         preparedStatement.setString(6,address);
 
         preparedStatement.execute();
@@ -46,7 +53,9 @@
         response.sendRedirect("LogIn.html");
 
     } catch (ClassNotFoundException | SQLException e) {
-        response.sendRedirect("SignUp.html");
+        out.println("Error.");
+        out.println(hashedPassword);
+        //response.sendRedirect("SignUp.html");
     }
 %>
 </body>
