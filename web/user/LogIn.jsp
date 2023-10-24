@@ -58,26 +58,7 @@
             out.println("location='/CS157A_Team9_Web_exploded/user/LogIn.html';");  //  redirect back to the login page.
             out.println("</script>");
         }
-/*
 
-
-        String query = "SELECT username, password FROM customer WHERE username= ? AND password = ?";
-
-        //sql insert prepared statements
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        preparedStatement.setString(1,username);
-        preparedStatement.setString(2,password);
-
-        ResultSet rs = preparedStatement.executeQuery();
-
-        if(rs.next()){ // exists
-            out.println("Its in the database!");
-
-        }
-        else{ // doesn't exist
-            out.println("Incorrect Creds."); // Maybe redirect this back to login?
-        }
- */
         rs_username.close();
         psUsername.close();
         con.close();
