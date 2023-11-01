@@ -28,11 +28,29 @@
             margin-bottom: 0;
         }
 
+
         /* Add a gray background color and some padding to the footer */
         footer {
             position: relative;
             background-color: black;
             padding: 25px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between; /* Aligns items to opposite ends */
+            align-items: center; /* Aligns items vertically */
+            padding-bottom: 20px;
+
+        }
+
+        .category-dropdown {
+            flex-grow: 1;
+            /* Allows the dropdown to grow and take available space */
+        }
+
+        .search-bar {
+            /*margin-left: auto; !* Pushes the search bar to the right *!*/
         }
 
     </style>
@@ -60,18 +78,92 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="LogOut.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+
             </ul>
         </div>
     </div>
 </nav>
 
+<div class="container">
+    <div class="row">
+        <div class="flex-container">
+
+
+
+        <!-- Category Dropdown on the Left -->
+            <div class="category-dropdown">
+
+            <div class="col-sm-9">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Category
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+
+                    <%
+                        String db = "team9";
+                        String admin = "root";
+                        String adminPassword = "cs157a@zaza";
+
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
+                                    admin, adminPassword);
+
+                            // Query to get distinct categories
+                            String queryCategories = "SELECT DISTINCT Category FROM part";
+                            PreparedStatement psCategories = con.prepareStatement(queryCategories);
+                            ResultSet rsCategories = psCategories.executeQuery();
+
+                            while (rsCategories.next()) {
+                                String category = rsCategories.getString("Category");
+                                out.println("<li><a href=\"#\">" + category + "</a></li>");
+                            }
+
+
+                            out.println("    </ul>");
+                            out.println("</div>");
+
+                            // Close resources
+                            rsCategories.close();
+                            psCategories.close();
+                            con.close();
+
+                        } catch (ClassNotFoundException | SQLException e) {
+                            out.println("Error in retrieving categories");
+                            out.println(e);
+                        }
+                    %>
+
+                    <!-- Need to update the list on what ever what selected  -->
+                </ul>
+            </div>
+        </div>
+
+    <!-- Need to actually make this work and search stuff in the DB -->
+        <div class="col-sm-3" >
+            <div class="search-bar">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
 <%
 
 
 
-    String db = "team9";
-    String admin = "root";
-    String adminPassword = "cs157a@zaza";
+//    String db = "team9";
+//    String admin = "root";
+//    String adminPassword = "cs157a@zaza";
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -88,13 +180,6 @@
             rowCount = rsCount.getInt(1);
         }
 
-                /*
-                String [] categoryArray = new String[rowCount];
-                String[] nameArray = new String[rowCount];
-                int[] sellArray = new int[rowCount];
-                String[] descriptionArray = new String[rowCount];
-                String[] urlArray = new String[rowCount];
-                 */
         List<String> categoryList = new java.util.ArrayList<String>();
         List<String> nameList = new java.util.ArrayList<String>();
         List<Integer> priceList = new java.util.ArrayList<Integer>();
