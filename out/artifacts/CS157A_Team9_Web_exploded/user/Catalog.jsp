@@ -118,6 +118,13 @@
         out.println( "<div class=\"container\">");
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FORMAT HERE
         for(int i = 0; i < rowCount; i++){
+            if (i % 3 == 0) {
+                if (i != 0) {
+                    out.println("</div>"); // Close the previous row if it's not the first item
+                }
+                out.println("<div class=\"row\">"); // Start a new row
+            }
+            // displaying an item
             out.println("<div class=\"col-sm-4\">\n" + "<center>" +
                     "            <div class=\"panel panel-primary\">\n" +
                     "                <div class=\"panel-heading\">" + nameList.get(i) + "</div>\n" +
@@ -127,8 +134,10 @@
                     "            </div><center>" +
                     "        </div>");
         }
-        out.print("</div>\n" +
-                "</div><br>"); // Closing from above for loop.
+        // Close the last row
+        out.println("</div>");
+        out.print("</div>\n" + "</div><br>"); // Closing from above for loop.
+
         rsData.close();
         rsCount.close();
         psData.close();
