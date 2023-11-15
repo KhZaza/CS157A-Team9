@@ -137,7 +137,7 @@
 
                                     while (rsCategories.next()) {
                                         String category = rsCategories.getString("Category");
-                                        out.println("<li><a href=\"#\">" + category + "</a></li>");
+                                        out.println("<li><a href=\"?category=" + category + "\">" + category + "</a></li>");
                                     }
 
 
@@ -184,13 +184,18 @@
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
 
         // Retrieving the search term from the request
+
         String searchTerm = request.getParameter("searchTerm");
+        String selectedCategory = request.getParameter("category");
         boolean isSearchActive = searchTerm != null && !searchTerm.isEmpty();
+        boolean isCategorySelected = selectedCategory != null && !selectedCategory.isEmpty();
 
         // Query to get the parts based on search term
         String queryData;
         if (isSearchActive) {
             queryData = "SELECT * FROM part WHERE Name LIKE ?";
+        } else if (isCategorySelected) {
+            queryData = "SELECT * FROM part WHERE Category = ?";
         } else {
             queryData = "SELECT * FROM part";
         }
@@ -200,6 +205,8 @@
         // Setting the search term in the query
         if (isSearchActive) {
             psData.setString(1, "%" + searchTerm + "%");
+        } else if (isCategorySelected) {
+            psData.setString(1, selectedCategory);
         }
 
         ResultSet rsData = psData.executeQuery();
