@@ -163,16 +163,15 @@
                 <!-- Need to actually make this work and search stuff in the DB -->
                 <div class="col-sm-3" >
                     <div class="search-bar">
-                        <form class="navbar-form" role="search">
+                        <form class="navbar-form" role="search" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                                <input type="text" class="form-control" placeholder="Search" name="searchTerm" id="srch-term">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
 
@@ -182,68 +181,66 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
-                admin, adminPassword);
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
 
-        //Find the # of rows in the part table
+        // Retrieving the search term from the request
+        String searchTerm = request.getParameter("searchTerm");
+        boolean isSearchActive = searchTerm != null && !searchTerm.isEmpty();
 
-        String queryCount = "SELECT Count(*) FROM part";
-        PreparedStatement psCount = con.prepareStatement(queryCount);
-        ResultSet rsCount = psCount.executeQuery();
-        int rowCount = 0;
-        while (rsCount.next()) {
-            rowCount = rsCount.getInt(1);
+        // Query to get the parts based on search term
+        String queryData;
+        if (isSearchActive) {
+            queryData = "SELECT * FROM part WHERE Name LIKE ?";
+        } else {
+            queryData = "SELECT * FROM part";
         }
 
-        List<String> categoryList = new java.util.ArrayList<String>();
-        List<String> nameList = new java.util.ArrayList<String>();
-        List<Integer> priceList = new java.util.ArrayList<Integer>();
-        List<String> descriptionList = new java.util.ArrayList<String>();
-        List<String> urlList = new java.util.ArrayList<String>();
-
-
-        String queryData = "SELECT * FROM part";
         PreparedStatement psData = con.prepareStatement(queryData);
+
+        // Setting the search term in the query
+        if (isSearchActive) {
+            psData.setString(1, "%" + searchTerm + "%");
+        }
+
         ResultSet rsData = psData.executeQuery();
-        while (rsData.next()) { // iterates through table and adds to array
+
+        List<String> categoryList = new ArrayList<>();
+        List<String> nameList = new ArrayList<>();
+        List<Integer> priceList = new ArrayList<>();
+        List<String> descriptionList = new ArrayList<>();
+        List<String> urlList = new ArrayList<>();
+
+        while (rsData.next()) {
             categoryList.add(rsData.getString("Category"));
             nameList.add(rsData.getString("Name"));
             priceList.add(rsData.getInt("Sell Price"));
             descriptionList.add(rsData.getString("Description"));
             urlList.add(rsData.getString("URL"));
-
         }
 
-        //Could also just loop through array size
-        out.println( "<div class=\"container\">");
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FORMAT HERE
-        for(int i = 0; i < rowCount; i++){
+        // Displaying the parts
+        out.println("<div class=\"container\">");
+        for(int i = 0; i < nameList.size(); i++){
             if (i % 3 == 0) {
                 if (i != 0) {
                     out.println("</div>"); // Close the previous row if it's not the first item
                 }
                 out.println("<div class=\"row\">"); // Start a new row
             }
-            // displaying an item
-            out.println("<div class=\"col-sm-4\">\n" + "<center>" +
-                    "            <div class=\"panel panel-primary\">\n" +
-                    "                <div class=\"panel-heading\">" + nameList.get(i) + "</div>\n" +
-                    "                <div class=\"panel-body\"><img src='" + urlList.get(i) + "'" + "class=\"img-responsive\" style=\"width:75%\" alt=\"Image\"></div>\n" +
-                    "                <div class=\"panel-footer\">" + descriptionList.get(i) + "</div>\n" +
-                    "               <div class=\"panel-footer\">ADD TO CART</div>\n"  +
-                    "            </div><center>" +
-                    "        </div>");
+            out.println("<div class=\"col-sm-4\"><center>" +
+                "    <div class=\"panel panel-primary\">\n" +
+                "        <div class=\"panel-heading\">" + nameList.get(i) + "</div>\n" +
+                "        <div class=\"panel-body\"><img src='" + urlList.get(i) + "' class=\"img-responsive\" style=\"width:75%\" alt=\"Image\"></div>\n" +
+                "        <div class=\"panel-footer\">" + descriptionList.get(i) + "</div>\n" +
+                "        <div class=\"panel-footer\">ADD TO CART</div>\n" +
+                "    </div></center>" +
+                "</div>");
         }
-        // Close the last row
-        out.println("</div>");
-        out.print("</div>\n" + "</div><br>"); // Closing from above for loop.
+        out.println("</div></div><br>");
 
-
-
+        // Close resources
         rsData.close();
-        rsCount.close();
         psData.close();
-        psCount.close();
         con.close();
 
     } catch (ClassNotFoundException | SQLException e) {
