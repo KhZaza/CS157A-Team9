@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Account Settings</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0; /* Remove default margin */
+      padding: 0; /* Remove default padding */
+    }
+    .navbar {
+      border-radius: 0; /* Remove border radius for a flat design */
+      margin-bottom: 0; /* Remove default bottom margin */
+    }
+    .navbar .container-fluid {
+      padding-left: 0; /* Remove padding for full width */
+      padding-right: 0; /* Remove padding for full width */
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .toggle-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .toggle-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      cursor: pointer;
+      color: white;
+      border-radius: 4px;
+    }
+    .toggle-btn.active {
+      background-color: #007bff;
+    }
+    .toggle-btn:not(.active) {
+      background-color: #6c757d;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .form-group input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #5cb85c;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #4cae4c;
+    }
+    .form-group-pw input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #d9534f;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .form-group-pw input[type="submit"]:hover {
+      background-color: #c9302c;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" style="margin-left: 2px" href="#">Partly</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="LogOut.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="Cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="margin-top: 50px">
+  <div class="toggle-container">
+    <span class="toggle-btn active" onclick="showForm('details')">Personal Details</span>
+    <span class="toggle-btn" onclick="showForm('password')">Change Password</span>
+  </div>
+
+  <!-- Personal Details Form -->
+  <div id="personalDetailsForm">
+    <div class="container" style="margin: auto; width: 100%; padding: 10px;">
+      <h2>Update Personal Details</h2>
+      <form name = "update_data" action="Account%20Settings%20Update.jsp" method="post">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" >
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" >
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" >
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" >
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Save Changes">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Password Change Form -->
+  <div id="passwordChangeForm" style="display: none;">
+    <div class="container" style="margin: auto; width: 100%; padding: 10px;">
+      <h2>Change Password</h2>
+      <form action="Account%20Settings%20Password.jsp" method="post">
+        <div class="form-group">
+          <label for="oldPassword">Old Password:</label>
+          <input type="password" id="oldPassword" name="oldPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="newPassword">New Password:</label>
+          <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                  required
+          >
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm New Password:</label>
+          <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                  required
+          >
+        </div>
+        <div class="form-group-pw" >
+          <input type="submit" value="Change Password">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showForm(form) {
+    // Get the form elements
+    var detailsForm = document.getElementById('personalDetailsForm');
+    var passwordForm = document.getElementById('passwordChangeForm');
+    var detailsBtn = document.querySelector('.toggle-btn:nth-child(1)');
+    var passwordBtn = document.querySelector('.toggle-btn:nth-child(2)');
+
+    // Toggle the forms visibility
+    if (form === 'details') {
+      detailsForm.style.display = 'block';
+      passwordForm.style.display = 'none';
+      detailsBtn.classList.add('active');
+      passwordBtn.classList.remove('active');
+    } else {
+      detailsForm.style.display = 'none';
+      passwordForm.style.display = 'block';
+      detailsBtn.classList.remove('active');
+      passwordBtn.classList.add('active');
+    }
+  }
+</script>
+
+</body>
+</html>

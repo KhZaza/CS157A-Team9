@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- Servlet for login cookies.-->
+    <servlet>
+        <servlet-name>CookiesServlet</servlet-name>
+        <servlet-class>CookiesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+    <servlet-name>CookiesServlet</servlet-name>
+    <url-pattern>/user/CookiesServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet for Logout-->
+    <servlet>
+        <servlet-name>LogOutServlet</servlet-name>
+        <servlet-class>LogOutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogOutServlet</servlet-name>
+        <url-pattern>/LogOutServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet for Admin Login.-->
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>AdminServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/user/AdminServlet</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secured</web-resource-name>
+            <description>Secured pages</description>
+            <url-pattern>/secured/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Administrative users</description>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- Login Configuration -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>AdminRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/user/AdminLogin.html</form-login-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- Security Roles -->
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+</web-app>
+

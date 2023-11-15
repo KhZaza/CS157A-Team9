@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Partly</title>
+    <meta name="utf-8" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgb(70, 68, 68);
+            border-radius: 4px;
+            resize: vertical;
+        }
+        input[type=email], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgb(70, 68, 68);
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        input[type=submit] {
+            background-color: blue;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+
+
+        }
+        .navbar {
+            margin-bottom: 50px;
+            border-radius: 0;
+        }
+
+        /* Remove the jumbotron's default bottom margin */
+        .jumbotron {
+            margin-bottom: 0;
+        }
+
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            position: relative;
+            background-color: black;
+            padding: 25px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between; /* Aligns items to opposite ends */
+            align-items: center; /* Aligns items vertically */
+            padding-bottom: 20px;
+
+        }
+
+        .category-dropdown {
+            flex-grow: 1;
+            /* Allows the dropdown to grow and take available space */
+        }
+
+        .search-bar {
+            /*margin-left: auto; !* Pushes the search bar to the right *!*/
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+
+        /* This CSS will ensure that the feedback button stays at the bottom right corner of the page */
+        #feedback-button-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1000; /* Make sure the button stays above other elements */
+        }
+
+        .feedback-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+        }
+
+        .feedback-button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+    <title>Feedback</title>
+</head>
+<body>
+
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Partly</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="LogOut.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+            <li><a href="Cart.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+
+        </ul>
+    </div>
+    </div>
+</nav>
+<div style="padding: 20px">
+<h2>Feedback</h2>
+<div class="mb-4 small">
+    Please provide your feedback in the form below
+</div>
+    <form action="Feedback.jsp" class="container" method = "POST">
+    <div class="mb-4">
+        <label class="form-label" for="feedback_subject">Subject:</label>
+        <input type="text" required name="subject" class="form-control" id="feedback_subject"/>
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label"  for="feedback_comments">Comments:</label>
+        <textarea class="form-control" required rows="6" name="comments" id="feedback_comments" ></textarea>
+    </div>
+
+  <button type="submit" class="btn">Submit</button>
+
+    </form>
+</div>
+<div id="feedback-button-container">
+    <a href="Feedback.jsp" class="feedback-button">Give Feedback</a>
+</div>
+</body>
+</html>
