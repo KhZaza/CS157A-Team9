@@ -123,7 +123,7 @@
                             <%
                                 String db = "team9";
                                 String admin = "root";
-                                String adminPassword = "cs157a@zaza";
+                                String adminPassword = "ivanachen";
 
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
@@ -194,7 +194,7 @@
         while (rsCount.next()) {
             rowCount = rsCount.getInt(1);
         }
-
+        List<Integer> idList = new java.util.ArrayList();
         List<String> categoryList = new java.util.ArrayList<String>();
         List<String> nameList = new java.util.ArrayList<String>();
         List<Integer> priceList = new java.util.ArrayList<Integer>();
@@ -206,6 +206,7 @@
         PreparedStatement psData = con.prepareStatement(queryData);
         ResultSet rsData = psData.executeQuery();
         while (rsData.next()) { // iterates through table and adds to array
+            idList.add(rsData.getInt("PartID"));
             categoryList.add(rsData.getString("Category"));
             nameList.add(rsData.getString("Name"));
             priceList.add(rsData.getInt("Sell Price"));
@@ -228,6 +229,7 @@
             out.println("<div class=\"col-sm-4\">\n" + "<center>" +
                     "            <div class=\"panel panel-primary\">\n" +
                     "                <div class=\"panel-heading\">" + nameList.get(i) + "</div>\n" +
+                           "                <div class=\"panel-heading\">" + idList.get(i) + "</div>\n" +
                     "                <div class=\"panel-body\"><img src='" + urlList.get(i) + "'" + "class=\"img-responsive\" style=\"width:75%\" alt=\"Image\"></div>\n" +
                     "                <div class=\"panel-footer\">" + descriptionList.get(i) + "</div>\n" +
                     "               <div class=\"panel-footer\">ADD TO CART</div>\n"  +
