@@ -12,7 +12,6 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
 
         //Grab the fields from html
-        String name = request.getParameter("name");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 

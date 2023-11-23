@@ -4,6 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Base64;
@@ -41,14 +42,14 @@ public class CookiesServlet extends HttpServlet {
             sess.setAttribute("user",username);
 
 
-
-
             // Redirect to the user's cart page or any other page.
             response.sendRedirect("Catalog.jsp");
         } else {
-            response.getWriter().write("{\"success\":false, \"message\": \"Invalid credentials\"}");
-            response.sendRedirect("LogIn.html");
-
+            PrintWriter out = response.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Incorrect credentials. Try again!');");
+            out.println(" window.location.replace('http://localhost:8080/user/Login.html')");
+            out.println("</script>");
         }
     }
 
