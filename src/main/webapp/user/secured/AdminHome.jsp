@@ -7,19 +7,20 @@
 --%>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="AdminCheck.jsp"/>
+
 <html>
 <head>
     <title>Admin</title>
+
 </head>
 <body>
-<% HttpSession session1 = (HttpSession) request.getSession();
- if (session1.getAttribute("admin") == null) {
-    response.sendRedirect("AdminLogin.html");
- } %>
-
 <h1>Welcome Admin.</h1>
 
 <a href="<%=request.getContextPath()%>/LogOutServlet">Logout</a>
+<a href="AddStock.html">Add Stock</a>
+<a href ="DeleteStock.html">Remove Stock</a>
+<a href = "UpdateStock.html">Update Stock</a>
 
 </body>
 </html>

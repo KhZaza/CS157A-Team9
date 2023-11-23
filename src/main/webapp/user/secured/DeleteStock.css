@@ -1,0 +1,73 @@
+** {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background: #263238;
+    position: relative;
+}
+
+.search {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 1000px;
+    width: 0;
+    height: 0;
+    background: #3498db;
+    -webkit-transition: all .4s linear;
+    transition: all .4s linear;
+    z-index: 1; /* Adjust the z-index to ensure the blue background is below other elements */
+}
+
+.search i {
+    color: #3498db;
+    font-size: 1.7em;
+    cursor: pointer;
+}
+
+.search .input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 3px solid pink;
+    color: #eee;
+    font-size: 1.3em;
+    display: none;
+}
+
+.search.open {
+    height: 4000px;
+    width: 4000px;
+    z-index: 1; /* Ensure the expanded search is above other elements */
+}
+
+.submit-button {
+    display: none; /*we do none because we dont want to see the submit button at the start */
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2; /* Ensure the submit button is above other elements */
+}
+
+.submit-button.visible {
+    display: block;
+}

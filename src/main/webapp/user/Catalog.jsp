@@ -123,7 +123,7 @@
                             <%
                                 String db = "team9";
                                 String admin = "root";
-                                String adminPassword = "cs157a@zaza";
+                                String adminPassword = "ivanachen";
 
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
@@ -258,7 +258,7 @@
 %>
 
             <div id="feedback-button-container">
-                <a href="Feedback%20Test.html" class="feedback-button">Give Feedback</a>
+                <a href="Feedback.html" class="feedback-button">Give Feedback</a>
             </div>
 
 </body>

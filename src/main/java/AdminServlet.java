@@ -23,15 +23,17 @@ public class AdminServlet extends HttpServlet {
             request.getSession().setAttribute("admin", username);
             response.sendRedirect("secured/AdminHome.jsp");
         } else {
-            // Invalid credentials, redirect back to login page
-            response.sendRedirect("AdminLogin.html");
+            // Invalid credentials, redirect back to login page and handle message
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", "Incorrect credentials");
+            response.sendRedirect("AdminLogin.jsp");
         }
     }
 
     private boolean isValidUser(String username, String password) {
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         String db_password = "";
         String adminName = "";
 
