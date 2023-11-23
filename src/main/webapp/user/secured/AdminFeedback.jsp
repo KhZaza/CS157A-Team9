@@ -1,27 +1,26 @@
+<%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.sql.SQLException" %><%--
+  Created by IntelliJ IDEA.
+  User: ivanachen
+  Date: 11/21/23
+  Time: 3:55 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="AdminCheck.jsp"/>
-
 <html>
 <head>
     <title>Partly</title>
 </head>
-<body style = "background-color: #3498db;">
-<%
-    // varible is called "variableName"
-%>
+<body>
 
 <%
     String db = "team9";
     String admin = "root";
     String adminPassword = "ivanachen";
-    String partToDelete = request.getParameter("id");
 
-
-    PreparedStatement psDelete = null;
+    PreparedStatement psFeedback = null;
     PreparedStatement psManage = null;
     Connection con = null;
 
@@ -30,12 +29,14 @@
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
 
-        //Delete Manage first because foreign key
-        String queryManage = "DELETE FROM Manage where PartID = ?";
+        //Only let the admin view one feedback at a time.
+        String queryFeedback = "SELECT * FROM Feedback LIMIT 1";
 
-        psManage = con.prepareStatement(queryManage);
-        psManage.setString(1,partToDelete);
-        psManage.execute();
+        psFeedback = con.prepareStatement(queryFeedback);
+        psFeedback.execute();
+
+
+
 
         //Now delete from Part
         String queryPart = "DELETE FROM Part where PartID = ?";
@@ -53,6 +54,8 @@
         try { if (psManage != null) psManage.close(); } catch (SQLException e) {e.printStackTrace(); }
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
+
+
 
 
 %>

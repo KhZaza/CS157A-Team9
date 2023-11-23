@@ -33,7 +33,7 @@ public class AdminServlet extends HttpServlet {
     private boolean isValidUser(String username, String password) {
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         String db_password = "";
         String adminName = "";
 
