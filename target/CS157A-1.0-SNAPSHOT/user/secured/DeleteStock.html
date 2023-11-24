@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Partly</title>
+    <link rel="stylesheet" type="text/css" href="DeleteStock.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+
+<form action="DeleteStock.jsp" method="post" id="myForm">
+    <div class="search">
+        <i class="fa fa-trash"></i>
+        <label>
+            <!-- Assuming you have an input field with an ID of 'textInput' -->
+            <input type="text" class="input" id="textInput">
+        </label>
+    </div>
+
+    <!-- Move the submit button inside the form -->
+    <button type="submit" class="submit-button" onclick="return confirm('Are you sure?')">Submit</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="DeleteStock.js"></script>
+
+</body>
+</html>
