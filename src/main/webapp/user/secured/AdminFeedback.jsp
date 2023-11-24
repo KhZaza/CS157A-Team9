@@ -1,7 +1,4 @@
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.SQLException" %><%--
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: ivanachen
   Date: 11/21/23
@@ -19,10 +16,11 @@
     String db = "team9";
     String admin = "root";
     String adminPassword = "ivanachen";
+    boolean feedbackSuccess = false;
 
     PreparedStatement psFeedback = null;
-    PreparedStatement psManage = null;
     Connection con = null;
+    ResultSet rsData = null;
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -33,33 +31,53 @@
         String queryFeedback = "SELECT * FROM Feedback LIMIT 1";
 
         psFeedback = con.prepareStatement(queryFeedback);
-        psFeedback.execute();
+        rsData = psFeedback.executeQuery();
 
+        while (rsData.next()) {
+            out.println("Subject: " + rsData.getString("Subject"));
+            out.println("Body: " + rsData.getString("Body"));
+        }
+        //out.println("<button class='action-button' onclick='deleteFeedback()'>Delete</button>");
 
-
-
-        //Now delete from Part
-        String queryPart = "DELETE FROM Part where PartID = ?";
-
-        psDelete = con.prepareStatement(queryPart);
-        psDelete.setString(1,partToDelete);
-        psDelete.execute();
+        feedbackSuccess = true;
 
     } catch (ClassNotFoundException | SQLException e) {
         System.out.println("error in Delete Stock" + e) ;
     }
     finally {
         //close in opposite order bc resources dependecy order
-        try { if (psDelete != null) psDelete.close(); } catch (SQLException e) {e.printStackTrace(); }
-        try { if (psManage != null) psManage.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (rsData != null) rsData.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (psFeedback != null) psFeedback.close(); } catch (SQLException e) {e.printStackTrace(); }
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
-
-
-
-
 %>
+<div id="container">
+    <h2>Admin Feedback</h2>
 
+    <% if (feedbackSuccess) { %>
+    <p>Successfully updated a part.</p>
+    <button class="action-button" onclick="nextFeedback()">Next Feedback</button>
+    <button class="action-button" onclick="homePage()">Home Page</button>
+    <% } else {
+        out.println("<script type=\"text/javascript\">");
+        out.println("alert('Incorrect credentials. Try again!');");
+        out.println("window.location.href = 'AdminFeedback.jsp'");
+        out.println("</script>");
+    } %>
+</div>
+
+<!-- Handles the button clicks -->
+<script>
+    function nextFeedback() {
+        // Redirect the user back to the same page (update page)
+        window.location.href = "AdminFeedback.jsp";
+    }
+
+    function homePage() {
+        // Redirect the user to another page
+        window.location.href = "AdminHome.jsp";
+    }
+</script>
 
 </body>
 </html>
