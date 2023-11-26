@@ -31,11 +31,6 @@
     <h2>Admin Login</h2>
     <form action ="AdminServlet" method = "POST">
         <div class="user-box">
-            <input type="text" id="name" name="name" required><br>
-            <label for="name">Name:</label>
-
-        </div>
-        <div class="user-box">
             <input type="text" id="username" name="username" required><br>
             <label for="username">Username:</label>
         </div>
