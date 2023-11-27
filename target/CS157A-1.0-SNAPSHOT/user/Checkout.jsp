@@ -184,7 +184,7 @@
             //Add cart from itms in db.
             String correctUser = request.getSession().getAttribute("sessionToken").toString();
             String admin = "root";
-            String adminPassword = "ivanachen";
+            String adminPassword = "cs157a@zaza";
 
 
             try {
