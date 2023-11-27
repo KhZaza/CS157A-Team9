@@ -94,6 +94,13 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Items</a>
+            <%
+                HttpSession sess2 = (HttpSession) request.getSession();
+                String usernameid = (String)sess2.getAttribute("user");
+                out.println("<a class=\"navbar-brand\" >Hi, " + usernameid + "</a>");
+            %>
+
+
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
