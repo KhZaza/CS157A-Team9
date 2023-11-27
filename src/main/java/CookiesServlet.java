@@ -41,15 +41,15 @@ public class CookiesServlet extends HttpServlet {
             HttpSession sess = request.getSession();
             sess.setAttribute("user",username);
 
-
             // Redirect to the user's cart page or any other page.
             response.sendRedirect("Catalog.jsp");
         } else {
             PrintWriter out = response.getWriter();
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Incorrect credentials. Try again!');");
-            out.println(" window.location.replace('http://localhost:8080/user/Login.html')");
+            out.println("window.location.replace('http://localhost:8080/user/LogIn.html')");
             out.println("</script>");
+
         }
     }
 
@@ -72,7 +72,7 @@ public class CookiesServlet extends HttpServlet {
             String queryPass = "SELECT password FROM customer WHERE username = ?";
 
             //Need to verify that username exists first.
-            String q_username = "SELECT username,password FROM customer WHERE username = ?";
+            String q_username = "SELECT password FROM customer WHERE username = ?";
             PreparedStatement psUsername = con.prepareStatement(q_username);
             psUsername.setString(1, username);
             ResultSet rs_username = psUsername.executeQuery();
@@ -81,7 +81,7 @@ public class CookiesServlet extends HttpServlet {
 
             //Continue if username exists, else prompt user that they have incorrect credentials
             while (rs_username.next()) {
-                db_password = rs_username.getString(2);
+                db_password = rs_username.getString(1);
                 isPassword = BCrypt.verifyer().verify(password.toCharArray(), db_password.toCharArray()).verified;
 
             }
@@ -115,21 +115,27 @@ public class CookiesServlet extends HttpServlet {
 
         String admin = "root";
         String adminPassword = "cs157a@zaza";
-
+        PreparedStatement p_statement = null;
+        Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
 
 
             String query = "INSERT INTO Cookies (Username, SessionToken) VALUES (?, ?)";
-            PreparedStatement p_statement = con.prepareStatement(query);
+            p_statement = con.prepareStatement(query);
             p_statement.setString(1, username);
             p_statement.setString(2, CookiesToken);
             p_statement.executeUpdate();
-            con.close();
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            //close in opposite order bc resources dependecy order
+            try { if (p_statement != null) p_statement.close(); } catch (SQLException e) {e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
 
     }

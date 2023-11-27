@@ -1,4 +1,6 @@
 
+import com.mysql.cj.protocol.Resultset;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -32,22 +34,25 @@ public class AdminServlet extends HttpServlet {
     private boolean isValidUser(String username, String password) {
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         String db_password = "";
         String adminName = "";
+        ResultSet rs_username = null;
+        PreparedStatement psUsername = null;
+        Connection con = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
 
             //Query the Admin table
             String queryAdmin = "SELECT Name, Password FROM Admin WHERE AdminID = ?";
 
-            PreparedStatement psUsername = con.prepareStatement(queryAdmin);
+            psUsername = con.prepareStatement(queryAdmin);
             psUsername.setString(1, username);
 
-            ResultSet rs_username = psUsername.executeQuery();
+            rs_username = psUsername.executeQuery();
 
             while (rs_username.next()) {
                 adminName = rs_username.getString(1);
@@ -61,13 +66,15 @@ public class AdminServlet extends HttpServlet {
                 return false;
             }
 
-            rs_username.close();
-            psUsername.close();
-            con.close();
-
             return true;
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("error in adminservlet");
+        }
+        finally {
+            //close in opposite order bc resources dependecy order
+            try { if (rs_username != null) rs_username.close(); } catch (SQLException e) {e.printStackTrace(); }
+            try { if (psUsername != null) psUsername.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
         return false;
     }

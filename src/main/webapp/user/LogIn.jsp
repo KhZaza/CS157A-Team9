@@ -52,13 +52,14 @@
             //If user signed in, then add the 'cookies' part so username will be saved.
 
         }
-        else{
+        else {
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Incorrect Creds.');");
-            out.println(" window.location.replace('http://localhost:8080/user/LogIn.html')");
-            //out.println("locationuser/LogIn.html");  //  redirect back to the login page.
+            out.println("window.location.href = 'SignUp.html';");
             out.println("</script>");
         }
+
+
 
         rs_username.close();
         psUsername.close();
