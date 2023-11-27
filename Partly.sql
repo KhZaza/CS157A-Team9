@@ -211,7 +211,7 @@ CREATE TABLE `feedback` (
   `Subject` varchar(45) DEFAULT NULL,
   `Body` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`FeedbackID`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +220,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES (8,'Shipping','Hello, wanted to say great job on shipping speed!'),(9,'Boxes','The boxes were nicely secured'),(10,'What does Cart do?','What does a Cart do?'),(11,'Order Amount','How many items can we put in our orders at once?'),(12,'Perfect items!','Your items were nicely packaged and great.'),(13,'NICE!','This car part works really well.'),(14,'POOR','This car part is poorly made.'),(15,'Top notch stuff!','Item is great!'),(16,'Return policy','How do I return a product?'),(17,'Nice quality!','The part was perfectly made and fit my car nicely!'),(18,NULL,NULL),(19,NULL,NULL),(20,NULL,NULL),(21,NULL,NULL),(22,NULL,NULL),(23,NULL,NULL),(24,NULL,NULL),(25,NULL,NULL),(26,NULL,NULL),(27,NULL,NULL),(28,NULL,NULL),(29,NULL,NULL),(30,NULL,NULL),(31,NULL,NULL),(32,NULL,NULL),(33,'1','1'),(34,NULL,NULL),(35,'asdasdsa','sadasdad');
+INSERT INTO `feedback` VALUES (8,'Shipping','Hello, wanted to say great job on shipping speed!'),(9,'Boxes','The boxes were nicely secured'),(10,'What does Cart do?','What does a Cart do?'),(11,'Order Amount','How many items can we put in our orders at once?'),(12,'Perfect items!','Your items were nicely packaged and great.'),(13,'NICE!','This car part works really well.'),(14,'POOR','This car part is poorly made.'),(15,'Top notch stuff!','Item is great!'),(16,'Return policy','How do I return a product?'),(17,'Nice quality!','The part was perfectly made and fit my car nicely!'),(18,NULL,NULL),(19,NULL,NULL),(20,NULL,NULL),(21,NULL,NULL),(22,NULL,NULL),(23,NULL,NULL),(24,NULL,NULL),(25,NULL,NULL),(26,NULL,NULL),(27,NULL,NULL),(28,NULL,NULL),(29,NULL,NULL),(30,NULL,NULL),(31,NULL,NULL),(32,NULL,NULL),(33,'1','1'),(34,NULL,NULL),(35,'asdasdsa','sadasdad'),(36,NULL,NULL);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +318,10 @@ CREATE TABLE `order` (
   `Contact Info` varchar(45) NOT NULL,
   `Shipping Address` varchar(100) NOT NULL,
   `Payment Method` varchar(45) NOT NULL,
-  PRIMARY KEY (`OrderID`)
+  `CustomerID` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `CustomerID` (`CustomerID`),
+  CONSTRAINT `CustomerID` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`Username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -328,7 +331,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (59,'shipped',60,'zootehnic@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','Visa'),(60,'delivered',100,'tomatopota@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','Mastercard'),(61,'processed',160,'qball9@gmail.com','340 Longfellow Street, Marietta, GA 30008','Visa'),(62,'delivered',200,'potao@yahoo.com','7071 Del Monte Street Murfreesboro, TN 37128','Visa'),(63,'completed',270,'pinaeple@gmail.com','9303 Garden Lane Schererville, IN 46375','PayPal'),(64,'completed',470,'madagas@yahoo.com',' 13 Lincoln Dr. Allentwon, PA 18102','Mastercard'),(65,'processed',98,'goldshowe@gmail.com','123 New York, New York','Mastercard'),(66,'delivered',355,'cookiesncream@gmail.com','9303 Garden Lane Schererville, IN 46375','Visa'),(67,'completed',470,'claytent@yahoo.com','123 New York, New York','Paypal'),(68,'completed',65,'apollodone@gmail.com',' 7360 Wagon Ave. Tucson, AZ 85718','Mastercard');
+INSERT INTO `order` VALUES (59,'shipped',60,'zootehnic@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','Visa',NULL),(60,'delivered',100,'tomatopota@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','Mastercard',NULL),(61,'processed',160,'qball9@gmail.com','340 Longfellow Street, Marietta, GA 30008','Visa',NULL),(62,'delivered',200,'potao@yahoo.com','7071 Del Monte Street Murfreesboro, TN 37128','Visa',NULL),(63,'completed',270,'pinaeple@gmail.com','9303 Garden Lane Schererville, IN 46375','PayPal',NULL),(64,'completed',470,'madagas@yahoo.com',' 13 Lincoln Dr. Allentwon, PA 18102','Mastercard',NULL),(65,'processed',98,'goldshowe@gmail.com','123 New York, New York','Mastercard',NULL),(66,'delivered',355,'cookiesncream@gmail.com','9303 Garden Lane Schererville, IN 46375','Visa',NULL),(67,'completed',470,'claytent@yahoo.com','123 New York, New York','Paypal',NULL),(68,'completed',65,'apollodone@gmail.com',' 7360 Wagon Ave. Tucson, AZ 85718','Mastercard',NULL);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,4 +480,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-21  0:53:22
+-- Dump completed on 2023-11-26 20:13:53
