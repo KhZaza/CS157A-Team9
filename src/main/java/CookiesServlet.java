@@ -48,8 +48,9 @@ public class CookiesServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Incorrect credentials. Try again!');");
-            out.println(" window.location.replace('http://localhost:8080/user/Login.html')");
+            out.println("window.location.replace('http://localhost:8080/user/LogIn.html')");
             out.println("</script>");
+
         }
     }
 
@@ -57,7 +58,7 @@ public class CookiesServlet extends HttpServlet {
         //Checks to make sure the user is in the database or not. True = in database. False = not.
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         Boolean usernameExists = false;
         String db_password = "";
         boolean isPassword = false;
@@ -114,22 +115,28 @@ public class CookiesServlet extends HttpServlet {
         //Store the session token in the database
 
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
-
+        String adminPassword = "ivanachen";
+        PreparedStatement p_statement = null;
+        Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
 
 
             String query = "INSERT INTO Cookies (Username, SessionToken) VALUES (?, ?)";
-            PreparedStatement p_statement = con.prepareStatement(query);
+            p_statement = con.prepareStatement(query);
             p_statement.setString(1, username);
             p_statement.setString(2, CookiesToken);
             p_statement.executeUpdate();
-            con.close();
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            //close in opposite order bc resources dependecy order
+            try { if (p_statement != null) p_statement.close(); } catch (SQLException e) {e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
 
     }

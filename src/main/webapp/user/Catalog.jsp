@@ -97,6 +97,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+            <li><a href="LogOut.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
             <li><a href="Cart2.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 
         </ul>
@@ -123,7 +124,7 @@
                             <%
                                 String db = "team9";
                                 String admin = "root";
-                                String adminPassword = "cs157a@zaza";
+                                String adminPassword = "ivanachen";
 
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
