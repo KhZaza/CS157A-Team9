@@ -41,7 +41,6 @@ public class CookiesServlet extends HttpServlet {
             HttpSession sess = request.getSession();
             sess.setAttribute("user",username);
 
-
             // Redirect to the user's cart page or any other page.
             response.sendRedirect("Catalog.jsp");
         } else {
@@ -73,7 +72,7 @@ public class CookiesServlet extends HttpServlet {
             String queryPass = "SELECT password FROM customer WHERE username = ?";
 
             //Need to verify that username exists first.
-            String q_username = "SELECT username,password FROM customer WHERE username = ?";
+            String q_username = "SELECT password FROM customer WHERE username = ?";
             PreparedStatement psUsername = con.prepareStatement(q_username);
             psUsername.setString(1, username);
             ResultSet rs_username = psUsername.executeQuery();
@@ -82,7 +81,7 @@ public class CookiesServlet extends HttpServlet {
 
             //Continue if username exists, else prompt user that they have incorrect credentials
             while (rs_username.next()) {
-                db_password = rs_username.getString(2);
+                db_password = rs_username.getString(1);
                 isPassword = BCrypt.verifyer().verify(password.toCharArray(), db_password.toCharArray()).verified;
 
             }
