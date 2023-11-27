@@ -1,9 +1,29 @@
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="../styles.css">
+
+    <script>
+        function validatePassword() {
+            var password = document.getElementById("psw").value;
+            var confirmPassword = document.getElementById("confirmPsw").value;
+            var errorMessage = document.getElementById("passwordError");
+            var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+            if (!pattern.test(password)) {
+                errorMessage.textContent = 'Password must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters';
+                return false;
+            } else if (password !== confirmPassword) {
+                errorMessage.textContent = 'Passwords do not match';
+                return false;
+            } else {
+                errorMessage.textContent = ''; // Clear error message
+                return true;
+            }
+        }
+    </script>
 </head>
 <body>
 <!-- NavBar -->
@@ -28,7 +48,7 @@
                 <h1>Sign Up</h1>
             </li>
             <li>
-                <form name = "SignUp" action="SignUp.jsp">
+                <form name="SignUp" action="SignUp.jsp" onsubmit="return validatePassword()">
                     <ul>
                         <li>
                             <label>
@@ -40,47 +60,42 @@
                                 <input style="width: 10rem;" placeholder="First Name" type="text" name="firstName" required>
                             </label>
                         </li>
-
                         <li>
                             <label>
                                 <input style="width: 10rem;" placeholder="Last Name" type="text" name="lastName" required>
                             </label>
                         </li>
-
                         <li>
                             <label>
                                 <input style="width: 10rem; margin-top: 2rem;" placeholder="Email" type="email" name="email" required>
                             </label>
                         </li>
-
                         <li>
                             <label>
-                                <input style="width: 10rem;" id="psw" placeholder="Password" type="password" name="password"
-                                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                                       required>
-                            </label>
-                        <li>
-                            <label>
-                                <input style="width: 10rem;"  placeholder="Confirm Password" type="password" name="passwordConfirm" required>
+                                <input style="width: 10rem;" id="psw" placeholder="Password" type="password" name="password" required>
                             </label>
                         </li>
-
                         <li>
                             <label>
-                                <input style="width: 10rem;" placeholder="address" type="text" name="address" required>
+                                <input style="width: 10rem;" id="confirmPsw" placeholder="Confirm Password" type="password" name="passwordConfirm" required>
                             </label>
                         </li>
-
+                        <li>
+                            <label>
+                                <input style="width: 10rem;" placeholder="Address" type="text" name="address" required>
+                            </label>
+                        </li>
                         <li>
                             <label>
                                 <input style="width: 10rem; margin-top: 2rem" type="submit" value="Submit">
                             </label>
                         </li>
+                        <li>
+                            <span id="passwordError" style="color:red;"></span> <!-- Error message will be displayed here -->
+                        </li>
                     </ul>
                 </form>
     </div>
 </section>
-
 </body>
 </html>
