@@ -69,7 +69,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
 
     PreparedStatement psCookies = null;
     ResultSet rs_Cookies = null;
