@@ -10,18 +10,21 @@
 </head>
 <body>
 
+<div class="navbar">
+    <a href="AdminHome.jsp">Partly</a>
+</div>
+
 <form action="DeleteStock.jsp" method="post" id="myForm">
     <div class="search">
-        <i class="fa fa-trash"></i>
         <label>
-            <!-- Assuming you have an input field with an ID of 'textInput' -->
-            <input type="text" class="input" id="textInput">
+            <input style="margin-top: 70px" type="text" class="input" id="textInput" placeholder="PartID" required> <!-- Added placeholder -->
         </label>
-    </div>
+        <i  class="fa fa-trash" id="deleteIcon"></i> <!-- Trash icon, acting as a 'logo' -->
+        <button  type="submit" class="submit-button" onclick="return confirm('Are you sure?')" style=" margin-top: 70px; display: none;">Submit</button> <!-- Initially hidden -->
 
-    <!-- Move the submit button inside the form -->
-    <button type="submit" class="submit-button" onclick="return confirm('Are you sure?')">Submit</button>
+    </div>
 </form>
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="DeleteStock.js"></script>
