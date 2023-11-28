@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Update Stock</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #262626;
+            border-radius: 8px;
+        }
+
+        label {
+            color: #5DADE2;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: white;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .note {
+            color: #808080;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body >
+
+<div class="navbar">
+    <a href="AdminHome.jsp">Partly</a>
+</div>
+
+<h2 style="margin: 20px">Admin Stock Update</h2>
+<div style="margin: 20px" class="note">
+    <p><em>FYI: Leave the textbox empty if you don't want to update that specific attribute.</em></p>
+</div>
+<form action="/update-stock" method="post">
+    <label for="partId">Part ID:</label><br>
+    <input type="text" id="partId" name="partId" required><br>
+
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="category">Category:</label><br>
+    <input type="text" id="category" name="category"><br>
+
+
+    <label for="price">Price:</label><br>
+    <input type="text" id="price" name="price"><br>
+
+    <label for="Quantity">Quantity:</label><br>
+    <textarea id="Quantity" name="Quantity"></textarea><br>
+
+    <label for="url">URL:</label><br>
+    <input type="text" id="url" name="url"><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

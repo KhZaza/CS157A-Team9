@@ -82,7 +82,7 @@
 <h1>Where would you like to go now?</h1>
 <a href="AddStock.html">Add Stock</a>
 <a href ="DeleteStock.html">Remove Stock</a>
-<a href ="UpdateStock.html">Update Stock</a>
+<a href ="AdminUpdateStock.html">Update Stock</a>
 <a href="AdminHome.jsp">Home</a>
 </body>
 </html>
