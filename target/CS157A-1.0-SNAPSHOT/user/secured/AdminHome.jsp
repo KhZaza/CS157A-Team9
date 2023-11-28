@@ -65,6 +65,8 @@
     <a href="AddStock.html">Add Stock</a>
     <a href ="DeleteStock.html">Remove Stock</a>
     <a href = "AdminUpdateStock.html">Update Stock</a>
+    <a href = "AdminFeedback.jsp">Feedback</a>
+
 </div>
 <%
     String db = "team9";
