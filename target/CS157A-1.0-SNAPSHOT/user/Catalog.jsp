@@ -131,7 +131,7 @@
                             <%
                                 String db = "team9";
                                 String admin = "root";
-                                String adminPassword = "cs157a@zaza";
+                                String adminPassword = "ivanachen";
 
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
@@ -224,8 +224,10 @@
         List<Integer> priceList = new ArrayList<>();
         List<String> descriptionList = new ArrayList<>();
         List<String> urlList = new ArrayList<>();
+        List<Integer> idList = new ArrayList<>();
 
         while (rsData.next()) {
+            idList.add(rsData.getInt("PartID"));
             categoryList.add(rsData.getString("Category"));
             nameList.add(rsData.getString("Name"));
             priceList.add(rsData.getInt("Sell Price"));
@@ -245,6 +247,7 @@
             out.println("<div class=\"col-sm-4\"><center>" +
                 "    <div class=\"panel panel-primary\">\n" +
                 "        <div class=\"panel-heading\">" + nameList.get(i) + "</div>\n" +
+                  "        <div class=\"panel-heading\">" + idList.get(i) + "</div>\n" +
                 "        <div class=\"panel-body\"><img src='" + urlList.get(i) + "' class=\"img-responsive\" style=\"width:75%\" alt=\"Image\"></div>\n" +
                 "        <div class=\"panel-footer\">" + descriptionList.get(i) + "</div>\n" +
                 "        <div class=\"panel-footer\">ADD TO CART</div>\n" +

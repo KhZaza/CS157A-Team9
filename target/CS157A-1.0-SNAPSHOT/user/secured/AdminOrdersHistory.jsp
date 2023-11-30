@@ -2,6 +2,7 @@
 <%@ page import ="java.sql.*"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<jsp:include page="AdminCheck.jsp"/>
 
 <!DOCTYPE html>
 <html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <!-- Required meta tags -->
@@ -487,7 +488,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
         try {
 

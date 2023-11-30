@@ -20,7 +20,7 @@
     String address = request.getParameter("address");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
 
     //Current user accessing page

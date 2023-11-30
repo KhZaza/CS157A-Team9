@@ -2,6 +2,7 @@
 <%@ page import ="java.sql.*"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<jsp:include page="AdminCheck.jsp"/>
 
 <!DOCTYPE html>
 <html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <!-- Required meta tags -->
@@ -404,7 +405,7 @@
 <!-- card body-->
 <div style="margin: 20px" class="card-body">
   <div class="mb-6">
-    <h1 class="mb-0">Your Order</h1>
+    <h1 class="mb-0">Feedback</h1>
     <h4>Check the User Feedback.</h4>
   </div>
 
@@ -423,7 +424,7 @@
 
   String db = "team9";
   String admin = "root";
-  String adminPassword = "cs157a@zaza";
+  String adminPassword = "ivanachen";
   boolean feedbackSuccess = false;
 
 
