@@ -18,7 +18,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
 
     PreparedStatement psCount = null; //Count number of total orders a customer has
     PreparedStatement psPart = null;
