@@ -40,10 +40,9 @@
             // SQL insert statement
             String query = "INSERT INTO FEEDBACK(Subject, Body) VALUES(?, ?)";
             // Prepare the statement
-            psFeedback = con.prepareStatement(query);
+            psFeedback = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS );
             psFeedback.setString(1, subject);
             psFeedback.setString(2, comments);
-
 
             int affectedRows = psFeedback.executeUpdate();
 
@@ -56,15 +55,14 @@
                     int generatedKey = rs_generatedKeys.getInt(1);
 
                     //Add the PK to the DB for the relation  Customer x View x Order
-                    String queryView = "INSERT INTO view(Username, OrderID) VALUES(?,?)";
+                    String queryView = "INSERT INTO gives(Username, FeedbackID) VALUES(?,?)";
                     psView = con.prepareStatement(queryView);
-                    String user = (String)session.getAttribute("user");
+                    String user = (String) session.getAttribute("user");
                     psView.setString(1, user); // admin id is stored in session
                     psView.setInt(2, generatedKey);
                     psView.execute();
                 }
             }
-
 
             // Redirect to another page after successful insertion
             response.sendRedirect("Catalog.jsp");
