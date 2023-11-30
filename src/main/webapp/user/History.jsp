@@ -11,11 +11,43 @@
 <html>
 <head>
     <title>Partly</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            border-radius: 0; /* Remove border radius for a flat design */
+            margin-bottom: 0; /* Remove default bottom margin */
+        }
+        .navbar .container-fluid {
+            padding-left: 0; /* Remove padding for full width */
+            padding-right: 0; /* Remove padding for full width */
+        }
+    </style>
 </head>
 <body>
 
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="margin-left: 2px" href="#">Partly</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="LogOut.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                <li><a href="Cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <%
+
     String db = "team9";
     String admin = "root";
     String adminPassword = "cs157a@zaza";
@@ -88,6 +120,13 @@
             urlList.add(rsData.getString("url"));
             countRows++;
         }
+
+        if(countRows == 0){
+            out.println("<div class=\"container\">\n" +
+                    "    <h1 class=\"my-3\">No history available</h1>\n" +
+                    "</div>");
+        }
+
         out.println("<div class=\"container\">\n" +
                 "    <h1 class=\"my-3\">Complete Order History</h1>");
         //Print everything out using a loop, using the number of rows
