@@ -38,8 +38,6 @@
 
         session.invalidate();
 
-
-
     }
-    response.sendRedirect("../user/LogIn.html");
+    response.sendRedirect("http://localhost:8080"); // welcome page
 %>
