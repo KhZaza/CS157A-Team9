@@ -5,7 +5,9 @@ body {
     margin:0;
     padding:0;
     font-family: sans-serif;
-    background: radial-gradient(#3498db,#333333);
+    background-image: url("https://i.ibb.co/3dJbs84/lucid-air-pure-touring-grand-touring-1200x630.webp");
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 input[type="submit"]{
 width: 100px;

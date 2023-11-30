@@ -1,4 +1,6 @@
-<%@ page import="java.sql.*" %><%--
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: ivanachen
   Date: 11/29/23
@@ -17,102 +19,106 @@
     String db = "team9";
     String admin = "root";
     String adminPassword = "ivanachen";
-    String id = request.getParameter("partId");
-    String category = request.getParameter("category");
-    String name = request.getParameter("name");
-    String price = request.getParameter("price");
-    int s_price; // variable to hold price as an int. Separate because will need to check nulls with string price
-    String description = request.getParameter("description");
-    String url = request.getParameter("url");;
-    boolean updateSuccessful = false; //Checks to see if the query was executed properly or not.
 
-    PreparedStatement psUpdate = null;
+    PreparedStatement psCount = null; //Count number of total orders a customer has
     PreparedStatement psPart = null;
+    PreparedStatement psAll = null; // query it all because of innerjoin
     Connection con = null;
-    ResultSet rsPart = null;
-
+    ResultSet rsData = null;
+    ResultSet rsCount = null;
+    String user = (String)session.getAttribute("user");
+    int numOrders = 0;
+    List<Integer> partIDList = new ArrayList<>();
+    List<Integer> qtyList = new ArrayList<>();
+    List<Integer> orderIDList = new ArrayList<>();
+    List<String> shippingList = new ArrayList<>();
+    List<Integer> totalPriceList = new ArrayList<>();
+    List<Integer> partPriceList = new ArrayList<>();
+    List<String> urlList = new ArrayList<>();
+    int countRows = 0; // Using this instead of order#
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
+    /*
+        //First, See how many past orders a customer has.
+        String queryCount = """
+                SELECT  Count(*)
+                FROM customer
+                INNER JOIN `order` o ON o.CustomerID = Username
+                WHERE Username = ?""";
 
-        //First, get the old information of the part
-        String queryPart = "SELECT Category,Name,`Sell Price`, Description, URL FROM Part WHERE PartID = " + id;
-        System.out.print(queryPart);
-        psPart = con.prepareStatement(queryPart);
-        rsPart = psPart.executeQuery();
-
-        String queryUpdate = "UPDATE Part SET Category = ?, Name = ?, `Sell Price` = ?, Description = ?, URL = ? WHERE partID =" + id;
-        psUpdate = con.prepareStatement(queryUpdate);
-
-        //Loop the old part. If the admin didn't enter anything or it's null, then we will use the
-        // old part when we update.
-        while (rsPart.next()) {
-            //Check to make sure there is no nulls and if the admin enters nothing, then no updates
-            //aka, we will use the old part query as part of our update.
-            if (category == null || category.isEmpty()) {category = rsPart.getString(1); }
-            if (name == null || name.isEmpty()) {name = rsPart.getString(2);}
-            if (price == null || price.isEmpty()) {price = String.valueOf(rsPart.getInt(3));}
-            if (description == null || description.isEmpty()) {description = rsPart.getString(4);}
-            if (url == null || url.isEmpty()) {url = rsPart.getString(5);}
+        psCount = con.prepareStatement(queryCount);
+        psCount.setString(1,user);
+        rsCount = psCount.executeQuery();
+        while(rsCount.next()){
+            numOrders = rsCount.getInt(1); // not using for now but this counts the Total order num user has
         }
 
-        psUpdate.setString(1, category);
-        psUpdate.setString(2, name);
-        psUpdate.setString(3, price);
-        psUpdate.setString(4, description);
-        psUpdate.setString(5, url);
+     */
+       String queryData = "SELECT  \n" +
+               "    p.PartID AS PartID,\n" +
+               "    ad.QTY,\n" +
+               "    o.OrderID,\n" +
+               "    o.`shipping address`,\n" +
+               "    p.`Sell Price`,\n" +
+               "    ca.`Total Price`,\n" +
+               "    p.url\n" +
+               "FROM Customer c\n" +
+               "INNER JOIN Access a ON c.Username = a.Username\n" +
+               "INNER JOIN Cart ca ON a.CartID = ca.CartID\n" +
+               "INNER JOIN Becomes b ON ca.CartID = b.CartID\n" +
+               "INNER JOIN `order` o ON b.OrderID = o.OrderID\n" +
+               "INNER JOIN `Added to` ad ON ca.CartID = ad.CartID\n" +
+               "INNER JOIN Part p ON ad.PartID = p.PartID\n" +
+               "WHERE c.username = ?\n" +
+               "ORDER BY OrderID DESC;\n";
+        psAll = con.prepareStatement(queryData);
+        psAll.setString(1,user);
+        rsData = psAll.executeQuery();
+        while(rsData.next()){
+            //Put everything into lists to print
+            partIDList.add(rsData.getInt("PartID"));
+            qtyList.add(rsData.getInt("QTY"));
+            orderIDList.add(rsData.getInt("OrderID"));
+            shippingList.add(rsData.getString("shipping address"));
+            partPriceList.add(rsData.getInt("sell price"));
+            totalPriceList.add(rsData.getInt("Total Price")); // currently wrong in db since cart not work
+            urlList.add(rsData.getString("url"));
+            countRows++;
+        }
+        out.println("<div class=\"container\">\n" +
+                "    <h1 class=\"my-3\">Complete Order History</h1>");
+        //Print everything out using a loop, using the number of rows
+        for(int i = 0; i < countRows; i++){
+            out.println( "<div class=\"card mb-3\">\n" +
+                    "        <div class=\"card-header bg-primary text-white\">\n" +
+                    "            Order " + orderIDList.get(i) + "-" +
+                    "Shipping Address: " + shippingList.get(i) + "-" +
+                    "        </div>\n" +
+                    "        <ul class=\"list-group list-group-flush\">\n" +
+                    "            <li class=\"list-group-item\">\n" +
+                    "                <img src= \"" + urlList.get(i) + "\"" +
+                    "alt=\"Item 1\" " +
+                    "style=\"width:100px;\">\n" +
+                    "                Item " + partIDList.get(i) + " - $" +
+                    partPriceList.get(i) + "- QTY: " + qtyList.get(i) +
+                    "  </li> </ul>  </div>");
+        }
+        out.println("</div>"); // container
 
-        psUpdate.execute();
-        //If we reach here, the update was successful.
-        updateSuccessful = true;
 
     } catch (ClassNotFoundException | SQLException e) {
         System.out.println("error in Update Stock" + e) ;
     }
     finally {
         //close in opposite order bc resources dependecy order
-        try { if (psUpdate != null) psUpdate.close(); } catch (SQLException e) {e.printStackTrace(); }
-        try { if (rsPart != null) rsPart.close(); } catch (SQLException e) {e.printStackTrace(); }
-        try { if (psPart != null) psPart.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (rsData != null) rsData .close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (psAll != null) psAll.close(); } catch (SQLException e) {e.printStackTrace(); }
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
 %>
-
-<div class="container">
-    <h1 class="my-3">Order History</h1>
-    <div class="card mb-3">
-        <div class="card-header bg-primary text-white">
-            Order 1: (Shipping address used, Status, Total Price)
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <img src="item1.jpg" alt="Item 1" style="width:100px;">
-                Item 1 - $20.00 - Quantity: 2
-            </li>
-            <li class="list-group-item">
-                <img src="item2.jpg" alt="Item 2" style="width:100px;">
-                Item 2 - $15.00 - Quantity: 1
-            </li>
-        </ul>
-    </div>
-    <div class="card mb-3">
-        <div class="card-header bg-primary text-white">
-            Order 2: (Shipping address used, Status, Total Price)
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <img src="item3.jpg" alt="Item 3" style="width:100px;">
-                Item 3 - $30.00 - Quantity: 1
-            </li>
-            <li class="list-group-item">
-                <img src="item4.jpg" alt="Item 4" style="width:100px;">
-                Item 4 - $25.00 - Quantity: 3
-            </li>
-        </ul>
-    </div>
-</div>
 
 
 </body>
