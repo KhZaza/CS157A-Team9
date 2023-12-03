@@ -50,7 +50,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
     PreparedStatement psCount = null; //Count number of total orders a customer has
     PreparedStatement psPart = null;
@@ -106,6 +106,8 @@
                "INNER JOIN Part p ON ad.PartID = p.PartID\n" +
                "WHERE c.username = ?\n" +
                "ORDER BY OrderID DESC;\n";
+
+
         psAll = con.prepareStatement(queryData);
         psAll.setString(1,user);
         rsData = psAll.executeQuery();

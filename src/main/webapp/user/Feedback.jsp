@@ -17,7 +17,7 @@
     // Database credentials
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
     // Check if this is a POST request (i.e., form submission)
         // Capture the form data
