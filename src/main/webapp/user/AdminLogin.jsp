@@ -10,10 +10,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="AdminLogin.css">
+
+
     <title>Partly</title>
 </head>
-<body>
+<body onload = "hamburgerMenu();">
+<!-- NavBar -->
+<header >
+    <h1> <a href="../index.html" style="width: 20%; text-decoration: none; color: #00cfff;">Partly</a></h1>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <nav class="nav-bar">
+
+    </nav>
+</header>
 
 <!--First, check if user incorrectly logged in-->
 <%
@@ -26,7 +41,7 @@
 
 %>
 
-
+<div class="bg-img">
 <div class="login-box">
     <h2>Admin Login</h2>
     <form action ="AdminServlet" method = "POST">
@@ -47,6 +62,7 @@
 
         </a>
     </form>
+</div>
 </div>
 </body>
 </html>
