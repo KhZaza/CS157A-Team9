@@ -24,6 +24,13 @@
         }
     }
 </script>
+<style>
+    .button-hover-effect:hover {
+        background-color: #f2f2f2; /* Light grey background on hover */
+        cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    }
+</style>
+
 <body>
 <!-- NavBar -->
 <header>
@@ -56,7 +63,7 @@
                 <h1>Thank you for using Partly !</h1>
             <li>
                 <form action="Catalog.jsp">
-                    <a href="Catalog.jsp"><input style="width: 8rem;" type="submit" value="Category"></a>
+                    <input class="button-hover-effect" style="width: 12rem; height: 3rem; font-size: 1.5rem;" type="submit" value="Category">
                 </form>
             </li>
 
@@ -65,7 +72,7 @@
             <!-- Pick one this or the one before -->
             <li>
                 <form action="LogOut.jsp">
-                    <a href="LogOut.jsp"><input style="width: 8rem;" type="submit" value="Log Out"></a>
+                    <input class="button-hover-effect" style="width: 12rem; height: 3rem; font-size: 1.5rem;" type="submit" value="Log Out">
                 </form>
             </li>
         </ul>
