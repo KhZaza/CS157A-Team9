@@ -20,43 +20,82 @@
     String address = request.getParameter("address");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
-
-    //Current user accessing page
     HttpSession sess = (HttpSession) request.getSession(true);
     String username = (String)sess.getAttribute("user");
 
+    Connection con = null;
+    PreparedStatement preparedStatement = null;
+
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
-                admin,adminPassword);
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+                admin, adminPassword);
 
-        //sql insert statement
-        String query = "UPDATE customer SET FName = ?, LName = ?,Email = ?, Address = ?  WHERE Username = ?;";
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        preparedStatement.setString(1,firstName);
-        preparedStatement.setString(2,lastName);
-        preparedStatement.setString(3,email);
-        preparedStatement.setString(4,address);
-        preparedStatement.setString(5,username);
+        StringBuilder query = new StringBuilder("UPDATE customer SET ");
+        boolean first = true;
 
-        preparedStatement.execute();
-        preparedStatement.close();
-        con.close();
+        if (firstName != null && !firstName.isEmpty()) {
+            query.append("FName = ?");
+            first = false;
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            if (!first) query.append(", ");
+            query.append("LName = ?");
+            first = false;
+        }
+        if (email != null && !email.isEmpty()) {
+            if (!first) query.append(", ");
+            query.append("Email = ?");
+            first = false;
+        }
+        if (address != null && !address.isEmpty()) {
+            if (!first) query.append(", ");
+            query.append("Address = ?");
+        }
+        query.append(" WHERE Username = ?;");
 
-        //Sends the user to the login page after creation
-        out.println("<script type=\"text/javascript\">");
-        out.println("alert('Changed Information');");
-        out.println("</script>");
-        response.sendRedirect("Catalog.jsp");
+        preparedStatement = con.prepareStatement(query.toString());
 
+        int paramIndex = 1;
+        if (firstName != null && !firstName.isEmpty()) {
+            preparedStatement.setString(paramIndex++, firstName);
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            preparedStatement.setString(paramIndex++, lastName);
+        }
+        if (email != null && !email.isEmpty()) {
+            preparedStatement.setString(paramIndex++, email);
+        }
+        if (address != null && !address.isEmpty()) {
+            preparedStatement.setString(paramIndex++, address);
+        }
+        preparedStatement.setString(paramIndex, username);
+
+        if (paramIndex > 1) { // Indicates that at least one field was set
+            preparedStatement.execute();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Changed Information');");
+            out.println("</script>");
+            response.sendRedirect("Catalog.jsp");
+        } else {
+            // No fields to update
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('No Information to Change');");
+            out.println("</script>");
+            // Redirect or handle as needed
+        }
     } catch (ClassNotFoundException | SQLException e) {
         out.println("Error while signing up");
         out.println(e);
         //response.sendRedirect("SignUp.html");
+    } finally {
+        if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException e) { /* ignored */ }
+        if (con != null) try { con.close(); } catch (SQLException e) { /* ignored */ }
     }
 %>
+
 
 </body>
 </html>

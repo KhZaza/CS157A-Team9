@@ -86,7 +86,7 @@
 <div style="margin: 20px" class="note">
     <p><em>FYI: Leave the textbox empty if you don't want to update that specific attribute.</em></p>
 </div>
-<form action="/update-stock" method="post">
+<form action="UpdateStock.jsp" method="post">
     <label for="partId">Part ID:</label><br>
     <input type="text" id="partId" name="partId" required><br>
 
@@ -108,8 +108,6 @@
 
     <label for="description">Description:</label><br>
     <textarea id="description" name="description" rows="4" cols="50"></textarea>
-
-
 
     <input type="submit" value="Submit">
 </form>

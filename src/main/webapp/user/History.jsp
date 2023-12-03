@@ -1,551 +1,166 @@
-
-<%@ page import ="java.sql.*"%>
+<%@ page import="java.sql.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-
-<!DOCTYPE html>
-<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <!-- Required meta tags -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="Codescandy">
-
-    <!-- Google tag (gtag.js) -->
-    <script async="" src="./Order History/js"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-M8S4MT3EYG');
-    </script>
-
-
-
-    <script>
-        // Render blocking JS:
-        if (localStorage.theme) document.documentElement.setAttribute("data-theme", localStorage.theme);
-    </script>
-
-    <!-- Favicon icon-->
-
-
-    <!-- Libs CSS -->
-    <link href="./Order History/feather.css" rel="stylesheet">
-    <link href="./Order History/bootstrap-icons.css" rel="stylesheet">
-    <link href="./Order History/materialdesignicons.min.css" rel="stylesheet">
-    <link href="./Order History/simplebar.min.css" rel="stylesheet">
-
-
-
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="./Order History/theme.min.css">
-    <title>Order History </title>
-    <style>.rdp {
-        --rdp-cell-size: 40px;
-        --rdp-accent-color: #0000ff;
-        --rdp-background-color: #e7edff;
-        --rdp-accent-color-dark: #3003e1;
-        --rdp-background-color-dark: #180270;
-        --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
-        --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75); /* Outline border for focused _and_ selected elements */
-
-        margin: 1em;
-    }
-
-    .rdp-vhidden {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        background: transparent;
-        border: 0;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        position: absolute !important;
-        top: 0;
-        width: 1px !important;
-        height: 1px !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        clip: rect(1px, 1px, 1px, 1px) !important;
-        border: 0 !important;
-    }
-
-    /* Buttons */
-    .rdp-button_reset {
-        appearance: none;
-        position: relative;
-        margin: 0;
-        padding: 0;
-        cursor: default;
-        color: inherit;
-        outline: none;
-        background: none;
-        font: inherit;
-
-        -moz-appearance: none;
-        -webkit-appearance: none;
-    }
-
-    .rdp-button {
-        border: 2px solid transparent;
-    }
-
-    .rdp-button[disabled] {
-        opacity: 0.25;
-    }
-
-    .rdp-button:not([disabled]) {
-        cursor: pointer;
-    }
-
-    .rdp-button:focus:not([disabled]),
-    .rdp-button:active:not([disabled]) {
-        color: inherit;
-        border: var(--rdp-outline);
-        background-color: var(--rdp-background-color);
-    }
-
-    .rdp-button:hover:not([disabled]) {
-        background-color: var(--rdp-background-color);
-    }
-
-    .rdp-months {
-        display: flex;
-    }
-
-    .rdp-month {
-        margin: 0 1em;
-    }
-
-    .rdp-month:first-child {
-        margin-left: 0;
-    }
-
-    .rdp-month:last-child {
-        margin-right: 0;
-    }
-
-    .rdp-table {
-        margin: 0;
-        max-width: calc(var(--rdp-cell-size) * 7);
-        border-collapse: collapse;
-    }
-
-    .rdp-with_weeknumber .rdp-table {
-        max-width: calc(var(--rdp-cell-size) * 8);
-        border-collapse: collapse;
-    }
-
-    .rdp-caption {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0;
-        text-align: left;
-    }
-
-    .rdp-multiple_months .rdp-caption {
-        position: relative;
-        display: block;
-        text-align: center;
-    }
-
-    .rdp-caption_dropdowns {
-        position: relative;
-        display: inline-flex;
-    }
-
-    .rdp-caption_label {
-        position: relative;
-        z-index: 1;
-        display: inline-flex;
-        align-items: center;
-        margin: 0;
-        padding: 0 0.25em;
-        white-space: nowrap;
-        color: currentColor;
-        border: 0;
-        border: 2px solid transparent;
-        font-family: inherit;
-        font-size: 140%;
-        font-weight: bold;
-    }
-
-    .rdp-nav {
-        white-space: nowrap;
-    }
-
-    .rdp-multiple_months .rdp-caption_start .rdp-nav {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-    }
-
-    .rdp-multiple_months .rdp-caption_end .rdp-nav {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-    }
-
-    .rdp-nav_button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: var(--rdp-cell-size);
-        height: var(--rdp-cell-size);
-        padding: 0.25em;
-        border-radius: 100%;
-    }
-
-    /* ---------- */
-    /* Dropdowns  */
-    /* ---------- */
-
-    .rdp-dropdown_year,
-    .rdp-dropdown_month {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .rdp-dropdown {
-        appearance: none;
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        cursor: inherit;
-        opacity: 0;
-        border: none;
-        background-color: transparent;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-    }
-
-    .rdp-dropdown[disabled] {
-        opacity: unset;
-        color: unset;
-    }
-
-    .rdp-dropdown:focus:not([disabled]) + .rdp-caption_label,
-    .rdp-dropdown:active:not([disabled]) + .rdp-caption_label {
-        border: var(--rdp-outline);
-        border-radius: 6px;
-        background-color: var(--rdp-background-color);
-    }
-
-    .rdp-dropdown_icon {
-        margin: 0 0 0 5px;
-    }
-
-    .rdp-head {
-        border: 0;
-    }
-
-    .rdp-head_row,
-    .rdp-row {
-        height: 100%;
-    }
-
-    .rdp-head_cell {
-        vertical-align: middle;
-        text-transform: uppercase;
-        font-size: 0.75em;
-        font-weight: 700;
-        text-align: center;
-        height: 100%;
-        height: var(--rdp-cell-size);
-        padding: 0;
-    }
-
-    .rdp-tbody {
-        border: 0;
-    }
-
-    .rdp-tfoot {
-        margin: 0.5em;
-    }
-
-    .rdp-cell {
-        width: var(--rdp-cell-size);
-        height: 100%;
-        height: var(--rdp-cell-size);
-        padding: 0;
-        text-align: center;
-    }
-
-    .rdp-weeknumber {
-        font-size: 0.75em;
-    }
-
-    .rdp-weeknumber,
-    .rdp-day {
-        display: flex;
-        overflow: hidden;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        width: var(--rdp-cell-size);
-        max-width: var(--rdp-cell-size);
-        height: var(--rdp-cell-size);
-        margin: 0;
-        border: 2px solid transparent;
-        border-radius: 100%;
-    }
-
-    .rdp-day_today:not(.rdp-day_outside) {
-        font-weight: bold;
-    }
-
-    .rdp-day_selected:not([disabled]),
-    .rdp-day_selected:focus:not([disabled]),
-    .rdp-day_selected:active:not([disabled]),
-    .rdp-day_selected:hover:not([disabled]) {
-        color: white;
-        background-color: var(--rdp-accent-color);
-    }
-
-    .rdp-day_selected:focus:not([disabled]) {
-        border: var(--rdp-outline-selected);
-    }
-
-    .rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .rdp[dir='rtl'] .rdp-day_range_start:not(.rdp-day_range_end) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .rdp[dir='rtl'] .rdp-day_range_end:not(.rdp-day_range_start) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .rdp-day_range_end.rdp-day_range_start {
-        border-radius: 100%;
-    }
-
-    .rdp-day_range_middle {
-        border-radius: 0;
-    }
-    </style><style>.hidden-sidebar .Sidebar__TodoListContainer {
-        display: none;
-    }
-
-    .hidden-sidebar .todo-list-header {
-        display: none;
-    }
-
-    .hidden-sidebar .to-do-list {
-        display: none;
-    }
-
-    #tfc-wall-rose {
-        position: relative;
-    }
-
-    body {
-        --tfc-dark-mode-text-primary: #e4e4e7;
-        --tfc-dark-mode-text-secondary: #71717a;
-        --tfc-dark-mode-bg-primary: #27272a;
-        --tfc-dark-mode-bg-primary-2: #3f3f46;
-        --tfc-dark-mode-bg-secondary: #52525b;
-
-    }
-    </style></head>
-<!-- add border to the sides of the web page-->
-
-<nav style="border-radius: 0; margin-bottom: 0; background-color: #222; border: none; display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-    <div style= "margin-left:2px; margin-right: 2px; " class="navbar-header" style="margin: 0; display: flex; align-items: center;">
-        <h1 style="margin: 0; color: white; font-size: 18px;">Partly</h1>
-    </div>
-    <div style="text-align: right;">
-        <a href="LogOut.html" style="color: white; font-size: 16px; text-decoration: none; padding: 15px; display: inline-block;">
-            <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span> Your Account
-        </a>
+<%@ page import="java.util.ArrayList" %><%--
+  Created by IntelliJ IDEA.
+  User: ivanachen
+  Date: 11/29/23
+  Time: 11:00 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Partly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            border-radius: 0; /* Remove border radius for a flat design */
+            margin-bottom: 0; /* Remove default bottom margin */
+        }
+        .navbar .container-fluid {
+            padding-left: 0; /* Remove padding for full width */
+            padding-right: 0; /* Remove padding for full width */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="margin-left: 2px" href="#">Partly</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="LogOut.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                <li><a href="Cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
-
-<body  data-new-gr-c-s-check-loaded="14.1141.0" data-gr-ext-installed="">
-
-<!-- card body-->
-<div style="margin: 20px" class="card-body">
-    <div class="mb-6">
-        <h4 class="mb-0">Your Order</h4>
-        <p>Check the status of recent orders.</p>
-    </div>
-
-
-    </div>
-
-
-
-</div>
-</section>
-</main>
-</div>
-
 <%
-
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
-        try {
+    PreparedStatement psCount = null; //Count number of total orders a customer has
+    PreparedStatement psPart = null;
+    PreparedStatement psAll = null; // query it all because of innerjoin
+    Connection con = null;
+    ResultSet rsData = null;
+    ResultSet rsCount = null;
+    String user = (String)session.getAttribute("user");
+    int numOrders = 0;
+    List<Integer> partIDList = new ArrayList<>();
+    List<Integer> qtyList = new ArrayList<>();
+    List<Integer> orderIDList = new ArrayList<>();
+    List<String> shippingList = new ArrayList<>();
+    List<Integer> totalPriceList = new ArrayList<>();
+    List<Integer> partPriceList = new ArrayList<>();
+    List<String> urlList = new ArrayList<>();
+    int countRows = 0; // Using this instead of order#
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+                admin, adminPassword);
+    /*
+        //First, See how many past orders a customer has.
+        String queryCount = """
+                SELECT  Count(*)
+                FROM customer
+                INNER JOIN `order` o ON o.CustomerID = Username
+                WHERE Username = ?""";
 
-            // Query to get distinct categories
-            String queryOrders = "SELECT * FROM `order`";
-            PreparedStatement psOrder = con.prepareStatement(queryOrders);
-            ResultSet rsOrder = psOrder.executeQuery();
+        psCount = con.prepareStatement(queryCount);
+        psCount.setString(1,user);
+        rsCount = psCount.executeQuery();
+        while(rsCount.next()){
+            numOrders = rsCount.getInt(1); // not using for now but this counts the Total order num user has
+        }
 
-
-            List<Integer> orderIDList = new ArrayList<>();
-            List<String> statusList = new ArrayList<>();
-            List<Integer> TotalPriceList = new ArrayList<>();
-            List<String> ContactInfolist = new ArrayList<>();
-            List<String> shippingAddresslist = new ArrayList<>();
-            List<String> PaymentMethodList = new ArrayList<>();
-
-
-            while (rsOrder.next()) {
-                orderIDList.add(rsOrder.getInt("OrderID"));
-                statusList.add(rsOrder.getString("Status"));
-                TotalPriceList.add(rsOrder.getInt("Total Price"));
-                ContactInfolist.add(rsOrder.getString("Contact Info"));
-                shippingAddresslist.add(rsOrder.getString("Shipping Address"));
-                PaymentMethodList.add(rsOrder.getString("Payment Method"));
-
-            }
-
-            // Displaying the orders
-
-            out.println("<div class=\"mb-8\" style=\"margin: 15px;\">");
-            for (int i = 0; i < orderIDList.size(); i++) {
-                out.println(
-                        "<div class=\"border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between\">" +
-                                "<div class=\"d-flex align-items-center justify-content-between\">" +
-                                "<h5 class=\"mb-0\"><span style=\"font-weight:bold;\">CartID:</span> " + orderIDList.get(i) + "</h5>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Status:</span> " + statusList.get(i) + "</span> <br>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Payment Method:</span> " + PaymentMethodList.get(i) + "</span>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">shipping address:</span> " + shippingAddresslist.get(i) + "</span>" +
-                                "</div>" +
-                                "<div class=\"d-flex align-items-center justify-content-between\">" +
-                                "<a href=\"\">Manage Order</a>" +
-                                "<a href=\"\" class=\"ms-6\">View Invoice</a>" +
-                                "<a href=\"\" class=\"ms-6\">Total Price: " + TotalPriceList.get(i) + "</a>" +
-                                "</div>" +
-                                "</div>");
+     */
+       String queryData = "SELECT  \n" +
+               "    p.PartID AS PartID,\n" +
+               "    ad.QTY,\n" +
+               "    o.OrderID,\n" +
+               "    o.`shipping address`,\n" +
+               "    p.`Sell Price`,\n" +
+               "    ca.`Total Price`,\n" +
+               "    p.url\n" +
+               "FROM Customer c\n" +
+               "INNER JOIN Access a ON c.Username = a.Username\n" +
+               "INNER JOIN Cart ca ON a.CartID = ca.CartID\n" +
+               "INNER JOIN Becomes b ON ca.CartID = b.CartID\n" +
+               "INNER JOIN `order` o ON b.OrderID = o.OrderID\n" +
+               "INNER JOIN `Added to` ad ON ca.CartID = ad.CartID\n" +
+               "INNER JOIN Part p ON ad.PartID = p.PartID\n" +
+               "WHERE c.username = ?\n" +
+               "ORDER BY OrderID DESC;\n";
 
 
-            }
-            out.println("</div></div><br>");
+        psAll = con.prepareStatement(queryData);
+        psAll.setString(1,user);
+        rsData = psAll.executeQuery();
+        while(rsData.next()){
+            //Put everything into lists to print
+            partIDList.add(rsData.getInt("PartID"));
+            qtyList.add(rsData.getInt("QTY"));
+            orderIDList.add(rsData.getInt("OrderID"));
+            shippingList.add(rsData.getString("shipping address"));
+            partPriceList.add(rsData.getInt("sell price"));
+            totalPriceList.add(rsData.getInt("Total Price")); // currently wrong in db since cart not work
+            urlList.add(rsData.getString("url"));
+            countRows++;
+        }
 
+        if(countRows == 0){
+            out.println("<div class=\"container\">\n" +
+                    "    <h1 class=\"my-3\">No history available</h1>\n" +
+                    "</div>");
+        }
 
-            // Close resources
-            rsOrder.close();
-            psOrder.close();
-            con.close();
-
+        out.println("<div class=\"container\">\n" +
+                "    <h1 class=\"my-3\">Complete Order History</h1>");
+        //Print everything out using a loop, using the number of rows
+        for(int i = 0; i < countRows; i++){
+            out.println( "<div class=\"card mb-3\">\n" +
+                    "        <div class=\"card-header bg-primary text-white\">\n" +
+                    "            Order " + orderIDList.get(i) + "-" +
+                    "Shipping Address: " + shippingList.get(i) + "-" +
+                    "        </div>\n" +
+                    "        <ul class=\"list-group list-group-flush\">\n" +
+                    "            <li class=\"list-group-item\">\n" +
+                    "                <img src= \"" + urlList.get(i) + "\"" +
+                    "alt=\"Item 1\" " +
+                    "style=\"width:100px;\">\n" +
+                    "                Item " + partIDList.get(i) + " - $" +
+                    partPriceList.get(i) + "- QTY: " + qtyList.get(i) +
+                    "  </li> </ul>  </div>");
+        }
+        out.println("</div>"); // container
 
 
     } catch (ClassNotFoundException | SQLException e) {
-        out.println("Error from history");
-        out.println(e);
+        System.out.println("error in Update Stock" + e) ;
     }
-
+    finally {
+        //close in opposite order bc resources dependecy order
+        try { if (rsData != null) rsData .close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (psAll != null) psAll.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
 %>
 
 
-
-
-<!-- Scripts -->
-<!-- Libs JS -->
-<script src="./Order History/jquery.min.js.download"></script>
-<script src="./Order History/bootstrap.bundle.min.js.download"></script>
-<script src="./Order History/simplebar.min.js.download"></script>
-
-
-<!-- Theme JS -->
-<script src="./Order History/theme.min.js.download"></script>
-
-
-
-
-
-
-</body><style>
-    @media print {
-        #simplifyJobsContainer {
-            display: none;
-        }
-    }
-</style><div id="simplifyJobsContainer" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: visible; z-index: 2147483647;"><span><template shadowrootmode="open"><link rel="stylesheet" href="chrome-extension://pbanhockgagggenencehbnadejlgchfc/css/styles.css"><style>
-  :host {
-      all: initial;
-      line-height: 1.5;
-      -webkit-text-size-adjust: 100%;
-      -moz-tab-size: 4;
-      -o-tab-size: 4;
-      tab-size: 4;
-      font-family: Palanquin, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  }
-  * {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(203, 213, 225, 1) transparent;
-  }
-  *::-webkit-scrollbar {
-      width: 6px;
-  }
-  *::-webkit-scrollbar-track {
-      background: transparent;
-  }
-  *::-webkit-scrollbar-thumb {
-      background-color: rgba(203, 213, 225, 1);
-      border-radius: 3px;
-      border: 0;
-  }
-</style></template></span></div><script id="simplifyJobsPageScript" src="chrome-extension://pbanhockgagggenencehbnadejlgchfc/js/pageScript.bundle.js"></script><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
-    div.grammarly-desktop-integration {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select:none;
-        user-select:none;
-    }
-
-    div.grammarly-desktop-integration:before {
-        content: attr(data-content);
-    }
-</style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration>
+</body>
 </html>

@@ -259,12 +259,12 @@ DROP TABLE IF EXISTS `manage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `manage` (
-  `AdminID_M` varchar(255) NOT NULL,
+  `AdminID` varchar(255) NOT NULL,
   `PartID` int DEFAULT NULL,
   `QTY` int NOT NULL,
   KEY `PartID_idx` (`PartID`),
-  KEY `AdminID_idx` (`AdminID_M`),
-  CONSTRAINT `AdminID` FOREIGN KEY (`AdminID_M`) REFERENCES `admin` (`AdminID`),
+  KEY `AdminID_idx` (`AdminID`),
+  CONSTRAINT `AdminID` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`),
   CONSTRAINT `PartID` FOREIGN KEY (`PartID`) REFERENCES `part` (`PartID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

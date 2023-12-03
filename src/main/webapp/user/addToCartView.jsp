@@ -7,13 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;
                                             charset=UTF-8">
-    <%
-        //prevents caching at the proxy server so it updates after refreshing
-        response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
-        response.setHeader("Pragma","no-cache"); //HTTP 1.0
-        response.setDateHeader ("Expires", 0);
-
-    %>
+    <title>Partly</title>
 </head>
 <body>
 
@@ -35,19 +29,29 @@
     Connection con = null;
 
 
+    //Need to do it so that if the user doesnt have an account yet, then we
+    // need to create a cartID with the specified information.
+    // We need to have another attribute in Cart that specifies if the Cart turned into orders or not
+    // Like a boolean, if this is 0 = user doesnt have a cart yet so make one
+    // If 1 = user already has a cart so we will add the parts to that cart
+    // When the user clicks the order, then we will change the cart to 0.
+
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
-        String q_username = "SELECT username,password FROM customer WHERE username = ?";
+        //First, check if user has a cart or not. If doesnt have a cart, then create a cart
+        //
+
+        String queryCart = "INSERT INTO Cart(CartID, Items, VALUES()";
         psUsername = con.prepareStatement(q_username);
         psUsername.setString(1,username);
         rs_username = psUsername.executeQuery();
 
         while(rs_username.next()){
-           db_password = rs_username.getString(2);
-           isPassword = BCrypt.verifyer().verify(password.toCharArray(),db_password.toCharArray()).verified;
+            db_password = rs_username.getString(2);
+            isPassword = BCrypt.verifyer().verify(password.toCharArray(),db_password.toCharArray()).verified;
 
         }
         if(isPassword){

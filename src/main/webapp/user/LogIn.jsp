@@ -26,19 +26,24 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String db_password = "";
     boolean isPassword = false;
 
+    ResultSet rs_username = null;
+    PreparedStatement psUsername = null;
+    Connection con = null;
+
+
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
         String q_username = "SELECT username,password FROM customer WHERE username = ?";
-        PreparedStatement psUsername = con.prepareStatement(q_username);
+        psUsername = con.prepareStatement(q_username);
         psUsername.setString(1,username);
-        ResultSet rs_username = psUsername.executeQuery();
+        rs_username = psUsername.executeQuery();
 
         while(rs_username.next()){
            db_password = rs_username.getString(2);
@@ -61,13 +66,16 @@
 
 
 
-        rs_username.close();
-        psUsername.close();
-        con.close();
 
 
     } catch (ClassNotFoundException | SQLException e) {
         response.sendRedirect("SignUp.html");
+    }
+    finally{
+        try { if (rs_username != null) rs_username .close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (psUsername != null) psUsername.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (con != null) con.close(); } catch (SQLException e) {e.printStackTrace(); }
+
     }
 %>
 </body>

@@ -16,7 +16,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String name = request.getParameter("name");
     String category = request.getParameter("category");
     int price = Integer.parseInt(request.getParameter("price"));
@@ -56,14 +56,14 @@
                 // Access the auto-incremented primary key value
                 int generatedKey = rs_generatedKeys.getInt(1);
 
-                //Add the PK to the DB
-                String queryManage = "INSERT INTO Manage(AdminID_M, PartID, QTY) VALUES(?,?,?)";
-                psManage = con.prepareStatement(queryManage);
-                psManage.setString(1,(String)session1.getAttribute("admin")); // admin id is stored in session
+                //Add the PK to the DB so that the relation Feedback x Give x Customer is satisfied
+                String queryGive = "INSERT INTO Gives(Username, FeedbackID) VALUES(?,?)";
+                psManage = con.prepareStatement(queryGive);
+                psManage.setString(1,(String)session.getAttribute("admin")); // admin id is stored in session
                 psManage.setInt(2,generatedKey);
                 psManage.setInt(3,qty);
 
-                psManage.execute(); // ? or executeQuery ?
+                psManage.execute(); //
 
             }
         }
