@@ -193,7 +193,7 @@
 <body  data-new-gr-c-s-check-loaded="14.1141.0" data-gr-ext-installed="">
 
 <!-- card body-->
-<div style="margin: 0px" class="card-body">
+<div style="margin: 20px" class="card-body">
   <div class="mb-6">
     <h1 class="mb-0">Feedback</h1>
     <h4>Check the User Feedback.</h4>
@@ -214,7 +214,7 @@
 
   String db = "team9";
   String admin = "root";
-  String adminPassword = "ivanachen";
+  String adminPassword = "cs157a@zaza";
   boolean feedbackSuccess = false;
 
 

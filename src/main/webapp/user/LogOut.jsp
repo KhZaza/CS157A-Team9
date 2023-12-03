@@ -8,7 +8,7 @@
         //Remove from Cookies table
         String db = "team9";
         String admin = "root";
-        String adminPassword = "ivanachen";
+        String adminPassword = "cs157a@zaza";
         PreparedStatement psCookies = null;
         Connection con = null;
         PreparedStatement psUsername = null;

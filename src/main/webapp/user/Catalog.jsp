@@ -93,7 +93,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Items</a>
+            <a class="navbar-brand" href="Catalog.jsp">Items</a>
             <%
                 HttpSession sess2 = (HttpSession) request.getSession();
                 String usernameid = (String)sess2.getAttribute("user");
@@ -131,7 +131,7 @@
                             <%
                                 String db = "team9";
                                 String admin = "root";
-                                String adminPassword = "ivanachen";
+                                String adminPassword = "cs157a@zaza";
 
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
