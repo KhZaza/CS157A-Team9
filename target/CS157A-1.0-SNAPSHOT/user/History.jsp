@@ -40,7 +40,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="LogOut.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                <li><a href="Home.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
                 <li><a href="Cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
             </ul>
         </div>

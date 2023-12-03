@@ -104,7 +104,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-            <li><a href="LogOut.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+            <li><a href="Home.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
             <li><a href="Cart2.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 
         </ul>

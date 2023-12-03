@@ -380,7 +380,7 @@
         <h1 style="margin: 0; color: white; font-size: 18px;">Partly</h1>
     </div>
     <div style="text-align: right;">
-        <a href="LogOut.html" style="color: white; font-size: 16px; text-decoration: none; padding: 15px; display: inline-block;">
+        <a href="Home.html" style="color: white; font-size: 16px; text-decoration: none; padding: 15px; display: inline-block;">
             <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span> Your Account
         </a>
     </div>

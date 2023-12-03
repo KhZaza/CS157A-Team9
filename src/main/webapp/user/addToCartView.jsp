@@ -57,7 +57,7 @@
         if(isPassword){
             out.println("Its in the database!");
             session.setAttribute("username", username);
-            response.sendRedirect("LogOut.html?username=" + URLEncoder.encode(username, "UTF-8"));
+            response.sendRedirect("Home.html?username=" + URLEncoder.encode(username, "UTF-8"));
             //If user signed in, then add the 'cookies' part so username will be saved.
 
         }
