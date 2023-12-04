@@ -109,6 +109,8 @@
             out.println("<img src='" + rs.getString("URL") + "' alt='Item Image' />");
             out.println("<h2>" + rs.getString("Name") + "</h2>");
             out.println("<p>Price: $" + rs.getInt("Sell Price") + "</p>");
+            out.println("<p>Part Number: " + rs.getInt("PartID") + "</p>");
+
             out.println("<p>" + rs.getString("Description") + "</p>");
 
             // Add to Cart form

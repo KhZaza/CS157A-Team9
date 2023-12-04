@@ -248,10 +248,10 @@
         "<div class=\"col-sm-4\"><center>" +
         "    <div class=\"panel panel-primary\">" +
         "        <div class=\"panel-heading\">" + nameList.get(i) + "</div>" +
+        "       <div class=\"panel-heading\">Part number: " + idList.get(i) + "</div>" +
         "        <div class=\"panel-body\"><img src='" + urlList.get(i) + "' class=\"img-responsive\" style=\"width:75%\" alt=\"Image\"></div>" +
         "        <a href='itemDetails.jsp?partID=" + idList.get(i) + "'>View Description</a>" +
         "        <div class=\"panel-footer\">$" + priceList.get(i) + "</div>" +
-        "        <div class=\"panel-footer\">Quick Add To Cart</div>" +
         "    </div></center>" +
         "</div>"
     );

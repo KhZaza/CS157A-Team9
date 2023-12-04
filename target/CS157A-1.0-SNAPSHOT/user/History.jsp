@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="margin-left: 2px" href="#">Partly</a>
+            <a class="navbar-brand" style="margin-left: 2px" href="Catalog.jsp">Partly</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
@@ -73,7 +73,7 @@
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
-
+    /*
         //First, See how many past orders a customer has.
         String queryCount = """
                 SELECT  Count(*)
@@ -88,6 +88,7 @@
             numOrders = rsCount.getInt(1); // not using for now but this counts the Total order num user has
         }
 
+     */
        String queryData = "SELECT  \n" +
                "    p.PartID AS PartID,\n" +
                "    ad.QTY,\n" +
@@ -131,7 +132,7 @@
         out.println("<div class=\"container\">\n" +
                 "    <h1 class=\"my-3\">Complete Order History</h1>");
         //Print everything out using a loop, using the number of rows
-        for(int i = 0; i < numOrders; i++){
+        for(int i = 0; i < countRows; i++){
             out.println( "<div class=\"card mb-3\">\n" +
                     "        <div class=\"card-header bg-primary text-white\">\n" +
                     "            Order " + orderIDList.get(i) + "-" +
