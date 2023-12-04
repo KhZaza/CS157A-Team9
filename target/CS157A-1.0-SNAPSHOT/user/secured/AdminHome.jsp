@@ -66,6 +66,8 @@
     <a href ="DeleteStock.html">Remove Stock</a>
     <a href = "AdminUpdateStock.html">Update Stock</a>
     <a href = "AdminFeedbackView.jsp">View Feedback</a>
+    <a href = "AdminViewUsers.jsp">View users</a>
+
 
 </div>
 <%
