@@ -15,6 +15,51 @@
 <html>
 <head>
     <title>Partly</title>
+    <style>
+        .cart-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th, .cart-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .cart-table th {
+            background-color: #f4f4f4;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .checkout-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -22,7 +67,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
     String cartID = "";
 
     Connection con = null;
@@ -51,7 +96,7 @@
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
-                admin,adminPassword);
+                admin, adminPassword);
 
         //First, check if user has a cart or not. If doesnt have a cart, then create a cart
 
@@ -60,9 +105,10 @@
         psAccess.setString(1, username);
         rsAccess = psAccess.executeQuery();
         int cartExist = 0; // 0 means doesn't exist
-        while(rsAccess.next()){
+        while (rsAccess.next()) {
             cartExist = rsAccess.getInt(1); // would grab 1 if a current cart exist
         }
+        int totalPrice = 0;
         if (cartExist == 1) {
             //1 means it exists so then grab the cartID
             String queryCartID = "SELECT CartID FROM Access WHERE Username = ? AND currentCart=1";
@@ -92,36 +138,55 @@
 
             //Loop to get the total sum of the items
             // aka Multiply sell price by QTY of each item and add them all together
-            int totalPrice = 0;
             for (int i = 0; i < idList.size(); i++) {
                 totalPrice += priceList.get(i) * qtyList.get(i);
             }
             String queryCartPrice = "INSERT INTO Cart(CartID, `Total Price`) Values(?,?)";
             PreparedStatement psCartPrice = con.prepareStatement(queryCartPrice);
-            psCartPrice.setString(1,cartID);
+            psCartPrice.setString(1, cartID);
             psCartPrice.setInt(2, totalPrice);
             psCartPrice.execute();
             psCartPrice.close();
 
         }
 
-            /*************************************
-             * ADD THE HTML FOR CART HERE. SAME AS CATALOG!
-             * ~~~~ the lists to print are on top or like a few lines above this comment
-             */
+        out.println("<div class='cart-container'>");
+        out.println("<h2>Your Cart</h2>");
+        out.println("<table class='cart-table'>");
+        out.println("<thead>");
+        out.println("<tr>");
+        out.println("<th>Item</th>");
+        out.println("<th>Price</th>");
+        out.println("<th>Quantity</th>");
+        out.println("<th>Total</th>");
+        out.println("</tr>");
+        out.println("</thead>");
+        out.println("<tbody>");
+
+        for (int i = 0; i < nameList.size(); i++) {
+            out.println("<tr>");
+            out.println("<td>" + nameList.get(i) + "</td>");
+            out.println("<td>$" + priceList.get(i) + "</td>");
+            out.println("<td>" + qtyList.get(i) + "</td>");
+            out.println("<td>$" + (priceList.get(i) * qtyList.get(i)) + "</td>");
+            out.println("</tr>");
+        }
+
+        out.println("</tbody>");
+        out.println("</table>");
+        out.println("<div class='cart-total'>");
+        out.println("<p>Total Price: $" + totalPrice + "</p>");
+        out.println("<form method='post' action='path_to_checkout'>");
+        out.println("<button type='submit' class='checkout-button'>Submit Order</button>");
+        out.println("</form>");
+        out.println("</div>");
+        out.println("</div>");
 
 
-        /*************************************
-         * The code below this is the case where the user clicks "submit" in the cart. So like when a user "checksout"
-         *So we will need a button that will enter this code or idk if you want to add to different jsp
-         * ?might not need this if we have checkout.jsp? not too sure
-         */
-
-
-            //First need to create an orderID with that customerID
+        //First need to create an orderID with that customerID
         String queryOrder = "INSERT INTO ORDER(CustomerID) VALUES(?)";
         psOrder = con.prepareStatement(queryOrder, Statement.RETURN_GENERATED_KEYS);
-        psOrder.setString(1,username);
+        psOrder.setString(1, username);
 
         int affectedRows = psOrder.executeUpdate();
 
@@ -148,15 +213,6 @@
 
 
         }
-
-
-
-
-
-
-
-
-
 
 
     } catch (ClassNotFoundException | SQLException e) {

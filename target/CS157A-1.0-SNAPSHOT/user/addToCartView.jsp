@@ -24,13 +24,18 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
-    String db_password = "";
+    String adminPassword = "cs157a@zaza";
     String cartID = "";
-    boolean isPassword = false;
 
-    ResultSet rs_username = null;
-    PreparedStatement psUsername = null;
+
+
+    PreparedStatement psAdd = null;
+    PreparedStatement psAccess = null;
+    PreparedStatement psCart = null;
+    PreparedStatement ps_newAccess = null;
+    PreparedStatement psCartID = null;
+    ResultSet rsAccess = null;
+    ResultSet rsCartID = null;
     Connection con = null;
 
     try {
@@ -41,9 +46,9 @@
         //First, check if user has a cart or not. If doesnt have a cart, then create a cart
 
         String queryAccess = "SELECT EXISTS(SELECT * FROM Access WHERE Username = ? AND currentCart = 1)";
-        PreparedStatement psAccess = con.prepareStatement(queryAccess);
+        psAccess = con.prepareStatement(queryAccess);
         psAccess.setString(1, username);
-        ResultSet rsAccess = psAccess.executeQuery();
+        rsAccess = psAccess.executeQuery();
         int cartExist = 0; // -1 for checking.
         while(rsAccess.next()){
             cartExist = rsAccess.getInt(1);
@@ -51,9 +56,9 @@
         if (cartExist == 1){
             //1 means it exists so then grab the cartID
             String queryCartID = "SELECT CartID FROM Access WHERE Username = ? AND currentCart=1";
-            PreparedStatement psCartID = con.prepareStatement(queryCartID);
+            psCartID = con.prepareStatement(queryCartID);
             psCartID.setString(1,username);
-            ResultSet rsCartID = psCartID.executeQuery();
+            rsCartID = psCartID.executeQuery();
             System.out.println("im hereIF");
             while(rsCartID.next()){
                 cartID = rsCartID.getString(1);
@@ -67,14 +72,14 @@
             int randomNum = rand.nextInt(10000); // random range of 10000.
             cartID = Integer.toString(randomNum);
             String queryCart = "INSERT INTO Cart(CartID) VALUES(?)";
-            PreparedStatement psCart = con.prepareStatement(queryCart);
+            psCart = con.prepareStatement(queryCart);
             psCart.setString(1,cartID);
             psCart.execute();
 
             //Now insert this value into Access, currentCart is 1 because it will be our currentCart now.
             String query_newAccess = "INSERT INTO Access(Username,CartID,currentCart) VALUES(?,?,1)";
 
-            PreparedStatement ps_newAccess = con.prepareStatement(query_newAccess);
+            ps_newAccess = con.prepareStatement(query_newAccess);
             ps_newAccess.setString(1,username);
             ps_newAccess.setString(2,cartID);
 
@@ -86,7 +91,7 @@
 
         //Now take the Part and add it to the corresponding cartID
         String queryAdd = "INSERT INTO `Added To`(PartID, CartID, Qty) VALUES(?,?,?)";
-        PreparedStatement psAdd = con.prepareStatement(queryAdd);
+        psAdd = con.prepareStatement(queryAdd);
         psAdd.setInt(1,partID);
         psAdd.setString(2,cartID);
         psAdd.setInt(3,qty);
@@ -95,24 +100,32 @@
 
 
         //Let the user know the item has been successfully added to cart. Then redirect back to Catalog page.
+        /* THIS SCRIPT IS NOT WORKING!! :(
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Successfully added to cart! Redirecting back to Catalog page.');");
         out.println("</script>");
-        response.sendRedirect("Catalog.jsp");
 
-        //NEED TO CLOSE EVERYTHING IN FINAL LOOP
+         */
+        response.sendRedirect("Catalog.jsp"); // Just redirecting back to catalog page
+
 
 
     } catch (ClassNotFoundException | SQLException e) {
         out.println("error in addtocartview" + e);
     }
     finally{
-        //try { if (rs_username != null) rs_username .close(); } catch (SQLException e) {e.printStackTrace(); }
-        //try { if (psUsername != null) psUsername.close(); } catch (SQLException e) {e.printStackTrace(); }
-        //try { if (con != null) con.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (psAdd != null) psAdd.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if ( ps_newAccess != null)  ps_newAccess.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if ( psCart != null)  psCart.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if ( ps_newAccess != null)  ps_newAccess.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if ( rsCartID != null)  rsCartID.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if ( psCartID != null)  psCartID.close(); } catch (SQLException e) {e.printStackTrace(); }
+        try { if (con != null) con.close(); } catch (SQLException e) {e.printStackTrace(); }
 
     }
 %>
+
 </body>
 
 </html>
+

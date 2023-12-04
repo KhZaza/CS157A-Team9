@@ -105,7 +105,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
             <li><a href="Home.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-            <li><a href="Cart2.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            <li><a href="delete_after.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 
         </ul>
     </div>
@@ -131,7 +131,7 @@
                             <%
                                 String db = "team9";
                                 String admin = "root";
-                                String adminPassword = "ivanachen";
+                                String adminPassword = "cs157a@zaza";
 
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
