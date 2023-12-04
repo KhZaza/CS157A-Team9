@@ -123,8 +123,6 @@
             String queryJoin_PartAdd = "SELECT * from `Added To` INNER JOIN Part ON `Added To`.PartID = Part.PartID WHERE `Added To`.CartID = ?;";
 
             psData = con.prepareStatement(queryJoin_PartAdd);
-            psData.setString(1, CartID);
-
 
             ResultSet rsData = psData.executeQuery();
 
