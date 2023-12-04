@@ -15,6 +15,11 @@
 <html>
 <head>
     <title>Partly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <style>
         .cart-container {
             width: 80%;
@@ -58,11 +63,40 @@
         .checkout-button:hover {
             background-color: #45a049;
         }
+        .navbar {
+            margin-bottom: 50px;
+            border-radius: 0;
+        }
 
     </style>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="Catalog.jsp">Catalog</a>
+            <%
+                HttpSession sess2 = (HttpSession) request.getSession();
+                String usernameid = (String)sess2.getAttribute("user");
+                out.println("<a class=\"navbar-brand\" >Hi, " + usernameid + "</a>");
+            %>
 
+
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+            <li><a href="Home.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+            <li><a href="delete_after.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+
+        </ul>
+    </div>
+    </div>
+</nav>
 <%
 
     String db = "team9";
@@ -123,6 +157,8 @@
             String queryJoin_PartAdd = "SELECT * from `Added To` INNER JOIN Part ON `Added To`.PartID = Part.PartID WHERE `Added To`.CartID = ?;";
 
             psData = con.prepareStatement(queryJoin_PartAdd);
+            psData.setString(1, cartID);
+
 
             ResultSet rsData = psData.executeQuery();
 
@@ -141,10 +177,10 @@
             for (int i = 0; i < idList.size(); i++) {
                 totalPrice += priceList.get(i) * qtyList.get(i);
             }
-            String queryCartPrice = "INSERT INTO Cart(CartID, `Total Price`) Values(?,?)";
+            String queryCartPrice = "UPDATE Cart SET `Total Price` = ? WHERE cartID = ?";
             PreparedStatement psCartPrice = con.prepareStatement(queryCartPrice);
-            psCartPrice.setString(1, cartID);
-            psCartPrice.setInt(2, totalPrice);
+            psCartPrice.setString(2, cartID);
+            psCartPrice.setInt(1,totalPrice);
             psCartPrice.execute();
             psCartPrice.close();
 
@@ -176,7 +212,7 @@
         out.println("</table>");
         out.println("<div class='cart-total'>");
         out.println("<p>Total Price: $" + totalPrice + "</p>");
-        out.println("<form method='post' action='path_to_checkout'>");
+        out.println("<form method='post' action='Checkout.html'>");
         out.println("<button type='submit' class='checkout-button'>Submit Order</button>");
         out.println("</form>");
         out.println("</div>");
@@ -184,7 +220,7 @@
 
 
         //First need to create an orderID with that customerID
-        String queryOrder = "INSERT INTO ORDER(CustomerID) VALUES(?)";
+        String queryOrder = "INSERT INTO `ORDER`(CustomerID) VALUES(?)";
         psOrder = con.prepareStatement(queryOrder, Statement.RETURN_GENERATED_KEYS);
         psOrder.setString(1, username);
 
@@ -198,13 +234,15 @@
                 int generatedKey = rs_generatedKeys.getInt(1);
 
                 //Now insert into Becomes.
-                String queryBecomes = "INSERT INTO becomes(CartID, OrderID, `Order Date`) VALUES(?, ?, ?)";
-                LocalDate currentDate = LocalDate.now(); // Grab the current date now
+                String queryBecomes = "INSERT INTO becomes(CartID, OrderID, Order_Date) VALUES(?, ?, ?)";
+                LocalDate currentDate = LocalDate.now();
+                String currentDateStr = currentDate.toString();
 
                 psBecomes = con.prepareStatement(queryBecomes);
                 psBecomes.setString(1, cartID);
                 psBecomes.setInt(2, generatedKey);
-                psBecomes.setDate(3, Date.valueOf(currentDate)); // maybe no work?
+                psBecomes.setString(3, currentDateStr); // This should work now
+
 
                 psBecomes.execute();
                 psBecomes.close();

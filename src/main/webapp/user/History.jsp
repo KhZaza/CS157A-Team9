@@ -73,22 +73,21 @@
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
-    /*
-        //First, See how many past orders a customer has.
-        String queryCount = """
-                SELECT  Count(*)
-                FROM customer
-                INNER JOIN `order` o ON o.CustomerID = Username
-                WHERE Username = ?""";
 
-        psCount = con.prepareStatement(queryCount);
-        psCount.setString(1,user);
-        rsCount = psCount.executeQuery();
-        while(rsCount.next()){
-            numOrders = rsCount.getInt(1); // not using for now but this counts the Total order num user has
-        }
+//        //First, See how many past orders a customer has.
+//        String queryCount = """
+//                SELECT  Count(*)
+//                FROM customer
+//                INNER JOIN `order` o ON o.CustomerID = Username
+//                WHERE Username = ?""";
+//
+//        psCount = con.prepareStatement(queryCount);
+//        psCount.setString(1,user);
+//        rsCount = psCount.executeQuery();
+//        while(rsCount.next()){
+//            numOrders = rsCount.getInt(1); // not using for now but this counts the Total order num user has
+//        }
 
-     */
        String queryData = "SELECT  \n" +
                "    p.PartID AS PartID,\n" +
                "    ad.QTY,\n" +
@@ -132,7 +131,7 @@
         out.println("<div class=\"container\">\n" +
                 "    <h1 class=\"my-3\">Complete Order History</h1>");
         //Print everything out using a loop, using the number of rows
-        for(int i = 0; i < countRows; i++){
+        for(int i = 0; i < numOrders; i++){
             out.println( "<div class=\"card mb-3\">\n" +
                     "        <div class=\"card-header bg-primary text-white\">\n" +
                     "            Order " + orderIDList.get(i) + "-" +
