@@ -88,7 +88,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
     String partID = request.getParameter("partID");
 
@@ -112,7 +112,7 @@
             out.println("<p>" + rs.getString("Description") + "</p>");
 
             // Add to Cart form
-            out.println("<form action='addToCart.jsp' method='post'>");
+            out.println("<form action='addToCartView.jsp' method='post'>");
             out.println("<input type='number' name='quantity' value='1' min='1'/>");
             out.println("<input type='hidden' name='partID' value='" + partID + "'/>");
             out.println("<button type='submit'>Add to Cart</button>");
