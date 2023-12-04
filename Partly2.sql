@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `access`;
 CREATE TABLE `access` (
   `Username` varchar(45) NOT NULL,
   `CartID` varchar(45) NOT NULL,
+  `currentCart` int DEFAULT '0',
   KEY `Username_idx` (`Username`),
   KEY `CartID_A_idx` (`CartID`),
   CONSTRAINT `CartID_A` FOREIGN KEY (`CartID`) REFERENCES `cart` (`CartID`),
@@ -38,7 +39,7 @@ CREATE TABLE `access` (
 
 LOCK TABLES `access` WRITE;
 /*!40000 ALTER TABLE `access` DISABLE KEYS */;
-INSERT INTO `access` VALUES ('11','59'),('11','60');
+INSERT INTO `access` VALUES ('11','59',NULL),('11','60',NULL),('potato','502',1);
 /*!40000 ALTER TABLE `access` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +67,7 @@ CREATE TABLE `added to` (
 
 LOCK TABLES `added to` WRITE;
 /*!40000 ALTER TABLE `added to` DISABLE KEYS */;
-INSERT INTO `added to` VALUES (16,'59',2),(16,'60',1),(17,'60',1),(17,'60',1);
+INSERT INTO `added to` VALUES (16,'59',2),(16,'60',1),(17,'60',1),(17,'60',1),(25,'1397',20),(27,'8723',3),(17,'502',100),(21,'502',1);
 /*!40000 ALTER TABLE `added to` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +107,8 @@ DROP TABLE IF EXISTS `becomes`;
 CREATE TABLE `becomes` (
   `CartID` varchar(45) NOT NULL,
   `OrderID` int NOT NULL,
-  `Order_Date` int NOT NULL,
+  `Order_Date` int NOT NULL COMMENT 'please delete this after. note to self',
+  `Order Date` date DEFAULT NULL,
   KEY `CartID_idx` (`CartID`),
   KEY `OrderID_idx` (`OrderID`),
   CONSTRAINT `CartID` FOREIGN KEY (`CartID`) REFERENCES `cart` (`CartID`),
@@ -120,7 +122,7 @@ CREATE TABLE `becomes` (
 
 LOCK TABLES `becomes` WRITE;
 /*!40000 ALTER TABLE `becomes` DISABLE KEYS */;
-INSERT INTO `becomes` VALUES ('59',59,1984),('60',66,2022);
+INSERT INTO `becomes` VALUES ('59',59,1984,NULL),('60',66,2022,NULL);
 /*!40000 ALTER TABLE `becomes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,11 +135,8 @@ DROP TABLE IF EXISTS `cart`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
   `CartID` varchar(45) NOT NULL,
-  `Total Price` int NOT NULL,
-  `PartID` int DEFAULT '-1' COMMENT 'have this as -1 because if a user does not add anything to the cart',
-  PRIMARY KEY (`CartID`),
-  KEY `cart_ibfk_1` (`PartID`),
-  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`PartID`) REFERENCES `part` (`PartID`)
+  `Total Price` int DEFAULT '-1',
+  PRIMARY KEY (`CartID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,7 +146,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES ('59',60,NULL),('60',100,NULL),('61',160,NULL),('62',200,23),('63',270,NULL),('64',470,NULL),('65',98,NULL),('66',355,NULL),('67',470,NULL),('68',65,NULL);
+INSERT INTO `cart` VALUES ('1',NULL),('1397',-1),('2842',-1),('502',-1),('59',60),('60',100),('61',160),('62',200),('63',270),('64',470),('65',98),('66',355),('67',470),('68',65),('8723',-1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,8 +159,8 @@ DROP TABLE IF EXISTS `Cookies`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Cookies` (
   `Username` varchar(255) NOT NULL,
-  `SessionToken` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Username`)
+  `SessionToken` varchar(255) NOT NULL,
+  PRIMARY KEY (`SessionToken`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -171,7 +170,7 @@ CREATE TABLE `Cookies` (
 
 LOCK TABLES `Cookies` WRITE;
 /*!40000 ALTER TABLE `Cookies` DISABLE KEYS */;
-INSERT INTO `Cookies` VALUES ('11','yrKkskaWyXZtqINVsryhllH5YqY'),('12','jc75NZkbdNEQOkjbiueocs7mafw');
+INSERT INTO `Cookies` VALUES ('potato','_tB1ROR7NhxdXiId2SkYsoU-DUE'),('potato','2P_xd02P4lPp3-ipe4P3dKTVo4I'),('potato','3zSUxOWZsm_nwNbtl2GK1buTTMU'),('potato','46VoXVvw3JBHMN8f9mquTk5GnhE'),('potato','5NpRB5MxPmAxq3BgHU0_zsPBjZ4'),('potato','AN9PcHU3rUEqXPJUVS5CGGE5CM0'),('12','jc75NZkbdNEQOkjbiueocs7mafw'),('potato','KFCpEtVMZJgLAAJZZpIcsyJ2_Kk'),('potato','PisOalYELb-i6yphiSv6h4ZWTX4'),('potato','Rj-29HvNFRgzjr5ZXuQqg-7gooI'),('potato','sgKQj6bP-4Ol0QHw7LK1N2E_zk0'),('potato','tLN939I_7YqKUiatxKgxvODZneg'),('11','yrKkskaWyXZtqINVsryhllH5YqY');
 /*!40000 ALTER TABLE `Cookies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +188,6 @@ CREATE TABLE `customer` (
   `Email` varchar(45) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Address` varchar(255) NOT NULL,
-  `History` int DEFAULT NULL,
   PRIMARY KEY (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -200,7 +198,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('1','toto','toto','toto@gmail.com','1','toto',101),('11','bob','potato','bobpotato@gmail.com','$2a$12$NEjVa5V4JjcBcc2M5aWLd.3Sf4STo9dV41wZedKgnAy0Y0KA3dRIG','123 potato',NULL),('12','12','12','12@gmail.com','$2a$12$m3n/9thmukSN3fQgnKFotu8sSSqjBwTwEZ/PsERbc28tHvNrhSAFq','12',NULL),('123213123','21321312312','21321312321','21312312@gmail.com','$2a$12$aMEtnp/xNEbyfHBqPoHMZ.hXbOKqGGgGfMe7VIzPCYkWxDPdjcsb.','sadasdas',NULL),('2','2','2','2@gmail.com','2','2',NULL),('3','3','3','3@gmail.com','3','3',NULL),('4','4','4','4@gmail.com','$2a$12$dodOz6aYM2FCMeQciOTbsuJX/T6/uWDJ7mxHSq.N8cAXopdDXSZha','a',NULL),('5','5','5','5@gmail.com','5','5',NULL),('6','6','6','6@gmail.com','6','6',NULL),('asdasdsa','sadasdsa','sadasdsa','sadasd@gmail.com','$2a$12$CiNp5Z24zdXDiuTjOpNdA.06vkWeNXl3EwSVNphl3Dryg4mO2KeE6','sdasds',NULL),('asdsa','sdasd','sdasdas','asdasd@gmail.com','$2a$12$GffuaZ4WY1oCowFgP9jYJOAhv4Q9R3SAnsgqNr3e2.DosSoRXBVHe','12321',NULL),('FitnessFreak','Fred','James','pinaeple@gmail.com','1S@nJOseSt@t3UniSad1','9303 Garden Lane Schererville, IN 46375',NULL),('FoodieAdventures','Eve','Christ','cookiesncream@gmail.com','##C0mput3rSc13nc3%1##','8252 SW. Orange St. Rolla, MO 65401',NULL),('GamingFanatic','Cal','Zaza','zootehnic@gmail.com','P!LLB0ttlez99#',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137',NULL),('ivana','ivana','ivana','ivana@gmail.com','11111111Aa','ivana',NULL),('JaneDoe','Jane','Doe','claytent@yahoo.com','!!WaterB0ttle800()!!','80 Beach St. Jamaica Plain, MA 02130',NULL),('JohnSmith','John','Smith','goldshowe@gmail.com','156_Us3r13_156~CS~','123 New York, New York',NULL),('MovieBuffs','Monica','Buffs','apollodone@gmail.com','*CS*D3P@RT*156*',' 7360 Wagon Ave. Tucson, AZ 85718',NULL),('MusicLover','Mac','Love','potao@yahoo.com','Ti$$ueB0X147!','7071 Del Monte Street Murfreesboro, TN 37128',NULL),('p','p','p','p@gmail.com','$2a$12$htkOJm62JQQEaRPowe/0Ze7t.OHBa193N.DrIneADehP8G68KfNrK','1',NULL),('pllaspdasd','ava','avava','avas@gmail.com','$2a$12$Q18RQrbq0x8Sng6I0vEsC.Q4T8tFE8wejj8Sgx06kMyZFSQtskYve','sadsadsa',NULL),('pooooooooooo','popopo','popopop','popop@yahoo.com','$2a$12$jFtJkPQNcbQVpiqm9mZeNOqzTsnJKR4wn1II1auvruqsNcA1eMOp6','asdasd',NULL),('sadasdasdasdasd','asdasdasdas','sadasdasdsa','sdadsadasdas@yahoo.com','$2a$12$ZAoXgsfv9pp/vOdgtoXaEu8nyI3dGuHwbd6xeFQ.a.0eTj7b0/Weq','asdasdsa',NULL),('TechGeek','Tecca','German','qball9@gmail.com','98SUSh1Fish98','340 Longfellow Street, Marietta, GA 30008',NULL),('Traveler101','Tequila','Johnson','tomatopota@gmail.com','S0ckANDS@nd@1$66',' 30 Philmont Street, Oxon Hill, MD 20745',NULL),('User101001','Kate','Tam','madagas@yahoo.com','@M1k3WUTHEPr0f156@',' 13 Lincoln Dr. Allentwon, PA 18102',NULL);
+INSERT INTO `customer` VALUES ('1','toto','toto','toto@gmail.com','1','toto'),('11','bob','potato','bobpotato@gmail.com','$2a$12$NEjVa5V4JjcBcc2M5aWLd.3Sf4STo9dV41wZedKgnAy0Y0KA3dRIG','123 potato'),('12','12','12','12@gmail.com','$2a$12$m3n/9thmukSN3fQgnKFotu8sSSqjBwTwEZ/PsERbc28tHvNrhSAFq','12'),('123213123','21321312312','21321312321','21312312@gmail.com','$2a$12$aMEtnp/xNEbyfHBqPoHMZ.hXbOKqGGgGfMe7VIzPCYkWxDPdjcsb.','sadasdas'),('2','2','2','2@gmail.com','2','2'),('3','3','3','3@gmail.com','3','3'),('4','4','4','4@gmail.com','$2a$12$dodOz6aYM2FCMeQciOTbsuJX/T6/uWDJ7mxHSq.N8cAXopdDXSZha','a'),('5','5','5','5@gmail.com','5','5'),('6','6','6','6@gmail.com','6','6'),('asdasdsa','sadasdsa','sadasdsa','sadasd@gmail.com','$2a$12$CiNp5Z24zdXDiuTjOpNdA.06vkWeNXl3EwSVNphl3Dryg4mO2KeE6','sdasds'),('asdsa','sdasd','sdasdas','asdasd@gmail.com','$2a$12$GffuaZ4WY1oCowFgP9jYJOAhv4Q9R3SAnsgqNr3e2.DosSoRXBVHe','12321'),('FitnessFreak','Fred','James','pinaeple@gmail.com','1S@nJOseSt@t3UniSad1','9303 Garden Lane Schererville, IN 46375'),('FoodieAdventures','Eve','Christ','cookiesncream@gmail.com','##C0mput3rSc13nc3%1##','8252 SW. Orange St. Rolla, MO 65401'),('GamingFanatic','Cal','Zaza','zootehnic@gmail.com','P!LLB0ttlez99#',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137'),('ivana','ivana','ivana','ivana@gmail.com','11111111Aa','ivana'),('JaneDoe','Jane','Doe','claytent@yahoo.com','!!WaterB0ttle800()!!','80 Beach St. Jamaica Plain, MA 02130'),('JohnSmith','John','Smith','goldshowe@gmail.com','156_Us3r13_156~CS~','123 New York, New York'),('MovieBuffs','Monica','Buffs','apollodone@gmail.com','*CS*D3P@RT*156*',' 7360 Wagon Ave. Tucson, AZ 85718'),('MusicLover','Mac','Love','potao@yahoo.com','Ti$$ueB0X147!','7071 Del Monte Street Murfreesboro, TN 37128'),('p','p','p','p@gmail.com','$2a$12$htkOJm62JQQEaRPowe/0Ze7t.OHBa193N.DrIneADehP8G68KfNrK','1'),('pllaspdasd','ava','avava','avas@gmail.com','$2a$12$Q18RQrbq0x8Sng6I0vEsC.Q4T8tFE8wejj8Sgx06kMyZFSQtskYve','sadsadsa'),('pooooooooooo','popopo','popopop','popop@yahoo.com','$2a$12$jFtJkPQNcbQVpiqm9mZeNOqzTsnJKR4wn1II1auvruqsNcA1eMOp6','asdasd'),('potato','potat','potat','potat@gmail.com','$2a$12$6/2p7muesmksxv2zFxjYmuo2hJwW6fDN/ov6zjrTDke4AG8OdiyA2','potato'),('sadasdasdasdasd','asdasdasdas','sadasdasdsa','sdadsadasdas@yahoo.com','$2a$12$ZAoXgsfv9pp/vOdgtoXaEu8nyI3dGuHwbd6xeFQ.a.0eTj7b0/Weq','asdasdsa'),('TechGeek','Tecca','German','qball9@gmail.com','98SUSh1Fish98','340 Longfellow Street, Marietta, GA 30008'),('Traveler101','Tequila','Johnson','tomatopota@gmail.com','S0ckANDS@nd@1$66',' 30 Philmont Street, Oxon Hill, MD 20745'),('User101001','Kate','Tam','madagas@yahoo.com','@M1k3WUTHEPr0f156@',' 13 Lincoln Dr. Allentwon, PA 18102');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,14 +316,14 @@ DROP TABLE IF EXISTS `order`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order` (
   `OrderID` int NOT NULL AUTO_INCREMENT,
-  `Contact Info` varchar(45) NOT NULL,
-  `Shipping Address` varchar(100) NOT NULL,
+  `Contact Info` varchar(45) DEFAULT NULL,
+  `Shipping Address` varchar(100) DEFAULT NULL,
   `CustomerID` varchar(255) DEFAULT NULL,
   `Status` varchar(45) DEFAULT 'Pending',
   PRIMARY KEY (`OrderID`),
   KEY `CustomerID` (`CustomerID`),
   CONSTRAINT `CustomerID` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +332,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (59,'zootehnic@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','11','Pending'),(60,'tomatopota@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','ivana','Pending'),(61,'qball9@gmail.com','340 Longfellow Street, Marietta, GA 30008','ivana','Pending'),(62,'potao@yahoo.com','7071 Del Monte Street Murfreesboro, TN 37128','JaneDoe','Pending'),(63,'pinaeple@gmail.com','9303 Garden Lane Schererville, IN 46375','JaneDoe','Pending'),(64,'madagas@yahoo.com',' 13 Lincoln Dr. Allentwon, PA 18102','JohnSmith','Pending'),(65,'goldshowe@gmail.com','123 New York, New York','JohnSmith','Pending'),(66,'cookiesncream@gmail.com','9303 Garden Lane Schererville, IN 46375','11','Pending'),(67,'claytent@yahoo.com','123 New York, New York','TechGeek','Pending'),(68,'apollodone@gmail.com',' 7360 Wagon Ave. Tucson, AZ 85718','TechGeek','Pending');
+INSERT INTO `order` VALUES (59,'zootehnic@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','11','Pending'),(60,'tomatopota@gmail.com',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137','ivana','Pending'),(61,'qball9@gmail.com','340 Longfellow Street, Marietta, GA 30008','ivana','Pending'),(62,'potao@yahoo.com','7071 Del Monte Street Murfreesboro, TN 37128','JaneDoe','Pending'),(63,'pinaeple@gmail.com','9303 Garden Lane Schererville, IN 46375','JaneDoe','Pending'),(64,'madagas@yahoo.com',' 13 Lincoln Dr. Allentwon, PA 18102','JohnSmith','Pending'),(65,'goldshowe@gmail.com','123 New York, New York','JohnSmith','Pending'),(66,'cookiesncream@gmail.com','9303 Garden Lane Schererville, IN 46375','11','Pending'),(67,'claytent@yahoo.com','123 New York, New York','TechGeek','Pending'),(68,'apollodone@gmail.com',' 7360 Wagon Ave. Tucson, AZ 85718','TechGeek','Pending'),(69,NULL,NULL,'1','Pending');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -486,4 +484,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-04  1:32:29
+-- Dump completed on 2023-12-04  5:32:37
