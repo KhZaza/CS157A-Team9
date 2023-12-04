@@ -223,26 +223,7 @@
               }
 
             %>
-            <tr>
-              <td class="pl-4">1</td>
-              <td>
-                <span class="text-muted mb-0 " >Daniel123</span>
-              </td>
-              <td>
-                <span class="text-muted">Khaled</span><br>
-              </td>
-              <td>
-                <span class="text-muted">Zaza</span><br>
-              </td>
-              <td>
-                <span class="text-muted">daniel@website.com</span><br>
-              </td>
-              <td>
-                <span class="text-muted">2258 El Camino Real, Santa Clara, Ca 95050</span><br>
-              </td>
 
-
-            </tr>
             </tbody>
           </table>
         </div>
