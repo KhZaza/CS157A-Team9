@@ -205,6 +205,7 @@
             out.println("<td>$" + priceList.get(i) + "</td>");
             out.println("<td>" + qtyList.get(i) + "</td>");
             out.println("<td>$" + (priceList.get(i) * qtyList.get(i)) + "</td>");
+            out.println("<td><button type='submit' class='checkout-button'>Delete</button></td>");
             out.println("</tr>");
         }
 
@@ -213,7 +214,7 @@
         out.println("<div class='cart-total'>");
         out.println("<p>Total Price: $" + totalPrice + "</p>");
         out.println("<form method='post' action='Checkout.html'>");
-        out.println("<button type='submit' class='checkout-button'>Submit Order</button>");
+        out.println("<a href='Checkout.html?CartID=" + cartID + "' class='checkout-button'>Submit Order</a>");
         out.println("</form>");
         out.println("</div>");
         out.println("</div>");

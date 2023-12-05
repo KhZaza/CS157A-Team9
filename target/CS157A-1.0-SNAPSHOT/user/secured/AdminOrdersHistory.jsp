@@ -377,13 +377,13 @@
 
 <nav style="border-radius: 0; margin-bottom: 0; background-color: #222; border: none; display: flex; justify-content: space-between; align-items: center; padding: 10px;">
     <div style= "margin-left:2px; margin-right: 2px; " class="navbar-header" style="margin: 0; display: flex; align-items: center;">
-        <h1 style="margin: 0; color: white; font-size: 18px;">Partly</h1>
+        <h1 href="AdminHome.jsp"  style="margin: 0; color: white; font-size: 18px;">Partly</h1>
     </div>
-    <div style="text-align: right;">
-        <a href="Home.html" style="color: white; font-size: 16px; text-decoration: none; padding: 15px; display: inline-block;">
-            <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span> Your Account
-        </a>
-    </div>
+<%--    <div style="text-align: right;">--%>
+<%--&lt;%&ndash;        <a href="Home.html" style="color: white; font-size: 16px; text-decoration: none; padding: 15px; display: inline-block;">&ndash;%&gt;--%>
+<%--&lt;%&ndash;            <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span> Your Account&ndash;%&gt;--%>
+<%--&lt;%&ndash;        </a>&ndash;%&gt;--%>
+<%--    </div>--%>
 </nav>
 
 <body  data-new-gr-c-s-check-loaded="14.1141.0" data-gr-ext-installed="">
@@ -503,19 +503,17 @@
 
             List<Integer> orderIDList = new ArrayList<>();
             List<String> statusList = new ArrayList<>();
-            List<Integer> TotalPriceList = new ArrayList<>();
-            List<String> ContactInfolist = new ArrayList<>();
             List<String> shippingAddresslist = new ArrayList<>();
-            List<String> PaymentMethodList = new ArrayList<>();
+            List<String> Contactinfolist = new ArrayList<>();
+
+
 
 
             while (rsOrder.next()) {
                 orderIDList.add(rsOrder.getInt("OrderID"));
                 statusList.add(rsOrder.getString("Status"));
-                TotalPriceList.add(rsOrder.getInt("Total Price"));
-                ContactInfolist.add(rsOrder.getString("Contact Info"));
+                Contactinfolist.add(rsOrder.getString("Contact Info"));
                 shippingAddresslist.add(rsOrder.getString("Shipping Address"));
-                PaymentMethodList.add(rsOrder.getString("Payment Method"));
 
             }
 
@@ -528,13 +526,8 @@
                                 "<div class=\"d-flex align-items-center justify-content-between\">" +
                                 "<h5 class=\"mb-0\"><span style=\"font-weight:bold;\">CartID:</span> " + orderIDList.get(i) + "</h5>" +
                                 "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Status:</span> " + statusList.get(i) + "</span> <br>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Payment Method:</span> " + PaymentMethodList.get(i) + "</span>" +
+                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Contact Info:</span> " + Contactinfolist.get(i) + "</span>" +
                                 "<span class=\"ms-2\"><span style=\"font-weight:bold;\">shipping address:</span> " + shippingAddresslist.get(i) + "</span>" +
-                                "</div>" +
-                                "<div class=\"d-flex align-items-center justify-content-between\">" +
-                                "<a href=\"\">Manage Order</a>" +
-                                "<a href=\"\" class=\"ms-6\">View Invoice</a>" +
-                                "<a href=\"\" class=\"ms-6\">Total Price: " + TotalPriceList.get(i) + "</a>" +
                                 "</div>" +
                                 "</div>");
 
