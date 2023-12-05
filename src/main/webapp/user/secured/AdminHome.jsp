@@ -67,6 +67,8 @@
     <a href = "AdminUpdateStock.html">Update Stock</a>
     <a href = "AdminFeedbackView.jsp">View Feedback</a>
     <a href = "AdminViewUsers.jsp">View users</a>
+    <a href = "AdminOrdersHistory.jsp">Order History</a>
+
 
 
 </div>
