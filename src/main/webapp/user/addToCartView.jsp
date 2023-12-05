@@ -24,7 +24,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String cartID = "";
 
 
@@ -59,7 +59,6 @@
             psCartID = con.prepareStatement(queryCartID);
             psCartID.setString(1,username);
             rsCartID = psCartID.executeQuery();
-            System.out.println("im hereIF");
             while(rsCartID.next()){
                 cartID = rsCartID.getString(1);
             }
@@ -84,7 +83,6 @@
             ps_newAccess.setString(2,cartID);
 
             ps_newAccess.execute();
-            System.out.println("im hereELSE");
 
         }
         //NOT Becomes yet. We will do that when User press the "submit" button in Cart.
@@ -99,16 +97,6 @@
         psAdd.execute();
 
 
-        //Let the user know the item has been successfully added to cart. Then redirect back to Catalog page.
-        /* THIS SCRIPT IS NOT WORKING!! :(
-        out.println("<script type=\"text/javascript\">");
-        out.println("alert('Successfully added to cart! Redirecting back to Catalog page.');");
-        out.println("</script>");
-
-         */
-        response.sendRedirect("Catalog.jsp"); // Just redirecting back to catalog page
-
-
 
     } catch (ClassNotFoundException | SQLException e) {
         out.println("error in addtocartview" + e);
@@ -121,9 +109,13 @@
         try { if ( rsCartID != null)  rsCartID.close(); } catch (SQLException e) {e.printStackTrace(); }
         try { if ( psCartID != null)  psCartID.close(); } catch (SQLException e) {e.printStackTrace(); }
         try { if (con != null) con.close(); } catch (SQLException e) {e.printStackTrace(); }
-
     }
 %>
+<script>
+   alert("Successfully added to cart! Redirecting back to Catalog page.");
+   window.location.href = " http://localhost:8080/user/Catalog.jsp";
+
+</script>
 
 </body>
 

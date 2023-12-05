@@ -101,7 +101,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String cartID = "";
 
     Connection con = null;
@@ -205,7 +205,7 @@
             out.println("<td>$" + priceList.get(i) + "</td>");
             out.println("<td>" + qtyList.get(i) + "</td>");
             out.println("<td>$" + (priceList.get(i) * qtyList.get(i)) + "</td>");
-            out.println("<td><button type='submit' class='checkout-button'>Delete</button></td>");
+            //out.println("<td><button type='submit' class='checkout-button'>Delete</button></td>");
             out.println("</tr>");
         }
 
@@ -220,42 +220,11 @@
         out.println("</div>");
 
 
-        //First need to create an orderID with that customerID
-        String queryOrder = "INSERT INTO `ORDER`(CustomerID) VALUES(?)";
-        psOrder = con.prepareStatement(queryOrder, Statement.RETURN_GENERATED_KEYS);
-        psOrder.setString(1, username);
 
-        int affectedRows = psOrder.executeUpdate();
-
-        if (affectedRows > 0) { // checks if anything was inserted or not
-            // Retrieve the generated keys
-            rs_generatedKeys = psOrder.getGeneratedKeys(); // get the pk
-            if (rs_generatedKeys.next()) {
-                // Access the auto-incremented primary key value
-                int generatedKey = rs_generatedKeys.getInt(1);
-
-                //Now insert into Becomes.
-                String queryBecomes = "INSERT INTO becomes(CartID, OrderID, Order_Date) VALUES(?, ?, ?)";
-                LocalDate currentDate = LocalDate.now();
-                String currentDateStr = currentDate.toString();
-
-                psBecomes = con.prepareStatement(queryBecomes);
-                psBecomes.setString(1, cartID);
-                psBecomes.setInt(2, generatedKey);
-                psBecomes.setString(3, currentDateStr); // This should work now
-
-
-                psBecomes.execute();
-                psBecomes.close();
-                rs_generatedKeys.close();
-            }
-
-
-        }
 
 
     } catch (ClassNotFoundException | SQLException e) {
-        out.println("error in delete-after" + e);
+        //System.out.println("error in Cart" + e);
     }
     finally{
 

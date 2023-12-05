@@ -1,4 +1,5 @@
-<%@ page import="java.sql.*" %><%--
+<%@ page import="java.sql.*" %>
+<%@ page import="java.time.LocalDate" %><%--
   Created by IntelliJ IDEA.
   User: ivanachen
   Date: 11/21/23
@@ -15,11 +16,14 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     //Always grab this information!
     String fName = request.getParameter("fName");
     String lName = request.getParameter("lName");
     String email = request.getParameter("email");
+    String cartID = request.getParameter("CartID"); // given in url
+    String user = (String) session.getAttribute("user");
+    PreparedStatement psBecomes = null;
     String adr = "";
     String city = "";
     String state = "";
@@ -55,9 +59,8 @@
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
 
-        String user = (String) session.getAttribute("user");
-        String queryOrder = "INSERT INTO `order`(`Contact Info`,`Shipping Address`, `CustomerID`) VALUES(?,?,?)";
-
+        //First need to create an orderID with that customerID
+        String queryOrder = "INSERT INTO `order` (`Contact Info`, `Shipping Address`, CustomerID) VALUES (?,?,?)";
         psOrder = con.prepareStatement(queryOrder, Statement.RETURN_GENERATED_KEYS);
         psOrder.setString(1,email);
         String shipAdr = adr + ", " + city + ", " + state + " " + zip;
@@ -69,19 +72,35 @@
         if (affectedRows > 0) { // checks if anything was inserted or not
             // Retrieve the generated keys
             rs_generatedKeys = psOrder.getGeneratedKeys(); // get the pk
-
             if (rs_generatedKeys.next()) {
                 // Access the auto-incremented primary key value
                 int generatedKey = rs_generatedKeys.getInt(1);
 
-                //Add the PK to the DB for the relation  Customer x View x Order
-                String queryView = "INSERT INTO view(Username, OrderID) VALUES(?,?)";
-                psView = con.prepareStatement(queryView);
-                psView.setString(1, user); // admin id is stored in session
-                psView.setInt(2, generatedKey);
-                psView.execute();
+                //Now insert into Becomes.
+                String queryBecomes = "INSERT INTO becomes(CartID, OrderID, Order_Date) VALUES(?, ?, ?)";
+                LocalDate currentDate = LocalDate.now();
+                String currentDateStr = currentDate.toString();
+
+                psBecomes = con.prepareStatement(queryBecomes);
+                psBecomes.setString(1, cartID);
+                psBecomes.setInt(2, generatedKey);
+                psBecomes.setString(3, currentDateStr); // This should work now
+
+                psBecomes.execute();
+                psBecomes.close();
+                rs_generatedKeys.close();
             }
+            //Now, need to set Access's currentCart to 0 because the cart is old now.
+            String queryAccess = "UPDATE ACCESS SET currentCart = 0 WHERE CartID = ? AND Username = ?";
+            PreparedStatement psAccess = con.prepareStatement(queryAccess);
+            psAccess.setString(1,cartID);
+            psAccess.setString(2,user);
+
+            psAccess.execute();
+            psAccess.close();
+
         }
+
 
 
     } catch (ClassNotFoundException | SQLException e) {
@@ -95,3 +114,12 @@
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
 %>
+</body>
+<script>
+    alert("Thanks for shopping with Partly!");
+    alert("Redirecting user back to Catalog page.");
+    window.location.href = "http://localhost:8080/user/Catalog.jsp";
+
+</script>
+
+</html>
