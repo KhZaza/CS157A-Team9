@@ -53,8 +53,8 @@
 
         }
         if(isPassword){ // Means that the old password they inputted matches the one in db. if it doesn't redirect user
-            hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
-            String queryPasswords = "UPDATE customer SET password = '?' WHERE Username = '?'; ";
+            hashedPassword = BCrypt.withDefaults().hashToString(12,newPassword.toCharArray());
+            String queryPasswords = "UPDATE customer SET password = ? WHERE Username =?; ";
             PreparedStatement ps = con.prepareStatement(queryPasswords);
             ps.setString(1,hashedPassword);
             ps.setString(2,username);
