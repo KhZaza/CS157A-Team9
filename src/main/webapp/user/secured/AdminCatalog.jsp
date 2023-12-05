@@ -231,12 +231,11 @@ out.println("</div></div><br>");
         con.close();
 
     } catch (ClassNotFoundException | SQLException e) {
-        out.println("Error from cataloge");
+        out.println("Error from catalogAdmin");
         out.println(e);
     }
 
 %>
-
 
 
 </body>

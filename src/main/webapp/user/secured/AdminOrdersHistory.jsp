@@ -249,10 +249,10 @@
             out.println(
                     "<div class=\"border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between\">" +
                             "<div class=\"d-flex align-items-center justify-content-between\">" +
-                            "<h4 class=\"mb-0\"><span style=\" color: #0d6efd; font-weight:bold;\">CartID:</span> " + orderIDList.get(i) + "</h4>" +
+                            "<h4 class=\"mb-0\"><span style=\" color: #0ea5e9; font-weight:bold;\">CartID:</span> " + orderIDList.get(i) + "</h4>" +
                             "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Status:</span> " + statusList.get(i) + "</span> <br>" +
-                            "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Contact Info:</span> " + Contactinfolist.get(i) + "</span>" +
-                            "<span class=\"ms-2\"><span style=\"font-weight:bold;\">shipping address:</span> " + shippingAddresslist.get(i) + "</span>" +
+                            "<span class=\"ms-2\"><span style=\" font-weight:bold;\">Contact Info:</span> " + Contactinfolist.get(i) + "</span>" +
+                            "<span class=\"ms-2\"><span style=\"padding-left: 20px; font-weight:bold;\">Shipping Address:</span> " + shippingAddresslist.get(i) + "</span>" +
                             "</div>" +
                             "</div>");
 
