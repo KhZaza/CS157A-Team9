@@ -79,7 +79,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
             <li><a href="Home.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-            <li><a href="Cart2.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            <li><a href="delete_after.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 
         </ul>
     </div>
@@ -109,10 +109,12 @@
             out.println("<img src='" + rs.getString("URL") + "' alt='Item Image' />");
             out.println("<h2>" + rs.getString("Name") + "</h2>");
             out.println("<p>Price: $" + rs.getInt("Sell Price") + "</p>");
+            out.println("<p>Part Number: " + rs.getInt("PartID") + "</p>");
+
             out.println("<p>" + rs.getString("Description") + "</p>");
 
             // Add to Cart form
-            out.println("<form action='addToCart.jsp' method='post'>");
+            out.println("<form action='addToCartView.jsp' method='post'>");
             out.println("<input type='number' name='quantity' value='1' min='1'/>");
             out.println("<input type='hidden' name='partID' value='" + partID + "'/>");
             out.println("<button type='submit'>Add to Cart</button>");

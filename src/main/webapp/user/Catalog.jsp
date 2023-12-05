@@ -105,7 +105,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Account.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
             <li><a href="Home.html"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-            <li><a href="Cart2.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            <li><a href="delete_after.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 
         </ul>
     </div>
@@ -248,10 +248,10 @@
         "<div class=\"col-sm-4\"><center>" +
         "    <div class=\"panel panel-primary\">" +
         "        <div class=\"panel-heading\">" + nameList.get(i) + "</div>" +
+        "       <div class=\"panel-heading\">Part number: " + idList.get(i) + "</div>" +
         "        <div class=\"panel-body\"><img src='" + urlList.get(i) + "' class=\"img-responsive\" style=\"width:75%\" alt=\"Image\"></div>" +
         "        <a href='itemDetails.jsp?partID=" + idList.get(i) + "'>View Description</a>" +
         "        <div class=\"panel-footer\">$" + priceList.get(i) + "</div>" +
-        "        <div class=\"panel-footer\">Quick Add To Cart</div>" +
         "    </div></center>" +
         "</div>"
     );

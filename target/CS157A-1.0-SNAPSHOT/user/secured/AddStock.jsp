@@ -57,11 +57,12 @@
                 int generatedKey = rs_generatedKeys.getInt(1);
 
                 //Add the PK to the DB so that the relation Feedback x Give x Customer is satisfied
-                String queryGive = "INSERT INTO Gives(Username, FeedbackID) VALUES(?,?)";
+                String queryGive = "INSERT INTO Manage(AdminID, QTY, PartID) VALUES(?,?,?)";
                 psManage = con.prepareStatement(queryGive);
                 psManage.setString(1,(String)session.getAttribute("admin")); // admin id is stored in session
-                psManage.setInt(2,generatedKey);
-                psManage.setInt(3,qty);
+                psManage.setInt(2,qty);
+                psManage.setInt(3,generatedKey);
+
 
                 psManage.execute(); //
 
