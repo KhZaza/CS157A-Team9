@@ -5,7 +5,7 @@
 <jsp:include page="AdminCheck.jsp"/>
 
 <!DOCTYPE html>
-<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <!-- Required meta tags -->
+<html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <!-- Required meta tags -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -44,310 +44,98 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./Order History/theme.min.css">
     <title>Order History </title>
-    <style>.rdp {
-        --rdp-cell-size: 40px;
-        --rdp-accent-color: #0000ff;
-        --rdp-background-color: #e7edff;
-        --rdp-accent-color-dark: #3003e1;
-        --rdp-background-color-dark: #180270;
-        --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
-        --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75); /* Outline border for focused _and_ selected elements */
+    <style>
+        body {
+            background-color: #333; /* Dark gray */
+            color: white; /* Ensuring text is readable on dark background */
+        }
 
-        margin: 1em;
-    }
+        .rdp {
+            --rdp-cell-size: 40px;
+            --rdp-accent-color: #0000ff;
+            --rdp-background-color: #1a1a1a;
+            --rdp-accent-color-dark: #3003e1;
+            --rdp-background-color-dark: #180270;
+            --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
+            --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75); /* Outline border for focused _and_ selected elements */
 
-    .rdp-vhidden {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        background: transparent;
-        border: 0;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        position: absolute !important;
-        top: 0;
-        width: 1px !important;
-        height: 1px !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        clip: rect(1px, 1px, 1px, 1px) !important;
-        border: 0 !important;
-    }
+            margin: 1em;
+        }
 
-    /* Buttons */
-    .rdp-button_reset {
-        appearance: none;
-        position: relative;
-        margin: 0;
-        padding: 0;
-        cursor: default;
-        color: inherit;
-        outline: none;
-        background: none;
-        font: inherit;
+        .rdp-vhidden {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            border: 0;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            position: absolute !important;
+            top: 0;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            clip: rect(1px, 1px, 1px, 1px) !important;
+            border: 0 !important;
+        }
 
-        -moz-appearance: none;
-        -webkit-appearance: none;
-    }
 
-    .rdp-button {
-        border: 2px solid transparent;
-    }
 
-    .rdp-button[disabled] {
-        opacity: 0.25;
-    }
 
-    .rdp-button:not([disabled]) {
-        cursor: pointer;
-    }
+        .rdp-with_weeknumber .rdp-table {
+            max-width: calc(var(--rdp-cell-size) * 8);
+            border-collapse: collapse;
+        }
 
-    .rdp-button:focus:not([disabled]),
-    .rdp-button:active:not([disabled]) {
-        color: inherit;
-        border: var(--rdp-outline);
-        background-color: var(--rdp-background-color);
-    }
 
-    .rdp-button:hover:not([disabled]) {
-        background-color: var(--rdp-background-color);
-    }
+        .rdp-multiple_months .rdp-caption {
+            position: relative;
+            display: block;
+            text-align: center;
+        }
 
-    .rdp-months {
-        display: flex;
-    }
 
-    .rdp-month {
-        margin: 0 1em;
-    }
+        .rdp-multiple_months .rdp-caption_start .rdp-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
 
-    .rdp-month:first-child {
-        margin-left: 0;
-    }
+        .rdp-multiple_months .rdp-caption_end .rdp-nav {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
 
-    .rdp-month:last-child {
-        margin-right: 0;
-    }
 
-    .rdp-table {
-        margin: 0;
-        max-width: calc(var(--rdp-cell-size) * 7);
-        border-collapse: collapse;
-    }
 
-    .rdp-with_weeknumber .rdp-table {
-        max-width: calc(var(--rdp-cell-size) * 8);
-        border-collapse: collapse;
-    }
 
-    .rdp-caption {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0;
-        text-align: left;
-    }
 
-    .rdp-multiple_months .rdp-caption {
-        position: relative;
-        display: block;
-        text-align: center;
-    }
+        .rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-    .rdp-caption_dropdowns {
-        position: relative;
-        display: inline-flex;
-    }
+        .rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-    .rdp-caption_label {
-        position: relative;
-        z-index: 1;
-        display: inline-flex;
-        align-items: center;
-        margin: 0;
-        padding: 0 0.25em;
-        white-space: nowrap;
-        color: currentColor;
-        border: 0;
-        border: 2px solid transparent;
-        font-family: inherit;
-        font-size: 140%;
-        font-weight: bold;
-    }
+        .rdp[dir='rtl'] .rdp-day_range_start:not(.rdp-day_range_end) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-    .rdp-nav {
-        white-space: nowrap;
-    }
+        .rdp[dir='rtl'] .rdp-day_range_end:not(.rdp-day_range_start) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-    .rdp-multiple_months .rdp-caption_start .rdp-nav {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-    }
 
-    .rdp-multiple_months .rdp-caption_end .rdp-nav {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-    }
-
-    .rdp-nav_button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: var(--rdp-cell-size);
-        height: var(--rdp-cell-size);
-        padding: 0.25em;
-        border-radius: 100%;
-    }
-
-    /* ---------- */
-    /* Dropdowns  */
-    /* ---------- */
-
-    .rdp-dropdown_year,
-    .rdp-dropdown_month {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .rdp-dropdown {
-        appearance: none;
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        cursor: inherit;
-        opacity: 0;
-        border: none;
-        background-color: transparent;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-    }
-
-    .rdp-dropdown[disabled] {
-        opacity: unset;
-        color: unset;
-    }
-
-    .rdp-dropdown:focus:not([disabled]) + .rdp-caption_label,
-    .rdp-dropdown:active:not([disabled]) + .rdp-caption_label {
-        border: var(--rdp-outline);
-        border-radius: 6px;
-        background-color: var(--rdp-background-color);
-    }
-
-    .rdp-dropdown_icon {
-        margin: 0 0 0 5px;
-    }
-
-    .rdp-head {
-        border: 0;
-    }
-
-    .rdp-head_row,
-    .rdp-row {
-        height: 100%;
-    }
-
-    .rdp-head_cell {
-        vertical-align: middle;
-        text-transform: uppercase;
-        font-size: 0.75em;
-        font-weight: 700;
-        text-align: center;
-        height: 100%;
-        height: var(--rdp-cell-size);
-        padding: 0;
-    }
-
-    .rdp-tbody {
-        border: 0;
-    }
-
-    .rdp-tfoot {
-        margin: 0.5em;
-    }
-
-    .rdp-cell {
-        width: var(--rdp-cell-size);
-        height: 100%;
-        height: var(--rdp-cell-size);
-        padding: 0;
-        text-align: center;
-    }
-
-    .rdp-weeknumber {
-        font-size: 0.75em;
-    }
-
-    .rdp-weeknumber,
-    .rdp-day {
-        display: flex;
-        overflow: hidden;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        width: var(--rdp-cell-size);
-        max-width: var(--rdp-cell-size);
-        height: var(--rdp-cell-size);
-        margin: 0;
-        border: 2px solid transparent;
-        border-radius: 100%;
-    }
-
-    .rdp-day_today:not(.rdp-day_outside) {
-        font-weight: bold;
-    }
-
-    .rdp-day_selected:not([disabled]),
-    .rdp-day_selected:focus:not([disabled]),
-    .rdp-day_selected:active:not([disabled]),
-    .rdp-day_selected:hover:not([disabled]) {
-        color: white;
-        background-color: var(--rdp-accent-color);
-    }
-
-    .rdp-day_selected:focus:not([disabled]) {
-        border: var(--rdp-outline-selected);
-    }
-
-    .rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .rdp[dir='rtl'] .rdp-day_range_start:not(.rdp-day_range_end) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .rdp[dir='rtl'] .rdp-day_range_end:not(.rdp-day_range_start) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .rdp-day_range_end.rdp-day_range_start {
-        border-radius: 100%;
-    }
-
-    .rdp-day_range_middle {
-        border-radius: 0;
-    }
     </style><style>.hidden-sidebar .Sidebar__TodoListContainer {
         display: none;
     }
@@ -360,9 +148,6 @@
         display: none;
     }
 
-    #tfc-wall-rose {
-        position: relative;
-    }
 
     body {
         --tfc-dark-mode-text-primary: #e4e4e7;
@@ -372,109 +157,49 @@
         --tfc-dark-mode-bg-secondary: #52525b;
 
     }
+    .navbar {
+        background-color: black;
+        overflow: hidden;
+        width: 100%;
+        display: block;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+
+
     </style></head>
 <!-- add border to the sides of the web page-->
 
-<nav style="border-radius: 0; margin-bottom: 0; background-color: #222; border: none; display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-    <div style= "margin-left:2px; margin-right: 2px; " class="navbar-header" style="margin: 0; display: flex; align-items: center;">
-        <h1 href="AdminHome.jsp"  style="margin: 0; color: white; font-size: 18px;">Partly</h1>
-    </div>
-<%--    <div style="text-align: right;">--%>
-<%--&lt;%&ndash;        <a href="Home.html" style="color: white; font-size: 16px; text-decoration: none; padding: 15px; display: inline-block;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span> Your Account&ndash;%&gt;--%>
-<%--&lt;%&ndash;        </a>&ndash;%&gt;--%>
-<%--    </div>--%>
-</nav>
+<div  style="margin-bottom: 50px; border-radius: 0;" class="navbar">
+    <a href="AdminHome.jsp">Partly</a>
+</div>
 
 <body  data-new-gr-c-s-check-loaded="14.1141.0" data-gr-ext-installed="">
 
 <!-- card body-->
 <div style="margin: 20px" class="card-body">
     <div class="mb-6">
-        <h4 class="mb-0">Your Order</h4>
-        <p>Check the status of recent orders.</p>
+        <h1 class="mb-0">Order History</h1>
     </div>
 
 
-<%--    <div class="mb-8">--%>
-<%--        <!-- text -->--%>
-<%--        <div class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">--%>
-<%--            <div class="d-flex align-items-center justify-content-between">--%>
-<%--                <h5 class="mb-0">CartID: </h5>--%>
-<%--                <span class="ms-2">Status: </span> <br>--%>
-
-
-<%--                <span class="ms-2">Payment Method: </span>--%>
-<%--                <span class="ms-2">shipping address: </span>--%>
-
-
-<%--            </div>--%>
-<%--            <div class="d-flex align-items-center justify-content-between">--%>
-<%--                <!-- link -->--%>
-<%--                <a href="">Manage Order</a>--%>
-<%--                <a href="" class="ms-6 ">View Invoice</a>--%>
-<%--                <a href="" class="ms-6 ">Total Price</a>--%>
-
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <!-- row -->--%>
-<%--        <div class="row justify-content-between align-items-center">--%>
-<%--            <!-- col -->--%>
-<%--            <div class="col-lg-8 col-12">--%>
-<%--                <div class="d-md-flex">--%>
-<%--                    <div>--%>
-<%--                        <!-- img -->--%>
-<%--                        <img src="./Order History/ecommerce-img-1.jpg" alt="" class="img-4by3-xl rounded">--%>
-<%--                    </div>--%>
-<%--                    <div class="ms-md-4 mt-2 mt-lg-0">--%>
-<%--                        <!-- heading -->--%>
-<%--                        <h5 class="mb-1">--%>
-<%--                            White &amp; Red Nike Athletic Shoe--%>
-<%--                        </h5>--%>
-<%--                        <!-- text -->--%>
-<%--                        <span>Color: <span class="text-dark">Orange</span>, Size:<span class="text-dark"> 10</span>--%>
-<%--                          </span>--%>
-<%--                        <!-- text -->--%>
-<%--                        <div class="mt-3">--%>
-<%--                            <h4>$49.00</h4>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-
-<%--        <hr class="my-3">--%>
-
-
-<%--        <!-- row -->--%>
-
-<%--        <div class="row justify-content-between align-items-center">--%>
-<%--            <!-- col -->--%>
-<%--            <div class="col-lg-8 col-12">--%>
-<%--                <div class="d-md-flex">--%>
-<%--                    <div>--%>
-<%--                        <!-- img -->--%>
-<%--                        <img src="./Order History/ecommerce-img-9.jpg" alt="" class="img-4by3-xl rounded">--%>
-<%--                    </div>--%>
-<%--                    <!-- text -->--%>
-<%--                    <div class="ms-md-4 mt-2 mt-lg-0">--%>
-<%--                        <!-- heading -->--%>
-<%--                        <h5 class="mb-1">--%>
-<%--                            Nike Black and White--%>
-<%--                        </h5>--%>
-<%--                        <span>Color: <span class="text-dark">Black</span>, Size:<span class="text-dark"> 11</span>--%>
-<%--                          </span>--%>
-<%--                        <div class="mt-3">--%>
-<%--                            <h4>$79.00</h4>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-
-    </div>
+</div>
 
 
 
@@ -490,56 +215,56 @@
     String admin = "root";
     String adminPassword = "cs157a@zaza";
 
-        try {
+    try {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
 
-            // Query to get distinct categories
-            String queryOrders = "SELECT * FROM `order`";
-            PreparedStatement psOrder = con.prepareStatement(queryOrders);
-            ResultSet rsOrder = psOrder.executeQuery();
-
-
-            List<Integer> orderIDList = new ArrayList<>();
-            List<String> statusList = new ArrayList<>();
-            List<String> shippingAddresslist = new ArrayList<>();
-            List<String> Contactinfolist = new ArrayList<>();
+        // Query to get distinct categories
+        String queryOrders = "SELECT * FROM `order`";
+        PreparedStatement psOrder = con.prepareStatement(queryOrders);
+        ResultSet rsOrder = psOrder.executeQuery();
 
 
+        List<Integer> orderIDList = new ArrayList<>();
+        List<String> statusList = new ArrayList<>();
+        List<String> shippingAddresslist = new ArrayList<>();
+        List<String> Contactinfolist = new ArrayList<>();
 
 
-            while (rsOrder.next()) {
-                orderIDList.add(rsOrder.getInt("OrderID"));
-                statusList.add(rsOrder.getString("Status"));
-                Contactinfolist.add(rsOrder.getString("Contact Info"));
-                shippingAddresslist.add(rsOrder.getString("Shipping Address"));
-
-            }
-
-            // Displaying the orders
-
-            out.println("<div class=\"mb-8\">");
-            for (int i = 0; i < orderIDList.size(); i++) {
-                out.println(
-                        "<div class=\"border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between\">" +
-                                "<div class=\"d-flex align-items-center justify-content-between\">" +
-                                "<h5 class=\"mb-0\"><span style=\"font-weight:bold;\">CartID:</span> " + orderIDList.get(i) + "</h5>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Status:</span> " + statusList.get(i) + "</span> <br>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Contact Info:</span> " + Contactinfolist.get(i) + "</span>" +
-                                "<span class=\"ms-2\"><span style=\"font-weight:bold;\">shipping address:</span> " + shippingAddresslist.get(i) + "</span>" +
-                                "</div>" +
-                                "</div>");
 
 
-            }
-            out.println("</div></div><br>");
+        while (rsOrder.next()) {
+            orderIDList.add(rsOrder.getInt("OrderID"));
+            statusList.add(rsOrder.getString("Status"));
+            Contactinfolist.add(rsOrder.getString("Contact Info"));
+            shippingAddresslist.add(rsOrder.getString("Shipping Address"));
+
+        }
+
+        // Displaying the orders
+
+        out.println("<div class=\"mb-8\">");
+        for (int i = 0; i < orderIDList.size(); i++) {
+            out.println(
+                    "<div class=\"border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between\">" +
+                            "<div class=\"d-flex align-items-center justify-content-between\">" +
+                            "<h4 class=\"mb-0\"><span style=\" color: #0d6efd; font-weight:bold;\">CartID:</span> " + orderIDList.get(i) + "</h4>" +
+                            "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Status:</span> " + statusList.get(i) + "</span> <br>" +
+                            "<span class=\"ms-2\"><span style=\"font-weight:bold;\">Contact Info:</span> " + Contactinfolist.get(i) + "</span>" +
+                            "<span class=\"ms-2\"><span style=\"font-weight:bold;\">shipping address:</span> " + shippingAddresslist.get(i) + "</span>" +
+                            "</div>" +
+                            "</div>");
 
 
-            // Close resources
-            rsOrder.close();
-            psOrder.close();
-            con.close();
+        }
+        out.println("</div></div><br>");
+
+
+        // Close resources
+        rsOrder.close();
+        psOrder.close();
+        con.close();
 
 
 

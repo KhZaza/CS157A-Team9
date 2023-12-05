@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="javax.servlet.http.HttpServletResponse" %>
+
 <jsp:include page="AdminCheck.jsp"/>
 
 <html>
@@ -78,12 +80,14 @@
         try { if (psInsert != null) psInsert.close(); } catch (SQLException e) { e.printStackTrace(); }
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
+    response.sendRedirect("AdminHome.jsp");
+
 %>
 
-<h1>Where would you like to go now?</h1>
-<a href="AddStock.html">Add Stock</a>
-<a href ="DeleteStock.html">Remove Stock</a>
-<a href ="AdminUpdateStock.html">Update Stock</a>
-<a href="AdminHome.jsp">Home</a>
+<%--<h1>Where would you like to go now?</h1>--%>
+<%--<a href="AddStock.html">Add Stock</a>--%>
+<%--<a href ="DeleteStock.html">Remove Stock</a>--%>
+<%--<a href ="AdminUpdateStock.html">Update Stock</a>--%>
+<%--<a href="AdminHome.jsp">Home</a>--%>
 </body>
 </html>
