@@ -1,6 +1,7 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="java.sql.*" %><%--
 
+
   Created by IntelliJ IDEA.
   User: ivanachen
   Date: 11/19/23
@@ -10,7 +11,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Parlty Update</title>
+    <jsp:include page="AdminCheck.jsp"/>
+
+    <title>Partly Update</title>
 
     <!--First, check if user incorrectly logged in-->
     <%

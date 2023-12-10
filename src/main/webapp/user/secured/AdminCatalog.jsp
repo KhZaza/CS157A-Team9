@@ -2,6 +2,7 @@
 <%@ page import ="java.sql.*"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<jsp:include page="AdminCheck.jsp"/>
 
 <html>
 <head>
