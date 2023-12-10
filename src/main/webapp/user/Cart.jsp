@@ -101,7 +101,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
     String cartID = "";
 
     Connection con = null;
