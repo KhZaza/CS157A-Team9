@@ -24,7 +24,7 @@
     String cartID = request.getParameter("CartID"); // given in url
     String user = (String) session.getAttribute("user");
     PreparedStatement psBecomes = null;
-    String adr = "";
+    String adr = " ";
     String city = "";
     String state = "";
     String zip = "";
@@ -45,7 +45,6 @@
         city = request.getParameter("city");
         state = request.getParameter("state");
         zip  = request.getParameter("zip");
-
     }
 
     //We aren't going to do anything with the cc information since security risk :(.

@@ -91,7 +91,7 @@
               <%
                 String db = "team9";
                 String admin = "root";
-                String adminPassword = "cs157a@zaza";
+                String adminPassword = "ivanachen";
 
                 try {
                   Class.forName("com.mysql.cj.jdbc.Driver");
