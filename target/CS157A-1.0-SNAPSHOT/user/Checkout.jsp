@@ -16,7 +16,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
     //Always grab this information!
     String fName = request.getParameter("fName");
     String lName = request.getParameter("lName");
