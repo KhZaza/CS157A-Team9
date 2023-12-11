@@ -18,7 +18,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
     String name = request.getParameter("name");
     String category = request.getParameter("category");
     int price = Integer.parseInt(request.getParameter("price"));

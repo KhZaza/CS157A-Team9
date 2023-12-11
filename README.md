@@ -11,7 +11,7 @@ Status: implementing
   <p align="center">
    Partly is a website that lets you find the car parts you need!
     <br />
-    <a href="https://github.com/KhZaza/CS157A-Team9"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.google.com/document/d/1X6tMkKjgO2GHsRoyooqojX7SRv9BJZWJobrMAHg57lU/edit?usp=sharing"><strong>Explore the docs »</strong></a>
     <br />
     <br />
    

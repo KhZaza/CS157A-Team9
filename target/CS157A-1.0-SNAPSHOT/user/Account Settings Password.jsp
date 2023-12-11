@@ -19,7 +19,7 @@
     String confirmPassword = request.getParameter("confirmPassword");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
     String hashedPassword = "";
     //Current user accessing page
     HttpSession sess = (HttpSession) request.getSession(true);

@@ -57,7 +57,7 @@ public class CookiesServlet extends HttpServlet {
         //Checks to make sure the user is in the database or not. True = in database. False = not.
         String db = "team9";
         String admin = "root";
-        String adminPassword = "ivanachen";
+        String adminPassword = "cs157a@zaza";
         Boolean usernameExists = false;
         String db_password = "";
         boolean isPassword = false;
@@ -110,7 +110,7 @@ public class CookiesServlet extends HttpServlet {
         //Store the session token in the database
 
         String admin = "root";
-        String adminPassword = "ivanachen";
+        String adminPassword = "cs157a@zaza";
         PreparedStatement p_statement = null;
         Connection con = null;
         try {

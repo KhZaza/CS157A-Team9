@@ -50,7 +50,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "ivanachen";
+    String adminPassword = "cs157a@zaza";
 
     PreparedStatement psAll = null; // query it all because of innerjoin
     Connection con = null;
