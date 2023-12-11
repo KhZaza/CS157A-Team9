@@ -223,7 +223,6 @@
     Class.forName("com.mysql.cj.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
 
-    // Query to get distinct categories
     String queryFeedback = "SELECT * FROM `Feedback`";
     PreparedStatement psFeedback = con.prepareStatement(queryFeedback);
     ResultSet rsFeedback = psFeedback.executeQuery();

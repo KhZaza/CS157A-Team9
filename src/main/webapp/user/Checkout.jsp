@@ -24,7 +24,7 @@
     String cartID = request.getParameter("CartID"); // given in url
     String user = (String) session.getAttribute("user");
     PreparedStatement psBecomes = null;
-    String adr = "";
+    String adr = " ";
     String city = "";
     String state = "";
     String zip = "";
@@ -45,7 +45,6 @@
         city = request.getParameter("city");
         state = request.getParameter("state");
         zip  = request.getParameter("zip");
-
     }
 
     //We aren't going to do anything with the cc information since security risk :(.
@@ -87,6 +86,15 @@
                 psBecomes.setString(3, currentDateStr); // This should work now
 
                 psBecomes.execute();
+
+                String queryView = "INSERT INTO `view`(Username,OrderID) VALUES('?',?)";
+                psView = con.prepareStatement(queryView);
+                psView.setString(1,user);
+                psView.setInt(2,generatedKey);
+
+                psView.execute();
+
+                psView.close();
                 psBecomes.close();
                 rs_generatedKeys.close();
             }

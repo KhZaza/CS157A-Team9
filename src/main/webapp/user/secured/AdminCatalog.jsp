@@ -2,6 +2,7 @@
 <%@ page import ="java.sql.*"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<jsp:include page="AdminCheck.jsp"/>
 
 <html>
 <head>
@@ -91,7 +92,7 @@
               <%
                 String db = "team9";
                 String admin = "root";
-                String adminPassword = "cs157a@zaza";
+                String adminPassword = "ivanachen";
 
                 try {
                   Class.forName("com.mysql.cj.jdbc.Driver");

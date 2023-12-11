@@ -42,8 +42,8 @@
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin,adminPassword);
 
-        String q_username = "SELECT username,password FROM customer WHERE username = ?";
-        PreparedStatement psUsername = con.prepareStatement(q_username);
+        String queryPass = "SELECT username,password FROM customer WHERE username = ?";
+        PreparedStatement psUsername = con.prepareStatement(queryPass);
         psUsername.setString(1,username);
         ResultSet rs_username = psUsername.executeQuery();
 

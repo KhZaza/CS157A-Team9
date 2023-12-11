@@ -28,7 +28,6 @@
     String cartID = "";
 
 
-
     PreparedStatement psAdd = null;
     PreparedStatement psAccess = null;
     PreparedStatement psCart = null;
@@ -44,7 +43,6 @@
                 admin,adminPassword);
 
         //First, check if user has a cart or not. If doesnt have a cart, then create a cart
-
         String queryAccess = "SELECT EXISTS(SELECT * FROM Access WHERE Username = ? AND currentCart = 1)";
         psAccess = con.prepareStatement(queryAccess);
         psAccess.setString(1, username);

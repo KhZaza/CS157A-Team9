@@ -70,14 +70,10 @@ public class CookiesServlet extends HttpServlet {
             //Check for password based on the encrypted password.
             //Grab the current password from the db
             String queryPass = "SELECT password FROM customer WHERE username = ?";
-
-            //Need to verify that username exists first.
-            String q_username = "SELECT password FROM customer WHERE username = ?";
-            PreparedStatement psUsername = con.prepareStatement(q_username);
+            PreparedStatement psUsername = con.prepareStatement(queryPass);
             psUsername.setString(1, username);
             ResultSet rs_username = psUsername.executeQuery();
 
-            //usernameExists = rs_username.next(); // returns true if exists.
 
             //Continue if username exists, else prompt user that they have incorrect credentials
             while (rs_username.next()) {

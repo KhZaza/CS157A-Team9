@@ -54,7 +54,7 @@
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
 
-
+response.sendRedirect("AdminHome.jsp");
 %>
 
 

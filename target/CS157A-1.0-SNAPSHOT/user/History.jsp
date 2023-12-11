@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="Home.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-                <li><a href="Cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                <li><a href="Cart.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
             </ul>
         </div>
     </div>
@@ -52,43 +52,25 @@
     String admin = "root";
     String adminPassword = "ivanachen";
 
-    PreparedStatement psCount = null; //Count number of total orders a customer has
-    PreparedStatement psPart = null;
     PreparedStatement psAll = null; // query it all because of innerjoin
     Connection con = null;
     ResultSet rsData = null;
-    ResultSet rsCount = null;
     String user = (String)session.getAttribute("user");
-    int numOrders = 0;
     List<Integer> partIDList = new ArrayList<>();
     List<Integer> qtyList = new ArrayList<>();
     List<Integer> orderIDList = new ArrayList<>();
     List<String> shippingList = new ArrayList<>();
-    List<Integer> totalPriceList = new ArrayList<>();
+    List<Integer> totalPriceList = new ArrayList<>(); // incase want to see total price of the order
     List<Integer> partPriceList = new ArrayList<>();
     List<String> urlList = new ArrayList<>();
+    List<String> dateURL = new ArrayList<>();
     int countRows = 0; // Using this instead of order#
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
-    /*
-        //First, See how many past orders a customer has.
-        String queryCount = """
-                SELECT  Count(*)
-                FROM customer
-                INNER JOIN `order` o ON o.CustomerID = Username
-                WHERE Username = ?""";
 
-        psCount = con.prepareStatement(queryCount);
-        psCount.setString(1,user);
-        rsCount = psCount.executeQuery();
-        while(rsCount.next()){
-            numOrders = rsCount.getInt(1); // not using for now but this counts the Total order num user has
-        }
-
-     */
        String queryData = "SELECT  \n" +
                "    p.PartID AS PartID,\n" +
                "    ad.QTY,\n" +
@@ -96,7 +78,8 @@
                "    o.`shipping address`,\n" +
                "    p.`Sell Price`,\n" +
                "    ca.`Total Price`,\n" +
-               "    p.url\n" +
+               "    p.url,\n" +
+               "    b.Order_Date\n" +
                "FROM Customer c\n" +
                "INNER JOIN Access a ON c.Username = a.Username\n" +
                "INNER JOIN Cart ca ON a.CartID = ca.CartID\n" +
@@ -120,6 +103,7 @@
             partPriceList.add(rsData.getInt("sell price"));
             totalPriceList.add(rsData.getInt("Total Price")); // currently wrong in db since cart not work
             urlList.add(rsData.getString("url"));
+            dateURL.add(rsData.getString("Order_Date"));
             countRows++;
         }
 
@@ -137,6 +121,7 @@
                     "        <div class=\"card-header bg-primary text-white\">\n" +
                     "            Order " + orderIDList.get(i) + "-" +
                     "Shipping Address: " + shippingList.get(i) + "-" +
+                    "Ordered Date: " + dateURL.get(i) + "-" +
                     "        </div>\n" +
                     "        <ul class=\"list-group list-group-flush\">\n" +
                     "            <li class=\"list-group-item\">\n" +
@@ -151,7 +136,7 @@
 
 
     } catch (ClassNotFoundException | SQLException e) {
-        System.out.println("error in Update Stock" + e) ;
+        System.out.println("error in History Stock" + e) ;
     }
     finally {
         //close in opposite order bc resources dependecy order

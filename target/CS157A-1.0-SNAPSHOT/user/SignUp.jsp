@@ -55,7 +55,6 @@
         //12 is just cost factor. we can increase or decrease as needed for protection vs performance
         hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
 
-
         //sql insert prepated statements
         PreparedStatement preparedStatement = con.prepareStatement(query);
         preparedStatement.setString(1,username);
