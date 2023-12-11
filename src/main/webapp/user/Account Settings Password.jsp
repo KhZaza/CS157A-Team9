@@ -19,7 +19,7 @@
     String confirmPassword = request.getParameter("confirmPassword");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String hashedPassword = "";
     //Current user accessing page
     HttpSession sess = (HttpSession) request.getSession(true);
@@ -39,8 +39,8 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
-                admin,adminPassword);
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
+                admin, adminPassword);
 
         String queryPass = "SELECT username,password FROM customer WHERE username = ?";
         PreparedStatement psUsername = con.prepareStatement(queryPass);

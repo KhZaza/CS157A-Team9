@@ -57,14 +57,15 @@ public class CookiesServlet extends HttpServlet {
         //Checks to make sure the user is in the database or not. True = in database. False = not.
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         Boolean usernameExists = false;
         String db_password = "";
         boolean isPassword = false;
+        Connection con = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
 
             //Check for password based on the encrypted password.
@@ -110,14 +111,14 @@ public class CookiesServlet extends HttpServlet {
         //Store the session token in the database
 
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String db = "team9";
+        String adminPassword = "ivanachen";
         PreparedStatement p_statement = null;
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
-
 
             String query = "INSERT INTO Cookies (Username, SessionToken) VALUES (?, ?)";
             p_statement = con.prepareStatement(query);

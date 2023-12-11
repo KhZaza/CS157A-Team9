@@ -30,7 +30,7 @@
     String address = request.getParameter("address");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String hashedPassword = "";
 
     //First thing is to see if the password and passwordConfirm matches, else redirect them.
@@ -45,8 +45,8 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
-                admin,adminPassword);
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
+                admin, adminPassword);
 
         //sql insert statement
         String query = "INSERT INTO CUSTOMER(Username, FName, LName, Email, Password, Address) VALUES(?,?,?,?,?,?)";

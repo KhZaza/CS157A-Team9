@@ -47,7 +47,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String id = request.getParameter("partId");
     String category = request.getParameter("category");
     String name = request.getParameter("name");
@@ -65,7 +65,7 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
 
         //First, get the old information of the part

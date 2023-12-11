@@ -34,7 +34,7 @@ public class AdminServlet extends HttpServlet {
     private boolean isValidUser(String username, String password) {
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         String db_password = "";
         String adminName = "";
         ResultSet rs_username = null;
@@ -43,7 +43,7 @@ public class AdminServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
 
             //Query the Admin table

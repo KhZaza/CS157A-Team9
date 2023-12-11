@@ -18,7 +18,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String name = request.getParameter("name");
     String category = request.getParameter("category");
     int price = Integer.parseInt(request.getParameter("price"));
@@ -33,13 +33,10 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
 
-
-
         String queryPart = "INSERT INTO Part(Category, Name, `Sell Price`, Description, URL) VALUES(?,?,?,?,?)";
-
 
         psInsert = con.prepareStatement(queryPart, Statement.RETURN_GENERATED_KEYS);
         psInsert.setString(1, category);
@@ -65,9 +62,7 @@
                 psManage.setInt(2,qty);
                 psManage.setInt(3,generatedKey);
 
-
-                psManage.execute(); //
-
+                psManage.execute();
             }
         }
     } catch (ClassNotFoundException | SQLException e) {
@@ -80,14 +75,8 @@
         try { if (psInsert != null) psInsert.close(); } catch (SQLException e) { e.printStackTrace(); }
         try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
-    response.sendRedirect("AdminHome.jsp");
+    response.sendRedirect("AdminHome.jsp"); //instantly redirect user back to homepage.
 
 %>
-
-<%--<h1>Where would you like to go now?</h1>--%>
-<%--<a href="AddStock.html">Add Stock</a>--%>
-<%--<a href ="DeleteStock.html">Remove Stock</a>--%>
-<%--<a href ="AdminUpdateStock.html">Update Stock</a>--%>
-<%--<a href="AdminHome.jsp">Home</a>--%>
 </body>
 </html>
