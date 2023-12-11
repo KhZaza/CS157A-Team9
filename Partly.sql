@@ -1,9 +1,9 @@
--- MySQL dump 10.13  Distrib 8.0.34, for macos13 (arm64)
+-- MySQL dump 10.13  Distrib 8.0.34, for macos13 (x86_64)
 --
--- Host: 127.0.0.1    Database: team_9
+-- Host: localhost    Database: team9
 -- ------------------------------------------------------
--- Server version	8.0.34
-Use team9; 
+-- Server version	8.1.0
+use team9;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -197,7 +197,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('Fatsfl','Marigo','sdasdas','asdasd@gmail.com','$2a$12$GffuaZ4WY1oCowFgP9jYJOAhv4Q9R3SAnsgqNr3e2.DosSoRXBVHe','24147 Clinton Court, Hayward CA 94545'),('FitnessFreak','Fred','Laroza','pinaeple@gmail.com','1S@nJOseSt@t3UniSad1','9303 Garden Lane Schererville, IN 46375'),('FoodieAdventures','Eve','Christ','cookiesncream@gmail.com','##C0mput3rSc13nc3%1##','8252 SW. Orange St. Rolla, MO 65401'),('Gail22','Gail','Lewis','gail.lewi@gmail.com','$2a$12$YcJkU0NQU19o.rBDza6flOYeqS8gACh4ULwFIBezZvayIlb6V9IOy','4876 Norris Road, Fremont CA 94536'),('GamingFanatic','Cal','Zaza','zootehnic@gmail.com','P!LLB0ttlez99#',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137'),('iamauser','username','lastname','useremail@gmail.com','$2a$12$ksPQ5axVbGwzSIo64WeUVupBSuiebCLRJmexv04fXycsK/lkcRo.i','107 Guaymas Place, Davis CA 95616'),('JaneDoe','Jane','Doe','claytent@yahoo.com','!!WaterB0ttle800()!!','80 Beach St. Jamaica Plain, MA 02130'),('Joey12','Joey','Joe','Joey@gmail.com','$2a$12$XHw2yUucBfmnPf30D.4E.uTDCDbXSUI.uNsZ1ZI3V/hlSYKRZ71aO','1797 Pasatiempo Drive, Chico CA 95928'),('JohnSmith','John','Smith','goldshowe@gmail.com','156_Us3r13_156~CS~','1643 Oxford Street, Berkeley CA 94709'),('Kurdi23','Khalood','Holod','habibi@gmail.com','$2a$12$DDmrOjBprltUKzOKNjLPme7CHkyZH1PYPqmpUljPl3nj.iLQRp7Pi','2443 Sierra Nevada Road, Mammoth Lakes CA 93546.'),('mike12','Khaled','test','test@gm.ck','$2a$12$7EEG2MIWEHaTkM4yc25o/.eJn/F.FxToZ.ARH6YILmemTW6ctalt6','18789 Crane Avenue, Castro Valley CA 94546'),('MovieBuffs','Monica','Buffs','apollodone@gmail.com','*CS*D3P@RT*156*',' 7360 Wagon Ave. Tucson, AZ 85718'),('MusicLover','Mac','Love','potao@yahoo.com','Ti$$ueB0X147!','7071 Del Monte Street Murfreesboro, TN 37128'),('pllaspdasd','ava','avava','avas@gmail.com','$2a$12$Q18RQrbq0x8Sng6I0vEsC.Q4T8tFE8wejj8Sgx06kMyZFSQtskYve','4231 Miramonte Way, Union City CA 94587'),('pooooooooooo','popopo','popopop','popop@yahoo.com','$2a$12$jFtJkPQNcbQVpiqm9mZeNOqzTsnJKR4wn1II1auvruqsNcA1eMOp6','2902 Flint Street, Union City CA 94587'),('pop32','poplog','Floaca','Floca@gmail.com','$2a$12$yjtS3EeJjn3WegaUSAb1PeOY9/AvQsldnn/UtLjjLlolR9yDJn3Yq','222 Quince Street, San Diego CA 92103222 Quince Street, San Diego CA 92103'),('potato','potat','potat','potat@gmail.com','$2a$12$6/2p7muesmksxv2zFxjYmuo2hJwW6fDN/ov6zjrTDke4AG8OdiyA2','2807 Huxley Place, Fremont CA 94555'),('Rah32','Rahmi','Latizi','latizi@gmail.com','$2a$12$o4UH0UcAn1/iAhCJwq5Jn.QvQIm3JJtedlEZGaJZ.tyuc1wwMNFGK','2685 California Street, Mountain View CA 94040.'),('Ramiboyz','Rami','Anyaz','Anazy@yahoo.com','$2a$12$Nwk7RB4pKyFQVJUkSYAtAOCJw7/uk1bj/IztkF/XDOLV9L/weDSee','4439 Gale Street, Livermore CA 94550.'),('Rotoza','Sharmts','Rotiza','sadasd@gmail.com','$2a$12$CiNp5Z24zdXDiuTjOpNdA.06vkWeNXl3EwSVNphl3Dryg4mO2KeE6','169 Avenida Drive, Berkeley CA 94708'),('sadasdasdasdasd','asdasdasdas','sadasdasdsa','sdadsadasdas@yahoo.com','$2a$12$ZAoXgsfv9pp/vOdgtoXaEu8nyI3dGuHwbd6xeFQ.a.0eTj7b0/Weq','asdasdsa'),('sharm','Shamrta','Local','Fornocamp@gmail.com','$2a$12$U66OrLa8ImcS4IWEt9dg0.tDBIgme23FjWF1sfY9yFXWpe.tE/OzS','11522 Country Spring Court, Cupertino CA 95014'),('TechGeek','Tecca','German','qball9@gmail.com','98SUSh1Fish98','340 Longfellow Street, Marietta, GA 30008'),('Traveler101','Tequila','Johnson','tomatopota@gmail.com','S0ckANDS@nd@1$66',' 30 Philmont Street, Oxon Hill, MD 20745'),('User101001','Kate','Tam','madagas@yahoo.com','@M1k3WUTHEPr0f156@',' 13 Lincoln Dr. Allentwon, PA 18102'),('ZOba','Maholq','sharmha','sharma@gmail.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC','3377 Sandstone Court, Pleasanton CA 94588');
+INSERT INTO `customer` VALUES ('Fatsfl','Marigo','sdasdas','asdasd@gmail.com','$2a$12$GffuaZ4WY1oCowFgP9jYJOAhv4Q9R3SAnsgqNr3e2.DosSoRXBVHe','24147 Clinton Court, Hayward CA 94545'),('FitnessFreak','Fred','Laroza','pinaeple@gmail.com','$2a$12$ksPQ5axVbGwzSIo64WeUVupBSuiebCLRJmexv04fXycsK/lkcRo.i','9303 Garden Lane Schererville, IN 46375'),('FoodieAdventures','Eve','Christ','cookiesncream@gmail.com','$2a$12$YcJkU0NQU19o.rBDza6flOYeqS8gACh4ULwFIBezZvayIlb6V9IOy','8252 SW. Orange St. Rolla, MO 65401'),('Gail22','Gail','Lewis','gail.lewi@gmail.com','$2a$12$YcJkU0NQU19o.rBDza6flOYeqS8gACh4ULwFIBezZvayIlb6V9IOy','4876 Norris Road, Fremont CA 94536'),('GamingFanatic','Cal','Zaza','zootehnic@gmail.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC',' 54 NW. Wild Horse Court, Glen Ellyn, IL 60137'),('iamauser','username','lastname','useremail@gmail.com','$2a$12$ksPQ5axVbGwzSIo64WeUVupBSuiebCLRJmexv04fXycsK/lkcRo.i','107 Guaymas Place, Davis CA 95616'),('JaneDoe','Jane','Doe','claytent@yahoo.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC','80 Beach St. Jamaica Plain, MA 02130'),('Joey12','Joey','Joe','Joey@gmail.com','$2a$12$XHw2yUucBfmnPf30D.4E.uTDCDbXSUI.uNsZ1ZI3V/hlSYKRZ71aO','1797 Pasatiempo Drive, Chico CA 95928'),('JohnSmith','John','Smith','goldshowe@gmail.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC','1643 Oxford Street, Berkeley CA 94709'),('Kurdi23','Khalood','Holod','habibi@gmail.com','$2a$12$DDmrOjBprltUKzOKNjLPme7CHkyZH1PYPqmpUljPl3nj.iLQRp7Pi','2443 Sierra Nevada Road, Mammoth Lakes CA 93546.'),('mike12','Khaled','test','test@gm.ck','$2a$12$7EEG2MIWEHaTkM4yc25o/.eJn/F.FxToZ.ARH6YILmemTW6ctalt6','18789 Crane Avenue, Castro Valley CA 94546'),('MovieBuffs','Monica','Buffs','apollodone@gmail.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC',' 7360 Wagon Ave. Tucson, AZ 85718'),('MusicLover','Mac','Love','potao@yahoo.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC','7071 Del Monte Street Murfreesboro, TN 37128'),('pllaspdasd','ava','avava','avas@gmail.com','$2a$12$Q18RQrbq0x8Sng6I0vEsC.Q4T8tFE8wejj8Sgx06kMyZFSQtskYve','4231 Miramonte Way, Union City CA 94587'),('pooooooooooo','popopo','popopop','popop@yahoo.com','$2a$12$jFtJkPQNcbQVpiqm9mZeNOqzTsnJKR4wn1II1auvruqsNcA1eMOp6','2902 Flint Street, Union City CA 94587'),('pop32','poplog','Floaca','Floca@gmail.com','$2a$12$yjtS3EeJjn3WegaUSAb1PeOY9/AvQsldnn/UtLjjLlolR9yDJn3Yq','222 Quince Street, San Diego CA 92103222 Quince Street, San Diego CA 92103'),('potato','potat','potat','potat@gmail.com','$2a$12$6/2p7muesmksxv2zFxjYmuo2hJwW6fDN/ov6zjrTDke4AG8OdiyA2','2807 Huxley Place, Fremont CA 94555'),('Rah32','Rahmi','Latizi','latizi@gmail.com','$2a$12$o4UH0UcAn1/iAhCJwq5Jn.QvQIm3JJtedlEZGaJZ.tyuc1wwMNFGK','2685 California Street, Mountain View CA 94040.'),('Ramiboyz','Rami','Anyaz','Anazy@yahoo.com','$2a$12$Nwk7RB4pKyFQVJUkSYAtAOCJw7/uk1bj/IztkF/XDOLV9L/weDSee','4439 Gale Street, Livermore CA 94550.'),('Rotoza','Sharmts','Rotiza','sadasd@gmail.com','$2a$12$CiNp5Z24zdXDiuTjOpNdA.06vkWeNXl3EwSVNphl3Dryg4mO2KeE6','169 Avenida Drive, Berkeley CA 94708'),('sadasdasdasdasd','asdasdasdas','sadasdasdsa','sdadsadasdas@yahoo.com','$2a$12$ZAoXgsfv9pp/vOdgtoXaEu8nyI3dGuHwbd6xeFQ.a.0eTj7b0/Weq','asdasdsa'),('sharm','Shamrta','Local','Fornocamp@gmail.com','$2a$12$6/2p7muesmksxv2zFxjYmuo2hJwW6fDN/ov6zjrTDke4AG8OdiyA2','11522 Country Spring Court, Cupertino CA 95014'),('TechGeek','Tecca','German','qball9@gmail.com','$2a$12$yjtS3EeJjn3WegaUSAb1PeOY9/AvQsldnn/UtLjjLlolR9yDJn3Yq','340 Longfellow Street, Marietta, GA 30008'),('Traveler101','Tequila','Johnson','tomatopota@gmail.com','S0ckANDS@nd@1$66',' 30 Philmont Street, Oxon Hill, MD 20745'),('User101001','Kate','Tam','madagas@yahoo.com','$2a$12$o4UH0UcAn1/iAhCJwq5Jn.QvQIm3JJtedlEZGaJZ.tyuc1wwMNFGK',' 13 Lincoln Dr. Allentwon, PA 18102'),('ZOba','Maholq','sharmha','sharma@gmail.com','$2a$12$vTCr5szOnvnFHoAsh474puD0TIkpsuRfIo/GpMxWlZ.GsAmYQdvQC','3377 Sandstone Court, Pleasanton CA 94588');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,6 +277,7 @@ CREATE TABLE `manage` (
 
 LOCK TABLES `manage` WRITE;
 /*!40000 ALTER TABLE `manage` DISABLE KEYS */;
+INSERT INTO `manage` VALUES ('1',50,16),('mikewu',141,31),('1',67,16),('mikewu',169,17),('1',155,18),('mikewu',78,19),('1',184,20),('mikewu',47,21),('1',93,22),('mikewu',132,23),('1',41,24),('mikewu',72,25),('1',45,26),('mikewu',121,27),('1',131,31),('mikewu',99,32),('1',62,33),('mikewu',124,34),('1',93,16),('mikewu',55,17),('1',103,18),('mikewu',162,19);
 /*!40000 ALTER TABLE `manage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,13 +346,13 @@ DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
-  `AdminID_R` varchar(255) NOT NULL,
-  `FeedbackID_R` int NOT NULL,
-  `Completed_R` int NOT NULL DEFAULT '0' COMMENT 'Default is 0 for False because assume that all the feedback reports have not been read yet. An Admin will make it 1 if it’s completed. ',
-  KEY `AdminID_R_idx` (`AdminID_R`),
-  KEY `FeedbackID_R_idx` (`FeedbackID_R`),
-  CONSTRAINT `AdminID_R` FOREIGN KEY (`AdminID_R`) REFERENCES `admin` (`AdminID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FeedbackID_R` FOREIGN KEY (`FeedbackID_R`) REFERENCES `feedback` (`FeedbackID`)
+  `AdminID` varchar(255) NOT NULL,
+  `FeedbackID` int NOT NULL,
+  `Completed` int NOT NULL DEFAULT '0' COMMENT 'Default is 0 for False because assume that all the feedback reports have not been read yet. An Admin will make it 1 if it’s completed. ',
+  KEY `AdminID_R_idx` (`AdminID`),
+  KEY `FeedbackID_R_idx` (`FeedbackID`),
+  CONSTRAINT `AdminID_R` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FeedbackID_R` FOREIGN KEY (`FeedbackID`) REFERENCES `feedback` (`FeedbackID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -361,6 +362,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES ('1',8,1),('mikewu',9,0),('1',10,1),('mikewu',11,0),('1',12,1),('mikewu',13,0),('1',14,1),('mikewu',15,0),('1',16,1),('mikewu',17,0),('1',8,1),('mikewu',9,0),('1',10,1),('mikewu',11,0),('1',12,1),('mikewu',13,0),('1',14,1),('mikewu',15,0),('1',16,1),('mikewu',17,0);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,6 +390,7 @@ CREATE TABLE `search` (
 
 LOCK TABLES `search` WRITE;
 /*!40000 ALTER TABLE `search` DISABLE KEYS */;
+INSERT INTO `search` VALUES ('sharm',16),('Rotoza',17),('Ramiboyz',18),('MusicLover',19),('sharm',20),('Rotoza',21),('Ramiboyz',22),('MusicLover',23),('sharm',24),('Rotoza',25),('Ramiboyz',26),('MusicLover',27),('sharm',31),('Rotoza',32),('Ramiboyz',33),('MusicLover',34),('sharm',16),('Rotoza',17),('Ramiboyz',18),('MusicLover',19);
 /*!40000 ALTER TABLE `search` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,6 +418,7 @@ CREATE TABLE `view` (
 
 LOCK TABLES `view` WRITE;
 /*!40000 ALTER TABLE `view` DISABLE KEYS */;
+INSERT INTO `view` VALUES ('sharm',70,'pending'),('Rotoza',71,'pending'),('Ramiboyz',72,'pending'),('MusicLover',73,'pending'),('sharm',74,'pending'),('Rotoza',75,'pending'),('Ramiboyz',76,'pending'),('MusicLover',77,'pending'),('sharm',78,'pending'),('Rotoza',79,'pending'),('Ramiboyz',80,'pending'),('MusicLover',81,'pending'),('sharm',82,'pending'),('Rotoza',83,'pending'),('Ramiboyz',84,'pending'),('MusicLover',85,'pending'),('sharm',70,'pending'),('Rotoza',71,'pending'),('Ramiboyz',72,'pending'),('MusicLover',73,'pending');
 /*!40000 ALTER TABLE `view` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -427,4 +431,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-10 15:24:11
+-- Dump completed on 2023-12-10 16:25:13
