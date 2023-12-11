@@ -214,7 +214,7 @@
 
   String db = "team9";
   String admin = "root";
-  String adminPassword = "cs157a@zaza";
+  String adminPassword = "ivanachen";
   boolean feedbackSuccess = false;
 
 
@@ -223,7 +223,6 @@
     Class.forName("com.mysql.cj.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
 
-    // Query to get distinct categories
     String queryFeedback = "SELECT * FROM `Feedback`";
     PreparedStatement psFeedback = con.prepareStatement(queryFeedback);
     ResultSet rsFeedback = psFeedback.executeQuery();

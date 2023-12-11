@@ -30,7 +30,7 @@
     String address = request.getParameter("address");
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String hashedPassword = "";
 
     //First thing is to see if the password and passwordConfirm matches, else redirect them.
@@ -54,7 +54,6 @@
         //Decryption for passwords
         //12 is just cost factor. we can increase or decrease as needed for protection vs performance
         hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
-
 
         //sql insert prepated statements
         PreparedStatement preparedStatement = con.prepareStatement(query);

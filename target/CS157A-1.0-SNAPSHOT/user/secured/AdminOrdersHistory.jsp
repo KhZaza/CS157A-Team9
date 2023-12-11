@@ -213,14 +213,13 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
     try {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false", admin, adminPassword);
 
-        // Query to get distinct categories
         String queryOrders = "SELECT * FROM `order`";
         PreparedStatement psOrder = con.prepareStatement(queryOrders);
         ResultSet rsOrder = psOrder.executeQuery();

@@ -16,7 +16,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     //Always grab this information!
     String fName = request.getParameter("fName");
     String lName = request.getParameter("lName");
@@ -86,6 +86,15 @@
                 psBecomes.setString(3, currentDateStr); // This should work now
 
                 psBecomes.execute();
+
+                String queryView = "INSERT INTO `view`(Username,OrderID) VALUES('?',?)";
+                psView = con.prepareStatement(queryView);
+                psView.setString(1,user);
+                psView.setInt(2,generatedKey);
+
+                psView.execute();
+
+                psView.close();
                 psBecomes.close();
                 rs_generatedKeys.close();
             }

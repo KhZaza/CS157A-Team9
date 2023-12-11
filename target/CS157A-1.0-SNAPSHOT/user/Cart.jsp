@@ -101,7 +101,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     String cartID = "";
 
     Connection con = null;
@@ -154,7 +154,8 @@
             }
 
             //Grab all the partIDs from AddedTo. Use Inner join to grab all the stuff.
-            String queryJoin_PartAdd = "SELECT * from `Added To` INNER JOIN Part ON `Added To`.PartID = Part.PartID WHERE `Added To`.CartID = ?;";
+            String queryJoin_PartAdd = "SELECT * from `Added To` " +
+                    "INNER JOIN Part ON `Added To`.PartID = Part.PartID WHERE `Added To`.CartID = ?;";
 
             psData = con.prepareStatement(queryJoin_PartAdd);
             psData.setString(1, cartID);
