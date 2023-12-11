@@ -16,7 +16,7 @@
 <%
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
     //Always grab this information!
     String fName = request.getParameter("fName");
     String lName = request.getParameter("lName");
@@ -55,7 +55,7 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                 admin, adminPassword);
 
         //First need to create an orderID with that customerID

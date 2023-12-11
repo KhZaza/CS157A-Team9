@@ -50,7 +50,7 @@
 
     String db = "team9";
     String admin = "root";
-    String adminPassword = "cs157a@zaza";
+    String adminPassword = "ivanachen";
 
     PreparedStatement psAll = null; // query it all because of innerjoin
     Connection con = null;
@@ -68,8 +68,8 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
-                admin, adminPassword);
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
+                                            admin, adminPassword);
 
        String queryData = "SELECT  \n" +
                "    p.PartID AS PartID,\n" +

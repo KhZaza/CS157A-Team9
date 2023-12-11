@@ -8,14 +8,14 @@
         //Remove from Cookies table
         String db = "team9";
         String admin = "root";
-        String adminPassword = "cs157a@zaza";
+        String adminPassword = "ivanachen";
         PreparedStatement psCookies = null;
         Connection con = null;
         PreparedStatement psUsername = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/team9?autoReconnect=true&useSSL=false",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db + "?autoReconnect=true&useSSL=false",
                     admin, adminPassword);
             request.getSession(true);
             String username = (String)session.getAttribute("user");
