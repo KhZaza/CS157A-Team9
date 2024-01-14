@@ -20,5 +20,3 @@ Status: implementing
 
 
 
-#### Team members: 
-Khaled Zaza, Ivana Chen, Frederick Phillip Javier
